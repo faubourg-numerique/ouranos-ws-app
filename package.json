@@ -1,0 +1,45 @@
+{
+  "name": "ouranos-ws-ui",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.72",
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@popperjs/core": "^2.11.5",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0-beta1",
+    "bootswatch": "^5.1.3",
+    "comma-separated-values": "^3.6.4",
+    "crypto-js": "^4.1.1",
+    "file-saver": "^2.0.5",
+    "js-yaml": "^4.1.0",
+    "moment": "^2.29.4",
+    "sweetalert2": "^11.4.18",
+    "uuid4": "^2.0.3",
+    "vis-data": "^7.1.4",
+    "vis-network": "^9.1.2",
+    "vue": "^3.2.13",
+    "vue-i18n": "^9.1.10",
+    "vue-json-viewer": "^3.0.4",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
