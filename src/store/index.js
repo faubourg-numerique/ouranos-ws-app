@@ -19,6 +19,10 @@ import authorizationRegistryProxy from "@/store/modules/proxies/authorization-re
 import offers from "@/store/modules/offers";
 import contracts from "@/store/modules/contracts";
 import contractDetails from "@/store/modules/contract-details";
+import dataActions from "@/store/modules/data-actions";
+import dataServices from "@/store/modules/data-services";
+import dataServiceActions from "@/store/modules/data-service-actions";
+import dataServiceProperties from "@/store/modules/data-service-properties";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
 
 export default createStore({
@@ -83,6 +87,10 @@ export default createStore({
         offers,
         contracts,
         contractDetails,
+        dataActions,
+        dataServices,
+        dataServiceActions,
+        dataServiceProperties,
         googleSheetsProxy
     }
 });

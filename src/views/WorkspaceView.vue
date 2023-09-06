@@ -274,7 +274,8 @@ export default {
                         <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'entities', 'btn-outline-primary': activeTab !== 'entities' }" @click="setActiveTab('entities')">{{ Utils.capitalize($t("main.entities")) }}</button>
                         <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'subscriptions', 'btn-outline-primary': activeTab !== 'subscriptions' }" @click="setActiveTab('subscriptions')">{{ Utils.capitalize($t("main.subscriptions")) }}</button>
                         <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'map', 'btn-outline-primary': activeTab !== 'map' }" @click="setActiveTab('map')">{{ Utils.capitalize($t("main.map")) }}</button>
-                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary" :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.offers")) }}</RouterLink>
+                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary me-3 " :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.offers")) }}</RouterLink>
+                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary" :to="{ name: 'dataServices.index' }">{{ Utils.capitalize($t("main.data_services")) }}</RouterLink>
                     </div>
 
                     <EntitiesTab v-if="activeTab === 'entities'" />

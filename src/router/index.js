@@ -77,6 +77,10 @@ import ContractsShowView from "@/views/contracts/ContractsShowView";
 import ContractDetailsShowView from "@/views/contract-details/ContractDetailsShowView";
 import ContractDetailsEditView from "@/views/contract-details/ContractDetailsEditView";
 
+import DataServicesIndexView from "@/views/data-services/DataServicesIndexView";
+import DataServicesCreateView from "@/views/data-services/DataServicesCreateView";
+import DataServicesShowView from "@/views/data-services/DataServicesShowView";
+
 export default createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
@@ -359,6 +363,21 @@ export default createRouter({
             path: "/workspace/:workspaceId/contract-details/:contractDetailId/edit",
             name: "contractDetails.edit",
             component: ContractDetailsEditView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services",
+            name: "dataServices.index",
+            component: DataServicesIndexView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services/create",
+            name: "dataServices.create",
+            component: DataServicesCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services/:dataServiceId",
+            name: "dataServices.show",
+            component: DataServicesShowView
         }
     ]
 });

@@ -38,7 +38,8 @@ export default {
             this.$store.dispatch("temporalServices/fetchTemporalServices"),
             this.$store.dispatch("workspaces/fetchWorkspaces"),
             this.$store.dispatch("authorizationRegistryGrants/fetchAuthorizationRegistryGrants"),
-            this.$store.dispatch("authorizationRegistries/fetchAuthorizationRegistries")
+            this.$store.dispatch("authorizationRegistries/fetchAuthorizationRegistries"),
+            this.$store.dispatch("dataActions/fetchDataActions")
         ]);
 
         const currentTime = Date.now();
