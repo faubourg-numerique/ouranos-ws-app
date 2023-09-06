@@ -15,6 +15,32 @@ export default {
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
         this.dataServices = this.$store.getters["dataServices/getDataServices"](this.workspace.id);
+    },
+    methods: {
+        getTypeNameByDataServiceId(dataServiceId) {
+            const dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+            const type = this.$store.getters["types/getType"](this.workspace.id, dataService.hasEntityType);
+            return type.name;
+        },
+        getDataActionNamesByDataServiceId(dataServiceId) {
+            const dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, dataServiceId);
+            const dataActionNames = [];
+            dataServiceActions.forEach(dataServiceAction => {
+                const dataAction = this.$store.getters["dataActions/getDataAction"](dataServiceAction.hasDataAction);
+                dataActionNames.push(dataAction.name);
+            });
+            return dataActionNames.join(", ");
+        },
+        getPropertyNamesByDataServiceId(dataServiceId) {
+            const dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, dataService.id);
+            const propertyNames = [];
+            dataServiceProperties.forEach(dataServiceProperty => {
+                const property = this.$store.getters["properties/getProperty"](this.workspace.id, dataService.hasEntityType, dataServiceProperty.hasProperty);
+                propertyNames.push(property.name);
+            });
+            return propertyNames.join(", ");
+        }
     }
 };
 </script>
@@ -31,17 +57,25 @@ export default {
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
                 <div v-if="!Object.values(dataServices).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_data_service") }}</div>
-                <table v-else class="table mb-0">
+                <table v-else class="table align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
-                            <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                            <th></th>
+                            <th>{{ Utils.capitalize($t("main.type")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.actions")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.properties")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="dataService in dataServices" :key="dataService.id">
                             <td>
-                                <RouterLink :to="{ name: 'dataServices.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id } }">{{ dataService.id }}</RouterLink>
+                                <RouterLink :to="{ name: 'dataServices.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id } }" class="btn btn-light btn-sm">
+                                    <i class="fa-solid fa-right-to-bracket" />
+                                </RouterLink>
                             </td>
+                            <td>{{ getTypeNameByDataServiceId(dataService.id) }}</td>
+                            <td>{{ getDataActionNamesByDataServiceId(dataService.id) }}</td>
+                            <td>{{ getPropertyNamesByDataServiceId(dataService.id) }}</td>
                         </tr>
                     </tbody>
                 </table>

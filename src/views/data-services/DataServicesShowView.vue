@@ -65,7 +65,9 @@ export default {
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.id")) }}</dt>
                     <dd class="col-sm-8">{{ dataService.id }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.type")) }}</dt>
-                    <dd class="col-sm-8">{{ type.name }}</dd>
+                    <dd class="col-sm-8">
+                        <RouterLink :to="{ name: 'types.show', params: { workspaceId: workspace.id, typeId: type.id } }">{{ type.name }}</RouterLink>
+                    </dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.actions")) }}</dt>
                     <dd class="col-sm-8">
                         <span class="badge text-bg-primary me-2" v-for="dataServiceAction in dataServiceActions" :key="dataServiceAction.id">{{ getDataActionById(dataServiceAction.hasDataAction).name }}</span>
