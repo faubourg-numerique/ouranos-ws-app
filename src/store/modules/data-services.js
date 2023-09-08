@@ -17,6 +17,38 @@ export default {
                 if (!(workspaceId in state.dataServices)) return null;
                 return state.dataServices[workspaceId][dataServiceId];
             };
+        },
+        hasDataServicesByTypeId(state) {
+            return (workspaceId, typeId) => {
+                if (!(workspaceId in state.dataServices)) return null;
+                for (const dataService of Object.values(state.dataServices[workspaceId])) {
+                    if (dataService.hasEntityType !== typeId) continue;
+                    return true;
+                }
+                return false;
+            };
+        },
+        hasDemandDataServicesByTypeId(state) {
+            return (workspaceId, typeId) => {
+                if (!(workspaceId in state.dataServices)) return null;
+                for (const dataService of Object.values(state.dataServices[workspaceId])) {
+                    if (dataService.hasEntityType !== typeId) continue;
+                    if (!dataService.isDemand) continue;
+                    return true;
+                }
+                return false;
+            };
+        },
+        hasOfferDataServicesByTypeId(state) {
+            return (workspaceId, typeId) => {
+                if (!(workspaceId in state.dataServices)) return null;
+                for (const dataService of Object.values(state.dataServices[workspaceId])) {
+                    if (dataService.hasEntityType !== typeId) continue;
+                    if (!dataService.isOffer) continue;
+                    return true;
+                }
+                return false;
+            };
         }
     },
     mutations: {

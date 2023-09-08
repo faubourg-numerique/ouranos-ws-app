@@ -16,7 +16,10 @@ export default {
         return {
             error: null,
             update: false,
-            dataService: {},
+            dataService: {
+                isDemand: false,
+                isOffer: false
+            },
             dataActionIds: [],
             propertyIds: []
         };
@@ -234,6 +237,14 @@ export default {
             <select id="data-actions" v-model="dataActionIds" class="form-select" multiple required>
                 <option v-for="dataAction in dataActions" :value="dataAction.id" :key="dataAction.id">{{ dataAction.name }}</option>
             </select>
+        </div>
+        <div class="form-check mb-3">
+            <input id="is-demand" class="form-check-input" type="checkbox" v-model="dataService.isDemand">
+            <label for="is-demand" class="form-check-label">{{ Utils.capitalize($t("main.is_demand")) }}</label>
+        </div>
+        <div class="form-check mb-3">
+            <input id="is-offer" class="form-check-input" type="checkbox" v-model="dataService.isOffer">
+            <label for="is-offer" class="form-check-label">{{ Utils.capitalize($t("main.is_offer")) }}</label>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

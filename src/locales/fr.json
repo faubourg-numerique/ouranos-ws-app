@@ -196,6 +196,8 @@
         "import_and_export_entities": "importer et exporter des entités",
         "import_properties": "importer les propriétés",
         "infrastructure": "infrastructure",
+        "is_demand": "demande",
+        "is_offer": "offre",
         "key_values": "clé-valeurs",
         "language": "langue",
         "last_delegation_evidence": "dernière preuve de délégation",

@@ -85,43 +85,9 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
-        const typeId = this.$route.query.typeId;
-
         this.types = this.$store.getters["types/getTypes"](this.workspace.id);
 
-        const nodes = [];
-        const edges = [];
-        Object.values(this.types).forEach(type => {
-            const node = {
-                id: type.id,
-                label: type.name
-            };
-            if (typeId === type.id) {
-                node.color = {
-                    background: ACTIVE_NODE_COLOR
-                };
-            }
-            if (type.positionInChart) {
-                node.x = type.positionInChart[0];
-                node.y = type.positionInChart[1];
-            }
-            if (type.dataModelGroup) {
-                node.group = type.dataModelGroup;
-            }
-            nodes.push(node);
-            const properties = this.$store.getters["properties/getProperties"](this.workspace.id, type.id);
-            Object.values(properties).forEach(property => {
-                if (property.ngsiLdType !== "Relationship") {
-                    return;
-                }
-                edges.push({
-                    from: property.relationshipType,
-                    to: property.hasType
-                });
-            });
-        });
-        this.nodes = new DataSet(nodes);
-        this.edges = new DataSet(edges);
+        this.buildNetwork();
     },
     mounted() {
         const container = document.getElementById("data-model");
@@ -204,6 +170,60 @@ export default {
         },
         setType(typeId) {
             this.$router.push({ name: "workspace", params: { workspaceId: this.workspace.id }, query: { typeId: typeId } });
+        },
+        async buildNetwork() {
+            const typeId = this.$route.query.typeId;
+
+            const nodes = [];
+            const edges = [];
+            for (const type of Object.values(this.types)) {
+                const node = {
+                    id: type.id,
+                    label: type.name
+                };
+
+                const hasDataServices = this.$store.getters["dataServices/hasDataServicesByTypeId"](this.workspace.id, type.id);
+                const hasDemandDataServices = this.$store.getters["dataServices/hasDemandDataServicesByTypeId"](this.workspace.id, type.id);
+                const hasOfferDataServices = this.$store.getters["dataServices/hasOfferDataServicesByTypeId"](this.workspace.id, type.id);
+
+                if (hasDataServices) {
+                    if (hasDemandDataServices && hasOfferDataServices) {
+                        node.label += " 🡅🡇";
+                    } else if (hasDemandDataServices) {
+                        node.label += " 🡇";
+                    } else if (hasOfferDataServices) {
+                        node.label += " 🡅";
+                    } else {
+                        node.label += " ■";
+                    }
+                }
+
+                if (typeId === type.id) {
+                    node.color = {
+                        background: ACTIVE_NODE_COLOR
+                    };
+                }
+                if (type.positionInChart) {
+                    node.x = type.positionInChart[0];
+                    node.y = type.positionInChart[1];
+                }
+                if (type.dataModelGroup) {
+                    node.group = type.dataModelGroup;
+                }
+                nodes.push(node);
+                const properties = this.$store.getters["properties/getProperties"](this.workspace.id, type.id);
+                Object.values(properties).forEach(property => {
+                    if (property.ngsiLdType !== "Relationship") {
+                        return;
+                    }
+                    edges.push({
+                        from: property.relationshipType,
+                        to: property.hasType
+                    });
+                });
+            }
+            this.nodes = new DataSet(nodes);
+            this.edges = new DataSet(edges);
         }
     }
 }

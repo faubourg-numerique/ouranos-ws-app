@@ -25,6 +25,16 @@ export default {
                 }
             },
             {
+                name: this.dataService.id,
+                route: {
+                    name: "dataServices.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        dataServiceId: this.dataService.id
+                    }
+                }
+            },
+            {
                 active: true,
                 name: this.Utils.capitalize(this.$t("main.edit"))
             }
