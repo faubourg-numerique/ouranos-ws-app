@@ -74,11 +74,6 @@ export default {
             }
             dataServiceAction = response.data;
             commit("setDataServiceAction", { workspaceId, dataServiceAction });
-            try {
-                await dispatch("contracts/fetchContract", { workspaceId, contractId: dataServiceAction.hasContract }, { root: true });
-            } catch (error) {
-                throw error.response.data || {};
-            }
         },
         async destroyDataServiceAction({ commit }, { workspaceId, dataServiceAction }) {
             try {

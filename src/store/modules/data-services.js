@@ -62,11 +62,6 @@ export default {
             }
             dataService = response.data;
             commit("setDataService", { workspaceId, dataService });
-            try {
-                await dispatch("contracts/fetchContract", { workspaceId, contractId: dataService.hasContract }, { root: true });
-            } catch (error) {
-                throw error.response.data || {};
-            }
         },
         async destroyDataService({ commit }, { workspaceId, dataService }) {
             try {

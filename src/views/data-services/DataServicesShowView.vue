@@ -47,6 +47,70 @@ export default {
         },
         getPropertyById(propertyId) {
             return this.$store.getters["properties/getProperty"](this.workspace.id, this.type.id, propertyId);
+        },
+        async destroyDataService() {
+            const result = await this.$swal.fire({
+                title: this.$t("dialogs.data_service_deletion_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
+                heightAuto: false
+            });
+            if (!result.isConfirmed) {
+                return;
+            }
+
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+
+            try {
+                await this.$store.dispatch("dataServices/destroyDataService", { workspaceId: this.workspace.id, dataService: this.dataService });
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.data_service_deletion_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+
+            const dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, this.dataService.id);
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.dataService.id);
+
+            for (const dataServiceAction of dataServiceActions) {
+                try {
+                    await this.$store.dispatch("dataServiceActions/destroyDataServiceAction", { workspaceId: this.workspace.id, dataServiceAction });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_deletion_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            for (const dataServiceProperty of dataServiceProperties) {
+                try {
+                    await this.$store.dispatch("dataServiceProperties/destroyDataServiceProperty", { workspaceId: this.workspace.id, dataServiceProperty });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_deletion_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$router.push({ name: "dataServices.index" });
         }
     }
 };
@@ -58,6 +122,14 @@ export default {
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ dataService.id }}</span>
+                <span>
+                    <RouterLink :to="{ name: 'dataServices.edit', params: { name: dataService.id } }" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-pencil-alt" />
+                    </RouterLink>
+                    <button class="btn btn-danger btn-sm ms-3" @click="destroyDataService">
+                        <i class="fa-solid fa-trash-can" />
+                    </button>
+                </span>
             </div>
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />

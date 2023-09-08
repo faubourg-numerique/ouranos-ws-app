@@ -39,6 +39,16 @@ export default {
         if (this.dataServiceProp) {
             this.update = true;
             Object.assign(this.dataService, this.dataServiceProp);
+
+            const dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, this.dataService.id);
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.dataService.id);
+
+            dataServiceActions.forEach(dataServiceAction => {
+                this.dataActionIds.push(dataServiceAction.hasDataAction);
+            });
+            dataServiceProperties.forEach(dataServiceProperty => {
+                this.propertyIds.push(dataServiceProperty.hasProperty);
+            });
         }
 
         this.types = this.$store.getters["types/getTypes"](this.workspace.id);
@@ -107,6 +117,98 @@ export default {
             this.$router.push({ name: "dataServices.show", params: { dataServiceId: this.dataService.id } });
         },
         async updateDataService() {
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+
+            try {
+                await this.$store.dispatch("dataServices/updateDataService", { workspaceId: this.workspace.id, dataService: this.dataService });
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.data_service_update_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+
+            const dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, this.dataService.id);
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.dataService.id);
+
+            for (const dataServiceAction of dataServiceActions) {
+                try {
+                    await this.$store.dispatch("dataServiceActions/destroyDataServiceAction", { workspaceId: this.workspace.id, dataServiceAction });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_update_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            for (const dataServiceProperty of dataServiceProperties) {
+                try {
+                    await this.$store.dispatch("dataServiceProperties/destroyDataServiceProperty", { workspaceId: this.workspace.id, dataServiceProperty });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_update_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            for (const dataActionId of this.dataActionIds) {
+                const dataServiceAction = {
+                    hasDataAction: dataActionId,
+                    hasDataService: this.dataService.id,
+                    hasWorkspace: this.workspace.id
+                };
+
+                try {
+                    await this.$store.dispatch("dataServiceActions/storeDataServiceAction", { workspaceId: this.workspace.id, dataServiceAction });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_action_creation_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            for (const propertyId of this.propertyIds) {
+                const dataServiceProperty = {
+                    hasProperty: propertyId,
+                    hasDataService: this.dataService.id,
+                    hasWorkspace: this.workspace.id
+                };
+
+                try {
+                    await this.$store.dispatch("dataServiceProperties/storeDataServiceProperty", { workspaceId: this.workspace.id, dataServiceProperty });
+                } catch (error) {
+                    this.$store.dispatch("setDisplayLoadingScreen", false);
+                    this.error = error;
+                    this.$swal.fire({
+                        title: this.$t("dialogs.data_service_property_creation_failure"),
+                        icon: "error",
+                        heightAuto: false
+                    });
+                    return;
+                }
+            }
+
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$router.push({ name: "dataServices.show", params: { dataServiceId: this.dataService.id } });
         }
     }
 };

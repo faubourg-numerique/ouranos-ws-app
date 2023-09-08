@@ -74,11 +74,6 @@ export default {
             }
             dataServiceProperty = response.data;
             commit("setDataServiceProperty", { workspaceId, dataServiceProperty });
-            try {
-                await dispatch("contracts/fetchContract", { workspaceId, contractId: dataServiceProperty.hasContract }, { root: true });
-            } catch (error) {
-                throw error.response.data || {};
-            }
         },
         async destroyDataServiceProperty({ commit }, { workspaceId, dataServiceProperty }) {
             try {
