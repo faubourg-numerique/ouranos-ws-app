@@ -144,19 +144,19 @@ export default {
                     </dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.actions")) }}</dt>
                     <dd class="col-sm-8">
-                        <span class="badge text-bg-primary me-2" v-for="dataServiceAction in dataServiceActions" :key="dataServiceAction.id">{{ getDataActionById(dataServiceAction.hasDataAction).name }}</span>
+                        <span v-for="dataServiceAction in dataServiceActions" :key="dataServiceAction.id" class="badge text-bg-primary me-2">{{ getDataActionById(dataServiceAction.hasDataAction).name }}</span>
                     </dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.properties")) }}</dt>
                     <dd class="col-sm-8">
-                        <span class="badge text-bg-primary me-2" v-for="dataServiceProperty in dataServiceProperties" :key="dataServiceProperty.id">{{ getPropertyById(dataServiceProperty.hasProperty).name }}</span>
+                        <span v-for="dataServiceProperty in dataServiceProperties" :key="dataServiceProperty.id" class="badge text-bg-primary me-2">{{ getPropertyById(dataServiceProperty.hasProperty).name }}</span>
                     </dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.is_demand")) }}</dt>
                     <dd class="col-sm-8">
-                        <BooleanIcon :value="dataService.isDemand"></BooleanIcon>
+                        <BooleanIcon :value="dataService.isDemand" />
                     </dd>
                     <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.is_offer")) }}</dt>
                     <dd class="col-sm-8 mb-0">
-                        <BooleanIcon :value="dataService.isOffer"></BooleanIcon>
+                        <BooleanIcon :value="dataService.isOffer" />
                     </dd>
                 </dl>
             </div>

@@ -60,7 +60,7 @@ export default {
                 <table v-else class="table align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
-                            <th></th>
+                            <th />
                             <th>{{ Utils.capitalize($t("main.type")) }}</th>
                             <th>{{ Utils.capitalize($t("main.actions")) }}</th>
                             <th>{{ Utils.capitalize($t("main.properties")) }}</th>

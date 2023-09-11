@@ -223,27 +223,27 @@ export default {
         <div class="mb-3">
             <label for="type" class="form-label">{{ Utils.capitalize($t("main.type")) }}</label>
             <select id="type" v-model="dataService.hasEntityType" class="form-select" required>
-                <option v-for="_type in types" :value="_type.id" :key="_type.id">{{ _type.name }}</option>
+                <option v-for="_type in types" :key="_type.id" :value="_type.id">{{ _type.name }}</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="properties" class="form-label">{{ Utils.capitalize($t("main.properties")) }}</label>
             <select id="properties" v-model="propertyIds" class="form-select" multiple required>
-                <option v-for="property in properties" :value="property.id" :key="property.id">{{ property.name }}</option>
+                <option v-for="property in properties" :key="property.id" :value="property.id">{{ property.name }}</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="data-actions" class="form-label">{{ Utils.capitalize($t("main.actions")) }}</label>
             <select id="data-actions" v-model="dataActionIds" class="form-select" multiple required>
-                <option v-for="dataAction in dataActions" :value="dataAction.id" :key="dataAction.id">{{ dataAction.name }}</option>
+                <option v-for="dataAction in dataActions" :key="dataAction.id" :value="dataAction.id">{{ dataAction.name }}</option>
             </select>
         </div>
         <div class="form-check mb-3">
-            <input id="is-demand" class="form-check-input" type="checkbox" v-model="dataService.isDemand">
+            <input id="is-demand" v-model="dataService.isDemand" class="form-check-input" type="checkbox">
             <label for="is-demand" class="form-check-label">{{ Utils.capitalize($t("main.is_demand")) }}</label>
         </div>
         <div class="form-check mb-3">
-            <input id="is-offer" class="form-check-input" type="checkbox" v-model="dataService.isOffer">
+            <input id="is-offer" v-model="dataService.isOffer" class="form-check-input" type="checkbox">
             <label for="is-offer" class="form-check-label">{{ Utils.capitalize($t("main.is_offer")) }}</label>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
