@@ -737,7 +737,10 @@ export default {
         <div class="card-header d-flex justify-content-between align-items-center">
             <span>{{ type.name }}</span>
             <span>
-                <button v-if="entities" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#import-export-modal">
+                <RouterLink v-if="entities" :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { typeId: type.id, activeTab: 'map' } }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-map-location-dot" />
+                </RouterLink>
+                <button v-if="entities" class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#import-export-modal">
                     <i class="fa-solid fa-file-arrow-down" />
                 </button>
                 <RouterLink :to="{ name: 'entities.create', params: { workspaceId: workspace.id }, query: { typeId: type.id } }" class="btn btn-primary btn-sm ms-3">

@@ -169,7 +169,7 @@ export default {
             }
         },
         setType(typeId) {
-            this.$router.push({ name: "workspace", params: { workspaceId: this.workspace.id }, query: { typeId: typeId } });
+            this.$router.push({ name: "workspace", params: { workspaceId: this.workspace.id }, query: { typeId: typeId, activeTab: this.activeTab } });
         },
         async buildNetwork() {
             const typeId = this.$route.query.typeId;
@@ -268,14 +268,14 @@ export default {
     <div class="container-fluid my-5">
         <div class="row">
             <div class="col-lg-4 mb-4">
-                <div class="mb-4">
-                    <RouterLink class="btn btn-primary w-100" :to="{ name: 'types.index', params: { workspaceId: workspace.id } }">{{ Utils.capitalize($t("main.data_model")) }}</RouterLink>
-                </div>
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>{{ Utils.capitalize($t("main.data_model")) }}</span>
+                        <span>{{ workspace.name }}</span>
                         <span>
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#data-model-groups-filters-modal">
+                            <RouterLink class="btn btn-primary btn-sm" :to="{ name: 'types.index', params: { workspaceId: workspace.id } }">
+                                <i class="fa-solid fa-gears" />
+                            </RouterLink>
+                            <button class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#data-model-groups-filters-modal">
                                 <i class="fa-solid fa-filter" />
                             </button>
                         </span>
@@ -291,11 +291,9 @@ export default {
                 <DataModelOutdated v-if="!workspace.dataModelUpToDate" />
                 <template v-else>
                     <div class="mb-4">
-                        <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'entities', 'btn-outline-primary': activeTab !== 'entities' }" @click="setActiveTab('entities')">{{ Utils.capitalize($t("main.entities")) }}</button>
-                        <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'subscriptions', 'btn-outline-primary': activeTab !== 'subscriptions' }" @click="setActiveTab('subscriptions')">{{ Utils.capitalize($t("main.subscriptions")) }}</button>
-                        <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'map', 'btn-outline-primary': activeTab !== 'map' }" @click="setActiveTab('map')">{{ Utils.capitalize($t("main.map")) }}</button>
-                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary me-3 " :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.offers")) }}</RouterLink>
-                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary" :to="{ name: 'dataServices.index' }">{{ Utils.capitalize($t("main.data_services")) }}</RouterLink>
+                        <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'entities', 'btn-outline-primary': activeTab !== 'entities' }" @click="setActiveTab('entities')">{{ Utils.capitalize($t("main.data_browser")) }}</button>
+                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary me-3" :to="{ name: 'dataServices.index' }">{{ Utils.capitalize($t("main.data_services")) }}</RouterLink>
+                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary " :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.contracts")) }}</RouterLink>
                     </div>
 
                     <EntitiesTab v-if="activeTab === 'entities'" />

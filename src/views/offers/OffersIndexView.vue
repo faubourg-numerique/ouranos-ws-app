@@ -28,7 +28,10 @@ export default {
     <div class="container my-5">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ Utils.capitalize($t("main.offers")) }}</span>
+                <span>{{ Utils.capitalize($t("main.contracts")) }}</span>
+                <RouterLink :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { activeTab: 'subscriptions' } }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-bolt" />
+                </RouterLink>
             </div>
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
