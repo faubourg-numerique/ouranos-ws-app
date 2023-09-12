@@ -785,4 +785,40 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreDataService(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-services`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateDataService(workspaceId, dataServiceId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-services/${dataServiceId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyDataService(workspaceId, dataServiceId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-services/${dataServiceId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

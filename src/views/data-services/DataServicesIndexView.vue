@@ -50,7 +50,7 @@ export default {
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.data_services")) }}</span>
-                <RouterLink :to="{ name: 'dataServices.create' }" class="btn btn-primary btn-sm">
+                <RouterLink :to="{ name: 'dataServices.create' }" class="btn btn-primary btn-sm" v-if="$authorization.canStoreDataService(workspace.id)">
                     <i class="fa-solid fa-plus" />
                 </RouterLink>
             </div>
