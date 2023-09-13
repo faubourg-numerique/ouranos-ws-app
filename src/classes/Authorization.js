@@ -821,4 +821,16 @@ export class Authorization {
         }
         return false;
     }
+
+    isInShowroomMode() {
+        if (!this.permissions.GET) {
+            return false;
+        }
+        for (const pattern of this.permissions.GET) {
+            if (pattern === "/showroom") {
+                return true;
+            }
+        }
+        return false;
+    }
 }
