@@ -94,7 +94,7 @@ export default {
                         if (data.description) {
                             property.description = data.description;
                         }
-                        if(this.workspace.defaultDataModelUrl) {
+                        if (this.workspace.defaultDataModelUrl) {
                             property.url = this.workspace.defaultDataModelUrl + name;
                         }
                         if (data["x-ngsi"]) {
@@ -173,7 +173,7 @@ export default {
                             <tr v-for="property in standardDataModelProperties" :key="property.name" :class="{ 'table-success': propertyAlreadyExists(property.name) }">
                                 <td>
                                     <div class="form-check">
-                                        <input v-model="propertyNames" class="form-check-input" type="checkbox" :value="property.name" :disabled="propertyAlreadyExists(property.name)">
+                                        <input v-model="propertyNames" class="form-check-input" type="checkbox" :value="property.name" :disabled="propertyAlreadyExists(property.name) || !$authorization.canStoreProperty(workspace.id)">
                                     </div>
                                 </td>
                                 <td>{{ property.name }}</td>
@@ -183,7 +183,7 @@ export default {
                             </tr>
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-primary" :disabled="!propertyNames.length">{{ Utils.capitalize($t("main.import")) }}</button>
+                    <button type="submit" class="btn btn-primary" :disabled="!propertyNames.length" v-if="$authorization.canStoreProperty(workspace.id)">{{ Utils.capitalize($t("main.import")) }}</button>
                 </form>
             </div>
         </div>

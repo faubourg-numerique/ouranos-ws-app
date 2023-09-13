@@ -150,7 +150,7 @@ export default {
                 <span>{{ Utils.capitalize($t("main.properties")) }}</span>
                 <span>
                     <template v-if="type.standardDataModelBased">
-                        <RouterLink v-if="$authorization.canStoreProperty(workspace.id)" :to="{ name: 'properties.import', params: { workspaceId: workspace.id, typeId: type.id } }" class="btn btn-primary btn-sm">
+                        <RouterLink :to="{ name: 'properties.import', params: { workspaceId: workspace.id, typeId: type.id } }" class="btn btn-primary btn-sm">
                             <i class="fa-solid fa-arrow-down" />
                         </RouterLink>
                     </template>
