@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             error: null,
+            typeName: null,
             propertyNames: [],
             standardDataModelProperties: null
         }
@@ -81,8 +82,11 @@ export default {
             switch (this.type.standardDataModelType) {
                 case "smart-data-models": {
                     const response = await axios.get(this.type.standardDataModelDefinitionUrl);
-                    const model = Object.values(yaml.load(response.data))[0];
+                    const decodedResponse = yaml.load(response.data);
+                    const model = Object.values(decodedResponse)[0];
                     const properties = model.properties;
+
+                    this.typeName = Object.keys(decodedResponse)[0];
 
                     this.standardDataModelProperties = {};
                     for (const [name, data] of Object.entries(properties)) {
@@ -154,7 +158,7 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                {{ Utils.capitalize($t("main.import_properties")) }}
+                {{ typeName }}
             </div>
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
