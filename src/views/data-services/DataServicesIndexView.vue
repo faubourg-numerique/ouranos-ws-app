@@ -64,6 +64,7 @@ export default {
                             <th>{{ Utils.capitalize($t("main.type")) }}</th>
                             <th>{{ Utils.capitalize($t("main.actions")) }}</th>
                             <th>{{ Utils.capitalize($t("main.properties")) }}</th>
+                            <th />
                         </tr>
                     </thead>
                     <tbody>
@@ -76,6 +77,12 @@ export default {
                             <td>{{ getTypeNameByDataServiceId(dataService.id) }}</td>
                             <td>{{ getDataActionNamesByDataServiceId(dataService.id) }}</td>
                             <td>{{ getPropertyNamesByDataServiceId(dataService.id) }}</td>
+                            <td class="text-center">
+                                <template v-if="dataService.isDemand && dataService.isOffer">🡅🡇</template>
+                                <template v-else-if="dataService.isDemand">🡇</template>
+                                <template v-else-if="dataService.isOffer">🡅</template>
+                                <template v-else>■</template>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
