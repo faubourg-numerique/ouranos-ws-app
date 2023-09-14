@@ -293,7 +293,7 @@ export default {
                     <div class="mb-4">
                         <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'entities', 'btn-outline-primary': activeTab !== 'entities' }" @click="setActiveTab('entities')">{{ Utils.capitalize($t("main.data_browser")) }}</button>
                         <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary me-3" :to="{ name: 'dataServices.index' }">{{ Utils.capitalize($t("main.data_services")) }}</RouterLink>
-                        <RouterLink v-if="workspace.enableOffers" class="btn btn-outline-primary " :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.contracts")) }}</RouterLink>
+                        <RouterLink v-if="workspace.enableOffers && !$authorization.isInShowroomMode()" class="btn btn-outline-primary " :to="{ name: 'offers.index' }">{{ Utils.capitalize($t("main.contracts")) }}</RouterLink>
                     </div>
 
                     <EntitiesTab v-if="activeTab === 'entities'" />
