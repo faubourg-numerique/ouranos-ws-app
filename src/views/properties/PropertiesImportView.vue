@@ -187,7 +187,7 @@ export default {
                             </tr>
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-primary" :disabled="!propertyNames.length" v-if="$authorization.canStoreProperty(workspace.id)">{{ Utils.capitalize($t("main.import")) }}</button>
+                    <button v-if="$authorization.canStoreProperty(workspace.id)" type="submit" class="btn btn-primary" :disabled="!propertyNames.length">{{ Utils.capitalize($t("main.import")) }}</button>
                 </form>
             </div>
         </div>

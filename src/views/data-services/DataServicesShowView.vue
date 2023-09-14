@@ -125,10 +125,10 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ dataService.id }}</span>
                 <span>
-                    <RouterLink :to="{ name: 'dataServices.edit', params: { name: dataService.id } }" class="btn btn-primary btn-sm" v-if="$authorization.canUpdateDataService(workspace.id, dataService.id)">
+                    <RouterLink v-if="$authorization.canUpdateDataService(workspace.id, dataService.id)" :to="{ name: 'dataServices.edit', params: { name: dataService.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button class="btn btn-danger btn-sm ms-3" @click="destroyDataService" v-if="$authorization.canDestroyDataService(workspace.id, dataService.id)">
+                    <button v-if="$authorization.canDestroyDataService(workspace.id, dataService.id)" class="btn btn-danger btn-sm ms-3" @click="destroyDataService">
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>

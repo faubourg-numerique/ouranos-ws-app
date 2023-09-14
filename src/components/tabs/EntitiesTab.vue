@@ -740,10 +740,10 @@ export default {
                 <RouterLink v-if="entities" :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { typeId: type.id, activeTab: 'map' } }" class="btn btn-primary btn-sm">
                     <i class="fa-solid fa-map-location-dot" />
                 </RouterLink>
-                <button class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#import-export-modal" v-if="entities && $authorization.canStoreEntity(workspace.id)">
+                <button v-if="entities && $authorization.canStoreEntity(workspace.id)" class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#import-export-modal">
                     <i class="fa-solid fa-file-arrow-down" />
                 </button>
-                <RouterLink :to="{ name: 'entities.create', params: { workspaceId: workspace.id }, query: { typeId: type.id } }" class="btn btn-primary btn-sm ms-3" v-if="$authorization.canStoreEntity(workspace.id)">
+                <RouterLink v-if="$authorization.canStoreEntity(workspace.id)" :to="{ name: 'entities.create', params: { workspaceId: workspace.id }, query: { typeId: type.id } }" class="btn btn-primary btn-sm ms-3">
                     <i class="fa-solid fa-plus" />
                 </RouterLink>
             </span>
