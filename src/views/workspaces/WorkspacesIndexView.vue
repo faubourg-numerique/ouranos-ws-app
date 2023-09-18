@@ -25,7 +25,8 @@ export default {
                     this.$store.dispatch("contractDetails/fetchContractDetails", workspaceId),
                     this.$store.dispatch("dataServices/fetchDataServices", workspaceId),
                     this.$store.dispatch("dataServiceActions/fetchDataServiceActions", workspaceId),
-                    this.$store.dispatch("dataServiceProperties/fetchDataServiceProperties", workspaceId)
+                    this.$store.dispatch("dataServiceProperties/fetchDataServiceProperties", workspaceId),
+                    this.$store.dispatch("dataServiceOffers/fetchDataServiceOffers", workspaceId)
                 ]);
                 this.$store.dispatch("openWorkspace", workspaceId);
                 this.$store.dispatch("setDisplayLoadingScreen", false);

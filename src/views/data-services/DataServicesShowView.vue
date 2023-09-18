@@ -23,6 +23,7 @@ export default {
 
         this.dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, this.dataService.id);
         this.dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.dataService.id);
+        this.dataServiceOffers = this.$store.getters["dataServiceOffers/getDataServiceOffers"](this.workspace.id, this.dataService.id);
 
         this.type = this.$store.getters["types/getType"](this.workspace.id, this.dataService.hasEntityType);
         this.properties = this.$store.getters["properties/getProperties"](this.workspace.id, this.type.id);
@@ -39,7 +40,7 @@ export default {
             },
             {
                 active: true,
-                name: this.dataService.id
+                name: this.Utils.capitalize(this.$t("main.data_service"))
             }
         ];
     },
@@ -121,7 +122,7 @@ export default {
 <template>
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ dataService.id }}</span>
                 <span>
@@ -159,6 +160,33 @@ export default {
                         <BooleanIcon :value="dataService.isOffer" />
                     </dd>
                 </dl>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ Utils.capitalize($t("main.offerings")) }}</span>
+                <RouterLink v-if="$authorization.canStoreDataServiceOffer(workspace.id)" :to="{ name: 'dataServiceOffers.create' }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus" />
+                </RouterLink>
+            </div>
+            <div class="card-body">
+                <div v-if="!Object.values(dataServiceOffers).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_offering") }}</div>
+                <table v-else class="table align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>{{ Utils.capitalize($t("main.description")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.url")) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dataServiceOffer in dataServiceOffers" :key="dataServiceOffer.id">
+                            <td>
+                                <RouterLink :to="{ name: 'dataServiceOffers.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id, dataServiceOfferId: dataServiceOffer.id } }">{{ dataServiceOffer.description }}</RouterLink>
+                            </td>
+                            <td><a :href="dataServiceOffer.url" target="_blank">{{ dataServiceOffer.url }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

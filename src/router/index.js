@@ -82,6 +82,10 @@ import DataServicesCreateView from "@/views/data-services/DataServicesCreateView
 import DataServicesShowView from "@/views/data-services/DataServicesShowView";
 import DataServicesEditView from "@/views/data-services/DataServicesEditView";
 
+import DataServiceOffersCreateView from "@/views/data-service-offers/DataServiceOffersCreateView";
+import DataServiceOffersShowView from "@/views/data-service-offers/DataServiceOffersShowView";
+import DataServiceOffersEditView from "@/views/data-service-offers/DataServiceOffersEditView";
+
 export default createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
@@ -384,6 +388,21 @@ export default createRouter({
             path: "/workspace/:workspaceId/data-services/:dataServiceId/edit",
             name: "dataServices.edit",
             component: DataServicesEditView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-offers/create",
+            name: "dataServiceOffers.create",
+            component: DataServiceOffersCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-offers/:dataServiceOfferId",
+            name: "dataServiceOffers.show",
+            component: DataServiceOffersShowView
+        },
+        {
+            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-offers/:dataServiceOfferId/edit",
+            name: "dataServiceOffers.edit",
+            component: DataServiceOffersEditView
         }
     ]
 });

@@ -23,6 +23,7 @@ import dataActions from "@/store/modules/data-actions";
 import dataServices from "@/store/modules/data-services";
 import dataServiceActions from "@/store/modules/data-service-actions";
 import dataServiceProperties from "@/store/modules/data-service-properties";
+import dataServiceOffers from "@/store/modules/data-service-offers";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
 
 export default createStore({
@@ -91,6 +92,7 @@ export default createStore({
         dataServices,
         dataServiceActions,
         dataServiceProperties,
+        dataServiceOffers,
         googleSheetsProxy
     }
 });

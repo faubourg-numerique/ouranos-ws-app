@@ -833,4 +833,40 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreDataServiceOffer(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-offers`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateDataServiceOffer(workspaceId, dataServiceOfferId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-offers/${dataServiceOfferId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyDataServiceOffer(workspaceId, dataServiceOfferId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-offers/${dataServiceOfferId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
