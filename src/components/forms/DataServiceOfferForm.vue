@@ -84,11 +84,11 @@ export default {
     <form @submit.prevent="update ? updateDataServiceOffer() : storeDataServiceOffer()">
         <div class="mb-3">
             <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
-            <input id="description" type="text" class="form-control" v-model="dataServiceOffer.description" required>
+            <input id="description" v-model="dataServiceOffer.description" type="text" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="url" class="form-label">{{ Utils.capitalize($t("main.url")) }}</label>
-            <input id="url" type="url" class="form-control" v-model="dataServiceOffer.url" required>
+            <input id="url" v-model="dataServiceOffer.url" type="url" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
