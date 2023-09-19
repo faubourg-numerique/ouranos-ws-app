@@ -28,6 +28,8 @@ export default {
         this.types = this.$store.getters["types/getTypes"](this.workspace.id);
         this.properties = this.$store.getters["properties/getProperties"](this.workspace.id, this.type.id);
 
+        this.smartDataModelsLogoPath = require("@/assets/images/logos/smart-data-models.png");
+
         this.breadcrumbItems = [
             {
                 name: this.Utils.capitalize(this.$t("main.types")),
@@ -158,7 +160,12 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                {{ typeName }}
+                <span>
+                    <a href="https://smartdatamodels.org/" target="_blank">
+                        <img style="max-height: 25px;" :src="smartDataModelsLogoPath">
+                    </a>
+                    <span class="ms-2">{{ typeName }}</span>
+                </span>
             </div>
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
