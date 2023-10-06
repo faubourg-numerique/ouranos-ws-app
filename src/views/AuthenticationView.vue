@@ -19,7 +19,8 @@ export default {
                 <h5 class="card-title">{{ Utils.capitalize($t("main.authentication")) }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ Utils.capitalize($t("main.identity_manager")) }}</h6>
                 <p class="card-text">{{ $t("dialogs.authentication_text") }}</p>
-                <a v-focus :href="identityManagerAuthorizeUrl" class="btn btn-primary">{{ Utils.capitalize($t("main.continue")) }}</a>
+                <a v-focus :href="identityManagerAuthorizeUrl" class="btn btn-primary">{{ Utils.capitalize($t("main.continue_with_keyrock")) }}</a><br>
+                <!-- <a v-focus :href="identityManagerAuthorizeUrl" class="btn btn-primary">{{ Utils.capitalize($t("main.continue")) }}</a> -->
             </div>
         </div>
     </div>

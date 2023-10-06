@@ -67,6 +67,11 @@ import AuthorizationRegistriesCreateView from "@/views/authorization-registries/
 import AuthorizationRegistriesShowView from "@/views/authorization-registries/AuthorizationRegistriesShowView";
 import AuthorizationRegistriesEditView from "@/views/authorization-registries/AuthorizationRegistriesEditView";
 
+import VCVerifiersIndexView from "@/views/vc-verifiers/VCVerifiersIndexView";
+import VCVerifiersCreateView from "@/views/vc-verifiers/VCVerifiersCreateView";
+import VCVerifiersShowView from "@/views/vc-verifiers/VCVerifiersShowView";
+import VCVerifiersEditView from "@/views/vc-verifiers/VCVerifiersEditView";
+
 import AuthorizationRegistriesToolHomeView from "@/views/tools/authorization-registries/AuthorizationRegistriesToolHomeView";
 
 import OffersIndexView from "@/views/offers/OffersIndexView";
@@ -338,6 +343,26 @@ export default createRouter({
             path: "/authorization-registries/:authorizationRegistryId/edit",
             name: "authorizationRegistries.edit",
             component: AuthorizationRegistriesEditView
+        },
+        {
+            path: "/vc-verifiers",
+            name: "vcVerifiers.index",
+            component: VCVerifiersIndexView
+        },
+        {
+            path: "/vc-verifiers/create",
+            name: "vcVerifiers.create",
+            component: VCVerifiersCreateView
+        },
+        {
+            path: "/vc-verifiers/:vcVerifierId",
+            name: "vcVerifiers.show",
+            component: VCVerifiersShowView
+        },
+        {
+            path: "/vc-verifiers/:vcVerifierId/edit",
+            name: "vcVerifiers.edit",
+            component: VCVerifiersEditView
         },
         {
             path: "/tools/authorization-registries",
