@@ -33,6 +33,7 @@ export default {
         await Promise.all([
             this.$store.dispatch("identityManagerGrants/fetchIdentityManagerGrants"),
             this.$store.dispatch("identityManagers/fetchIdentityManagers"),
+            this.$store.dispatch("vcVerifiers/fetchVCVerifiers"),
             this.$store.dispatch("contextBrokers/fetchContextBrokers"),
             this.$store.dispatch("services/fetchServices"),
             this.$store.dispatch("temporalServices/fetchTemporalServices"),

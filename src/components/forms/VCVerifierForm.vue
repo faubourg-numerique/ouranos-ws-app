@@ -124,9 +124,7 @@ export default {
         <div class="mb-3">
             <label for="implementation-name" class="form-label">{{ Utils.capitalize($t("main.implementation_name")) }}</label>
             <select id="implementation-name" v-model="vcVerifier.implementationName" class="form-select" required>
-                <option value="orion-ld">Orion-LD</option>
-                <option value="scorpio">Scorpio</option>
-                <option value="stellio">Stellio</option>
+                <option value="fiware-vc-verifier">Fiware VC Verifier</option>
             </select>
         </div>
         <div class="mb-3">

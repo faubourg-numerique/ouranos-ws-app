@@ -41,6 +41,7 @@ export default {
 
         this.identityManagerGrants = this.$store.getters["identityManagerGrants/getIdentityManagerGrants"];
         this.identityManagers = this.$store.getters["identityManagers/getIdentityManagers"];
+        this.vcVerifiers = this.$store.getters["vcVerifiers/getVCVerifiers"];
         this.contextBrokers = this.$store.getters["contextBrokers/getContextBrokers"];
     },
     methods: {
@@ -107,17 +108,34 @@ export default {
         </div>
         <template v-if="service.authorizationRequired">
             <div class="mb-3">
-                <label for="identity-manager" class="form-label">{{ Utils.capitalize($t("main.identity_manager")) }}</label>
-                <select id="identity-manager" v-model="service.hasIdentityManager" class="form-select" required>
-                    <option v-for="identityManager in identityManagers" :key="identityManager.id" :value="identityManager.id">{{ identityManager.name }}</option>
+                <label for="authorization-mode" class="form-label">{{ Utils.capitalize($t("main.authorization_mode")) }}</label>
+                <select id="authorization-mode" v-model="service.authorizationMode" class="form-select" required>
+                    <option value="oauth2">OAuth 2.0</option>
+                    <option value="siop2">SIOP 2</option>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="identity-manager-grant" class="form-label">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</label>
-                <select id="identity-manager-grant" v-model="service.hasIdentityManagerGrant" class="form-select" required>
-                    <option v-for="identityManagerGrant in identityManagerGrants" :key="identityManagerGrant.id" :value="identityManagerGrant.id">{{ identityManagerGrant.name }}</option>
-                </select>
-            </div>
+            <template v-if="service.authorizationMode == 'oauth2'">
+                <div class="mb-3">
+                    <label for="identity-manager" class="form-label">{{ Utils.capitalize($t("main.identity_manager")) }}</label>
+                    <select id="identity-manager" v-model="service.hasIdentityManager" class="form-select" required>
+                        <option v-for="identityManager in identityManagers" :key="identityManager.id" :value="identityManager.id">{{ identityManager.name }}</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="identity-manager-grant" class="form-label">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</label>
+                    <select id="identity-manager-grant" v-model="service.hasIdentityManagerGrant" class="form-select" required>
+                        <option v-for="identityManagerGrant in identityManagerGrants" :key="identityManagerGrant.id" :value="identityManagerGrant.id">{{ identityManagerGrant.name }}</option>
+                    </select>
+                </div>
+            </template>
+            <template v-else-if="service.authorizationMode == 'siop2'">
+                <div class="mb-3">
+                    <label for="vc-verifier" class="form-label">{{ Utils.capitalize($t("main.vc_verifier")) }}</label>
+                    <select id="vc-verifier" v-model="service.hasVCVerifier" class="form-select" required>
+                        <option v-for="vcVerifier in vcVerifiers" :key="vcVerifier.id" :value="vcVerifier.id">{{ vcVerifier.name }}</option>
+                    </select>
+                </div>
+            </template>
         </template>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

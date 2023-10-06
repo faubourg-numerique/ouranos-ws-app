@@ -869,4 +869,66 @@ export class Authorization {
         }
         return false;
     }
+
+
+    canIndexVCVerifiers() {
+        if (!this.permissions.GET) {
+            return false;
+        }
+        for (const pattern of this.permissions.GET) {
+            if (Utils.regexMatch(pattern, "/api/vc-verifiers")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreVCVerifier() {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, "/api/vc-verifiers")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canShowVCVerifier(vcVerifierId) {
+        if (!this.permissions.GET) {
+            return false;
+        }
+        for (const pattern of this.permissions.GET) {
+            if (Utils.regexMatch(pattern, `/api/vc-verifiers/${vcVerifierId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateVCVerifier(vcVerifierId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/vc-verifiers/${vcVerifierId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyVCVerifier(vcVerifierId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/vc-verifiers/${vcVerifierId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
