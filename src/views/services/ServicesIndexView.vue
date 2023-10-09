@@ -12,12 +12,6 @@ export default {
         });
     },
     methods: {
-        identityManagerGrant(identityManagerGrantId) {
-            return this.$store.getters["identityManagerGrants/getIdentityManagerGrant"](identityManagerGrantId);
-        },
-        identityManager(identityManagerId) {
-            return this.$store.getters["identityManagers/getIdentityManager"](identityManagerId);
-        },
         contextBroker(contextBrokerId) {
             return this.$store.getters["contextBrokers/getContextBroker"](contextBrokerId);
         }
@@ -41,8 +35,6 @@ export default {
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
                             <th>{{ Utils.capitalize($t("main.context_broker")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.identity_manager")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.identity_manager_grant")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,22 +47,6 @@ export default {
                                     {{ contextBroker(service.hasContextBroker).name }}
                                 </RouterLink>
                                 <template v-else>{{ contextBroker(service.hasContextBroker).name }}</template>
-                            </td>
-                            <td>
-                                <template v-if="service.authorizationRequired">
-                                    <RouterLink v-if="$authorization.canShowIdentityManager(service.hasIdentityManager)" :to="{ name: 'identityManagers.show', params: { identityManagerId: service.hasIdentityManager } }">
-                                        {{ identityManager(service.hasIdentityManager).name }}
-                                    </RouterLink>
-                                    <template v-else>{{ identityManager(service.hasIdentityManager).name }}</template>
-                                </template>
-                            </td>
-                            <td>
-                                <template v-if="service.authorizationRequired">
-                                    <RouterLink v-if="$authorization.canShowIdentityManagerGrant(service.hasIdentityManagerGrant)" :to="{ name: 'identityManagerGrants.show', params: { identityManagerGrantId: service.hasIdentityManagerGrant } }">
-                                        {{ identityManagerGrant(service.hasIdentityManagerGrant).name }}
-                                    </RouterLink>
-                                    <template v-else>{{ identityManagerGrant(service.hasIdentityManagerGrant).name }}</template>
-                                </template>
                             </td>
                         </tr>
                     </tbody>

@@ -41,6 +41,20 @@ export default {
         },
         dataModelUrl(name, version) {
             return `${process.env.VUE_APP_DATA_MODELS_URL}/${name}/${version}/context.jsonld`;
+        },
+        siop2AuthorizationRequired(workspaceId) {
+            const workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
+            const service = this.$store.getters["services/getService"](workspace.hasService);
+            return service.authorizationRequired && service.authorizationMode == "siop2";
+        },
+        beginSIOP2AuthorizationProcess(workspaceId) {
+            const workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
+            const service = this.$store.getters["services/getService"](workspace.hasService);
+            const vcVerifier = this.$store.getters["vcVerifiers/getVCVerifier"](service.hasVCVerifier);
+
+            const vcVerifierUrl = this.Utils.buildUrl(vcVerifier.scheme, vcVerifier.host, vcVerifier.port, vcVerifier.path);
+            const url = `${vcVerifierUrl}/api/v1/loginQR?state=&client_id=${service.clientId}&client_callback=${process.env.VUE_APP_API_URL}`;
+            window.open(url, "_blank", "popup,width=500,height=500");
         }
     }
 };
@@ -69,8 +83,8 @@ export default {
                     <tbody>
                         <tr v-for="workspace in workspaces" :key="workspace.id">
                             <td class="text-center">
-                                <button style="width: 40px;" class="btn btn-sm" :class="{ 'btn-info': isWorkspaceOpen(workspace.id), 'btn-secondary': !isWorkspaceOpen(workspace.id) }" @click="toggleOpenWorkspace(workspace.id)">
-                                    <i class="fa-solid" :class="{ 'fa-xmark': isWorkspaceOpen(workspace.id), 'fa-right-to-bracket': !isWorkspaceOpen(workspace.id) }" />
+                                <button style="width: 40px;" class="btn btn-sm" :class="{ 'btn-info': isWorkspaceOpen(workspace.id), 'btn-secondary': !isWorkspaceOpen(workspace.id) }" @click="siop2AuthorizationRequired(workspace.id) ? beginSIOP2AuthorizationProcess(workspace.id) : toggleOpenWorkspace(workspace.id)">
+                                    <i class="fa-solid" :class="{ 'fa-xmark': isWorkspaceOpen(workspace.id), 'fa-right-to-bracket': !isWorkspaceOpen(workspace.id) && !siop2AuthorizationRequired(workspace.id), 'fa-qrcode': !isWorkspaceOpen(workspace.id) && siop2AuthorizationRequired(workspace.id) }" />
                                 </button>
                             </td>
                             <td>

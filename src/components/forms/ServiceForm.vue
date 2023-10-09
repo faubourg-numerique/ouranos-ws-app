@@ -36,12 +36,14 @@ export default {
                 delete this.service.hasIdentityManager;
                 delete this.service.hasIdentityManagerGrant;
                 delete this.service.hasVCVerifier;
+                delete this.service.clientId;
             }
         },
         "service.authorizationMode"(authorizationMode) {
             if (authorizationMode) {
                 if (authorizationMode == 'oauth2') {
                     delete this.service.hasVCVerifier;
+                    delete this.service.clientId;
                 } else if (authorizationMode == 'siop2') {
                     delete this.service.hasIdentityManager;
                     delete this.service.hasIdentityManagerGrant;
@@ -150,6 +152,10 @@ export default {
                     <select id="vc-verifier" v-model="service.hasVCVerifier" class="form-select" required>
                         <option v-for="vcVerifier in vcVerifiers" :key="vcVerifier.id" :value="vcVerifier.id">{{ vcVerifier.name }}</option>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="client-id" class="form-label">{{ Utils.capitalize($t("main.client_id")) }}</label>
+                    <input id="client-id" v-model="service.clientId" type="text" class="form-control" required>
                 </div>
             </template>
         </template>

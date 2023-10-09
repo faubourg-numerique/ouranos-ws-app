@@ -79,4 +79,8 @@ export default class Utils {
         });
         return entities;
     }
+
+    static buildUrl(scheme, host, port, path) {
+        return `${scheme}://${host}:${port}${path ?? ""}`;
+    }
 }
