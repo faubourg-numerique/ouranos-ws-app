@@ -16,7 +16,11 @@ export default {
             error: null,
             update: false,
             service: {
-                authorizationRequired: false
+                authorizationRequired: false,
+                authorizationMode: null,
+                hasIdentityManager: null,
+                hasIdentityManagerGrant: null,
+                hasVCVerifier: null
             }
         };
     },
@@ -28,8 +32,20 @@ export default {
         },
         "service.authorizationRequired"(authorizationRequired) {
             if (!authorizationRequired) {
+                delete this.service.authorizationMode;
                 delete this.service.hasIdentityManager;
                 delete this.service.hasIdentityManagerGrant;
+                delete this.service.hasVCVerifier;
+            }
+        },
+        "service.authorizationMode"(authorizationMode) {
+            if (authorizationMode) {
+                if (authorizationMode == 'oauth2') {
+                    delete this.service.hasVCVerifier;
+                } else if (authorizationMode == 'siop2') {
+                    delete this.service.hasIdentityManager;
+                    delete this.service.hasIdentityManagerGrant;
+                }
             }
         }
     },
