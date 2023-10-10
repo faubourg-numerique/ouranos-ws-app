@@ -1,4 +1,7 @@
 <script>
+import axios from "axios";
+import uuid4 from "uuid4";
+
 export default {
     created() {
         this.workspaces = {};
@@ -51,10 +54,35 @@ export default {
             const workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
             const service = this.$store.getters["services/getService"](workspace.hasService);
             const vcVerifier = this.$store.getters["vcVerifiers/getVCVerifier"](service.hasVCVerifier);
+            const state = uuid4();
 
             const vcVerifierUrl = this.Utils.buildUrl(vcVerifier.scheme, vcVerifier.host, vcVerifier.port, vcVerifier.path);
-            const url = `${vcVerifierUrl}/api/v1/loginQR?state=&client_id=${service.clientId}&client_callback=${process.env.VUE_APP_API_URL}`;
-            window.open(url, "_blank", "popup,width=500,height=500");
+            const url = `${vcVerifierUrl}/api/v1/loginQR?state=${state}&client_id=${service.clientId}&client_callback=${process.env.VUE_APP_API_URL}/siop2/callback`;
+            const popup = window.open(url, "_blank", "popup,width=500,height=500");
+
+            const interval = setInterval(() => {
+                axios
+                    .get(`${process.env.VUE_APP_API_URL}/siop2/poll`, {
+                        params: {
+                            state,
+                            workspaceId: workspace.id,
+                        }
+                    })
+                    .then(function (response) {
+                        clearInterval(interval);
+                        popup.close();
+                        alert(response.data);
+                    })
+                    .catch(function (error) {
+                        if (error.response && error.response.status === 503) {
+                            return;
+                        }
+
+                        clearInterval(interval);
+                        popup.close();
+                        console.error(error);
+                    });
+            }, 1000);
         }
     }
 };
