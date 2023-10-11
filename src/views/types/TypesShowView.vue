@@ -165,6 +165,7 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.description")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -173,6 +174,7 @@ export default {
                                 <span v-if="property.hasProperty" class="me-2">{{ properties[property.hasProperty].name }} /</span>
                                 <RouterLink :to="{ name: 'properties.show', params: { workspaceId: workspace.id, typeId: type.id, propertyId: property.id } }">{{ property.name }}</RouterLink>
                             </td>
+                            <td>{{ property.description }}</td>
                         </tr>
                     </tbody>
                 </table>
