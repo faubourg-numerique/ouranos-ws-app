@@ -5,7 +5,8 @@ export default {
             authenticated: false,
             accessToken: null,
             accessTokenType: null,
-            expirationTime: null
+            expirationTime: null,
+            siop2AccessTokens: {}
         }
     },
     getters: {
@@ -20,6 +21,11 @@ export default {
         },
         getExpirationTime(state) {
             return state.expirationTime;
+        },
+        getSIOP2AccessToken(state) {
+            return (workspaceId) => {
+                return state.siop2AccessTokens[workspaceId];
+            };
         }
     },
     mutations: {
@@ -34,6 +40,9 @@ export default {
         },
         setExpirationTime(state, expirationTime) {
             state.expirationTime = expirationTime;
+        },
+        setSIOP2AccessToken(state, { workspaceId, accessToken }) {
+            state.siop2AccessTokens[workspaceId] = accessToken;
         }
     },
     actions: {
@@ -48,6 +57,9 @@ export default {
         },
         setExpirationTime({ commit }, expirationTime) {
             commit("setExpirationTime", expirationTime);
+        },
+        setSIOP2AccessToken({ commit }, { workspaceId, accessToken }) {
+            commit("setSIOP2AccessToken", { workspaceId, accessToken });
         }
     }
 };

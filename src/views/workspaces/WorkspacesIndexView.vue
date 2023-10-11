@@ -68,12 +68,13 @@ export default {
                             workspaceId: workspace.id,
                         }
                     })
-                    .then(function (response) {
+                    .then((response) => {
                         clearInterval(interval);
                         popup.close();
-                        alert(response.data);
+                        this.$store.dispatch("authentication/setSIOP2AccessToken", { workspaceId: workspace.id, accessToken: response.data });
+                        this.toggleOpenWorkspace(workspace.id);
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         if (error.response && error.response.status === 503) {
                             return;
                         }
@@ -111,7 +112,7 @@ export default {
                     <tbody>
                         <tr v-for="workspace in workspaces" :key="workspace.id">
                             <td class="text-center">
-                                <button style="width: 40px;" class="btn btn-sm" :class="{ 'btn-info': isWorkspaceOpen(workspace.id), 'btn-secondary': !isWorkspaceOpen(workspace.id) }" @click="siop2AuthorizationRequired(workspace.id) ? beginSIOP2AuthorizationProcess(workspace.id) : toggleOpenWorkspace(workspace.id)">
+                                <button style="width: 40px;" class="btn btn-sm" :class="{ 'btn-info': isWorkspaceOpen(workspace.id), 'btn-secondary': !isWorkspaceOpen(workspace.id) }" @click="!isWorkspaceOpen(workspace.id) && siop2AuthorizationRequired(workspace.id) ? beginSIOP2AuthorizationProcess(workspace.id) : toggleOpenWorkspace(workspace.id)">
                                     <i class="fa-solid" :class="{ 'fa-xmark': isWorkspaceOpen(workspace.id), 'fa-right-to-bracket': !isWorkspaceOpen(workspace.id) && !siop2AuthorizationRequired(workspace.id), 'fa-qrcode': !isWorkspaceOpen(workspace.id) && siop2AuthorizationRequired(workspace.id) }" />
                                 </button>
                             </td>
