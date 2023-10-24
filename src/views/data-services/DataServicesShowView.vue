@@ -162,7 +162,7 @@ export default {
                 </dl>
             </div>
         </div>
-        <div class="card mt-4" v-if="dataService.isDemand || dataService.isOffer">
+        <div v-if="dataService.isDemand || dataService.isOffer" class="card mt-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.offerings")) }}</span>
                 <RouterLink v-if="$authorization.canStoreDataServiceOffer(workspace.id)" :to="{ name: 'dataServiceOffers.create' }" class="btn btn-primary btn-sm">
