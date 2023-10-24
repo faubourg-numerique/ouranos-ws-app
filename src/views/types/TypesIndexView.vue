@@ -10,6 +10,12 @@ export default {
             error: null
         };
     },
+    computed: {
+        isDataModelUpToDate() {
+            const workspace = this.$store.getters["workspaces/getWorkspace"](this.workspace.id);
+            return workspace.dataModelUpToDate;
+        }
+    },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
@@ -53,6 +59,38 @@ export default {
                 icon: "success",
                 heightAuto: false
             });
+        },
+        async autoDiscoverDataModel() {
+            const result = await this.$swal.fire({
+                title: this.$t("dialogs.data_model_auto_discover_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
+                heightAuto: false
+            });
+            if (!result.isConfirmed) {
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("dataModel/autoDiscoverDataModel", this.workspace.id);
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.data_model_auto_discover_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$swal.fire({
+                title: this.$t("dialogs.data_model_auto_discover_success"),
+                icon: "success",
+                heightAuto: false
+            });
         }
     }
 };
@@ -64,7 +102,10 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.types")) }}</span>
                 <span>
-                    <button v-if="$authorization.canGenerateDataModel(workspace.id)" class="btn btn-primary btn-sm" @click="generateDataModel">
+                    <button v-if="isDataModelUpToDate && $authorization.canGenerateDataModel(workspace.id)" class="btn btn-primary btn-sm" @click="autoDiscoverDataModel">
+                        <i class="fa-solid fa-satellite-dish" />
+                    </button>
+                    <button v-if="$authorization.canGenerateDataModel(workspace.id)" class="btn btn-primary btn-sm ms-3" @click="generateDataModel">
                         <i class="fa-solid fa-gears" />
                     </button>
                     <RouterLink v-if="$authorization.canStoreType(workspace.id)" :to="{ name: 'types.create', params: { workspaceId: workspace.id } }" class="btn btn-primary btn-sm ms-3">

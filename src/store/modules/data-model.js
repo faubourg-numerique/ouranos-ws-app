@@ -8,6 +8,14 @@ export default {
             } catch (error) {
                 throw error.response.data || {};
             }
+        },
+        async autoDiscoverDataModel(context, workspaceId) {
+            try {
+                await this.$api.post("/workspace/" + workspaceId + "/data-model/auto-discover");
+                await this.dispatch("workspaces/fetchWorkspace", workspaceId);
+            } catch (error) {
+                throw error.response.data || {};
+            }
         }
     }
 };
