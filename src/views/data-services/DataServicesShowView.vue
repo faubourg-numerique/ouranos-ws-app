@@ -24,6 +24,7 @@ export default {
         this.dataServiceActions = this.$store.getters["dataServiceActions/getDataServiceActionsByDataServiceId"](this.workspace.id, this.dataService.id);
         this.dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.dataService.id);
         this.dataServiceOffers = this.$store.getters["dataServiceOffers/getDataServiceOffers"](this.workspace.id, this.dataService.id);
+        this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id, this.dataService.id);
 
         this.type = this.$store.getters["types/getType"](this.workspace.id, this.dataService.hasEntityType);
         this.properties = this.$store.getters["properties/getProperties"](this.workspace.id, this.type.id);
@@ -184,6 +185,37 @@ export default {
                                 <RouterLink :to="{ name: 'dataServiceOffers.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id, dataServiceOfferId: dataServiceOffer.id } }">{{ dataServiceOffer.description }}</RouterLink>
                             </td>
                             <td><a :href="dataServiceOffer.url" target="_blank">{{ dataServiceOffer.url }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ Utils.capitalize($t("main.data_service_accesses")) }}</span>
+                <RouterLink v-if="!Object.values(dataServiceAccesses).length && $authorization.canStoreDataServiceAccess(workspace.id)" :to="{ name: 'dataServiceAccesses.create' }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus" />
+                </RouterLink>
+            </div>
+            <div class="card-body">
+                <div v-if="!Object.values(dataServiceAccesses).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_data_service_access") }}</div>
+                <table v-else class="table align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th />
+                            <th>{{ Utils.capitalize($t("main.role_name")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dataServiceAccess in dataServiceAccesses" :key="dataServiceAccess.id">
+                            <td>
+                                <RouterLink :to="{ name: 'dataServiceAccesses.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id, dataServiceAccessId: dataServiceAccess.id } }" class="btn btn-light btn-sm">
+                                    <i class="fa-solid fa-right-to-bracket" />
+                                </RouterLink>
+                            </td>
+                            <td>{{ dataServiceAccess.roleName }}</td>
+                            <td>{{ dataServiceAccess.verifiableCredentialType }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -870,6 +870,41 @@ export class Authorization {
         return false;
     }
 
+    canStoreDataServiceAccess(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-accesses`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateDataServiceAccess(workspaceId, dataServiceAccessId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-accesses/${dataServiceAccessId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyDataServiceAccess(workspaceId, dataServiceAccessId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/data-service-accesses/${dataServiceAccessId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     canIndexVCVerifiers() {
         if (!this.permissions.GET) {

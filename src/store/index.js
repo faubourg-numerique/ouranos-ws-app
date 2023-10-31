@@ -24,6 +24,7 @@ import dataServices from "@/store/modules/data-services";
 import dataServiceActions from "@/store/modules/data-service-actions";
 import dataServiceProperties from "@/store/modules/data-service-properties";
 import dataServiceOffers from "@/store/modules/data-service-offers";
+import dataServiceAccesses from "@/store/modules/data-service-accesses";
 import vcVerifiers from "@/store/modules/vc-verifiers";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
 
@@ -94,6 +95,7 @@ export default createStore({
         dataServiceActions,
         dataServiceProperties,
         dataServiceOffers,
+        dataServiceAccesses,
         vcVerifiers,
         googleSheetsProxy
     }
