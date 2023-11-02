@@ -29,6 +29,8 @@ export default {
         const dataServiceId = this.$route.params.dataServiceId;
         this.dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
 
+        this.dataServiceOffers = this.$store.getters["dataServiceOffers/getDataServiceOffers"](this.workspace.id, this.dataService.id);
+
         this.breadcrumbItems = [
             {
                 name: this.Utils.capitalize(this.$t("main.data_services")),
@@ -144,7 +146,7 @@ export default {
                     <RouterLink v-if="$authorization.canUpdateDataServiceAccess(workspace.id, dataServiceAccess.id)" :to="{ name: 'dataServiceAccesses.edit', params: { name: dataServiceAccess.id } }" class="btn btn-primary btn-sm ms-3">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyDataServiceAccess(workspace.id, dataServiceAccess.id)" class="btn btn-danger btn-sm ms-3" @click="destroyDataServiceAccess">
+                    <button v-if="$authorization.canDestroyDataServiceAccess(workspace.id, dataServiceAccess.id) && !dataServiceOffers.length" class="btn btn-danger btn-sm ms-3" @click="destroyDataServiceAccess">
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>

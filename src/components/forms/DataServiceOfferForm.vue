@@ -28,7 +28,10 @@ export default {
         const dataServiceId = this.$route.params.dataServiceId;
         this.dataService = this.$store.getters["dataServices/getDataService"](workspaceId, dataServiceId);
 
+        this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id, this.dataService.id);
+
         this.dataServiceOffer.hasDataService = this.dataService.id;
+        this.dataServiceOffer.hasDataServiceAccess = this.dataServiceAccesses[0].id;
         this.dataServiceOffer.hasWorkspace = this.workspace.id;
 
         if (this.dataServiceOfferProp) {

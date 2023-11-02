@@ -163,33 +163,6 @@ export default {
                 </dl>
             </div>
         </div>
-        <div v-if="dataService.isDemand || dataService.isOffer" class="card mt-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ Utils.capitalize($t("main.offerings")) }}</span>
-                <RouterLink v-if="$authorization.canStoreDataServiceOffer(workspace.id)" :to="{ name: 'dataServiceOffers.create' }" class="btn btn-primary btn-sm">
-                    <i class="fa-solid fa-plus" />
-                </RouterLink>
-            </div>
-            <div class="card-body">
-                <div v-if="!Object.values(dataServiceOffers).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_offering") }}</div>
-                <table v-else class="table align-middle mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>{{ Utils.capitalize($t("main.description")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.url")) }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="dataServiceOffer in dataServiceOffers" :key="dataServiceOffer.id">
-                            <td>
-                                <RouterLink :to="{ name: 'dataServiceOffers.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id, dataServiceOfferId: dataServiceOffer.id } }">{{ dataServiceOffer.description }}</RouterLink>
-                            </td>
-                            <td><a :href="dataServiceOffer.url" target="_blank">{{ dataServiceOffer.url }}</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
         <div class="card mt-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.data_service_accesses")) }}</span>
@@ -216,6 +189,33 @@ export default {
                             </td>
                             <td>{{ dataServiceAccess.roleName }}</td>
                             <td>{{ dataServiceAccess.verifiableCredentialType }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div v-if="(dataService.isDemand || dataService.isOffer) && dataServiceAccesses.length" class="card mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ Utils.capitalize($t("main.offerings")) }}</span>
+                <RouterLink v-if="$authorization.canStoreDataServiceOffer(workspace.id)" :to="{ name: 'dataServiceOffers.create' }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus" />
+                </RouterLink>
+            </div>
+            <div class="card-body">
+                <div v-if="!Object.values(dataServiceOffers).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_offering") }}</div>
+                <table v-else class="table align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>{{ Utils.capitalize($t("main.description")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.url")) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="dataServiceOffer in dataServiceOffers" :key="dataServiceOffer.id">
+                            <td>
+                                <RouterLink :to="{ name: 'dataServiceOffers.show', params: { workspaceId: workspace.id, dataServiceId: dataService.id, dataServiceOfferId: dataServiceOffer.id } }">{{ dataServiceOffer.description }}</RouterLink>
+                            </td>
+                            <td><a :href="dataServiceOffer.url" target="_blank">{{ dataServiceOffer.url }}</a></td>
                         </tr>
                     </tbody>
                 </table>
