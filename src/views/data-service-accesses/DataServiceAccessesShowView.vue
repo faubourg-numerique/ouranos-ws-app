@@ -16,15 +16,18 @@ export default {
             error: null
         };
     },
+    computed: {
+        dataServiceAccess() {
+            const dataServiceAccessId = this.$route.params.dataServiceAccessId;
+            return this.$store.getters["dataServiceAccesses/getDataServiceAccess"](this.workspace.id, dataServiceAccessId);
+        }
+    },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
         const dataServiceId = this.$route.params.dataServiceId;
         this.dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
-
-        const dataServiceAccessId = this.$route.params.dataServiceAccessId;
-        this.dataServiceAccess = this.$store.getters["dataServiceAccesses/getDataServiceAccess"](this.workspace.id, dataServiceAccessId);
 
         this.breadcrumbItems = [
             {
@@ -83,6 +86,46 @@ export default {
 
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$router.push({ name: "dataServices.show", params: { workspaceId: this.workspace.id, dataServiceId: this.dataService.id } });
+        },
+        async synchronizeDataServiceAccess() {
+            let result = await this.$swal.fire({
+                title: this.$t("dialogs.data_service_access_synchronization_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
+                heightAuto: false
+            });
+            if (!result.isConfirmed) {
+                return;
+            }
+            result = await this.$swal.fire({
+                title: this.$t("dialogs.data_service_access_synchronization_permit_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.permit")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.deny")),
+                heightAuto: false
+            });
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("dataServiceAccesses/synchronizeDataServiceAccess", { workspaceId: this.workspace.id, dataServiceAccess: this.dataServiceAccess, permit: result.isConfirmed });
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.data_service_access_synchronization_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$swal.fire({
+                title: this.$t("dialogs.data_service_access_synchronization_success"),
+                icon: "success",
+                heightAuto: false
+            });
         }
     }
 };
@@ -95,7 +138,10 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ dataServiceAccess.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateDataServiceAccess(workspace.id, dataServiceAccess.id)" :to="{ name: 'dataServiceAccesses.edit', params: { name: dataServiceAccess.id } }" class="btn btn-primary btn-sm">
+                    <button v-if="$authorization.canUpdateDataServiceAccess(workspace.id, dataServiceAccess.id)" class="btn btn-primary btn-sm" @click="synchronizeDataServiceAccess">
+                        <i class="fa-solid fa-sync-alt" />
+                    </button>
+                    <RouterLink v-if="$authorization.canUpdateDataServiceAccess(workspace.id, dataServiceAccess.id)" :to="{ name: 'dataServiceAccesses.edit', params: { name: dataServiceAccess.id } }" class="btn btn-primary btn-sm ms-3">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
                     <button v-if="$authorization.canDestroyDataServiceAccess(workspace.id, dataServiceAccess.id)" class="btn btn-danger btn-sm ms-3" @click="destroyDataServiceAccess">

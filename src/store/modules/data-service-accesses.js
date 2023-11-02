@@ -32,6 +32,11 @@ export default {
         }
     },
     actions: {
+        async fetchDataServiceAccess({ commit }, { workspaceId, dataServiceAccessId }) {
+            const response = await this.$api.get(`/workspace/${workspaceId}/data-service-accesses/${dataServiceAccessId}`);
+            const dataServiceAccess = response.data;
+            commit("setDataServiceAccess", { workspaceId, dataServiceAccess });
+        },
         async fetchDataServiceAccesses({ commit }, workspaceId) {
             const response = await this.$api.get(`/workspace/${workspaceId}/data-service-accesses`);
             const dataServiceAccesses = response.data;
@@ -70,6 +75,15 @@ export default {
                 throw error.response.data || {};
             }
             commit("removeDataServiceAccess", { workspaceId, dataServiceAccess });
+        },
+        async synchronizeDataServiceAccess({ dispatch }, { workspaceId, dataServiceAccess, permit }) {
+            const data = { effect: permit ? "Permit" : "Deny" };
+            try {
+                await this.$api.post(`/workspace/${workspaceId}/data-service-accesses/${dataServiceAccess.id}/synchronize`, data);
+                await dispatch("fetchDataServiceAccess", { workspaceId, dataServiceAccessId: dataServiceAccess.id });
+            } catch (error) {
+                throw error.response.data || {};
+            }
         }
     }
 };
