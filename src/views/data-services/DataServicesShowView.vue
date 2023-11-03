@@ -163,7 +163,7 @@ export default {
                 </dl>
             </div>
         </div>
-        <div class="card mt-4">
+        <div v-if="$authorization.canStoreDataServiceAccess(workspace.id)" class="card mt-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.data_service_accesses")) }}</span>
                 <RouterLink v-if="!Object.values(dataServiceAccesses).length && $authorization.canStoreDataServiceAccess(workspace.id)" :to="{ name: 'dataServiceAccesses.create' }" class="btn btn-primary btn-sm">
