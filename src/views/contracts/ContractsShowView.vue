@@ -115,7 +115,7 @@ export default {
                     <dt class="col-sm-4" :class="{ 'mb-0': !contract.lastDelegationEvidence }">{{ Utils.capitalize($t("main.access_subject")) }}</dt>
                     <dd class="col-sm-8 font-monospace" :class="{ 'mb-0': !contract.lastDelegationEvidence }">{{ contract.accessSubject }}</dd>
                     <template v-if="contract.lastDelegationEvidence">
-                        <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.last_delegation_evidence")) }}</dt>
+                        <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.access_policy")) }}</dt>
                         <dd class="col-sm-8 font-monospace mb-0">
                             <JsonViewer :value="contract.lastDelegationEvidence" expanded :expand-depth="10" />
                         </dd>

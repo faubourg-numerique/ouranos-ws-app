@@ -173,7 +173,7 @@ export default {
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.role_name")) }}</dt>
                     <dd class="col-sm-8">{{ dataServiceAccess.roleName }}</dd>
                     <template v-if="dataServiceAccess.lastDelegationEvidence">
-                        <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.last_delegation_evidence")) }}</dt>
+                        <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.access_policy")) }}</dt>
                         <dd class="col-sm-8 font-monospace mb-0">
                             <JsonViewer :value="dataServiceAccess.lastDelegationEvidence" expanded :expand-depth="10" />
                         </dd>

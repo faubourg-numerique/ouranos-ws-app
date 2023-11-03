@@ -109,6 +109,7 @@
     },
     "main": {
         "accept": "accepter",
+        "access_policy": "règles d'accès",
         "access_subject": "sujet d'accès",
         "actions": "actions",
         "add": "ajouter",
