@@ -27,6 +27,12 @@ import dataServiceOffers from "@/store/modules/data-service-offers";
 import dataServiceAccesses from "@/store/modules/data-service-accesses";
 import vcVerifiers from "@/store/modules/vc-verifiers";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
+import capabilities from "@/store/modules/capabilities";
+import controlledProperties from "@/store/modules/controlled-properties";
+import routings from "@/store/modules/routings";
+import routingOperations from "@/store/modules/routing-operations";
+import routingOperationControls from "@/store/modules/routing-operation-controls";
+import woTThingDescriptions from "@/store/modules/wot-thing-descriptions";
 
 export default createStore({
     state() {
@@ -97,6 +103,12 @@ export default createStore({
         dataServiceOffers,
         dataServiceAccesses,
         vcVerifiers,
-        googleSheetsProxy
+        googleSheetsProxy,
+        capabilities,
+        controlledProperties,
+        routings,
+        routingOperations,
+        routingOperationControls,
+        woTThingDescriptions
     }
 });

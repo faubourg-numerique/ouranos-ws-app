@@ -966,4 +966,219 @@ export class Authorization {
         return false;
     }
 
+    canStoreCapability(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateCapability(workspaceId, capabilityId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities/${capabilityId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyCapability(workspaceId, capabilityId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities/${capabilityId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreControlledProperty(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateControlledProperty(workspaceId, controlledPropertyId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties/${controlledPropertyId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyControlledProperty(workspaceId, controlledPropertyId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties/${controlledPropertyId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreRouting(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routings`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateRouting(workspaceId, routingId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routings/${routingId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyRouting(workspaceId, routingId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routings/${routingId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreRoutingOperation(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operations`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateRoutingOperation(workspaceId, routingOperationId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operations/${routingOperationId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyRoutingOperation(workspaceId, routingOperationId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operations/${routingOperationId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreRoutingOperationControl(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operation-controls`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateRoutingOperationControl(workspaceId, routingOperationControlId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operation-controls/${routingOperationControlId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyRoutingOperationControl(workspaceId, routingOperationControlId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/routing-operation-controls/${routingOperationControlId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreWoTThingDescription(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-thing-descriptions`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateWoTThingDescription(workspaceId, woTThingDescriptionId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-thing-descriptions/${woTThingDescriptionId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyWoTThingDescription(workspaceId, woTThingDescriptionId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-thing-descriptions/${woTThingDescriptionId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
