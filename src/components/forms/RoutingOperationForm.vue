@@ -24,7 +24,16 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
+        const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
+        this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
+
+        const routingId = this.$route.params.routingId;
+        this.routing = this.$store.getters["routings/getRouting"](workspaceId, routingId);
+
         this.routingOperation.hasWorkspace = this.workspace.id;
+        this.routingOperation.hasRouting = this.routing.id;
+
+        this.capabilities = this.$store.getters["capabilities/getCapabilities"](workspaceId, this.woTThingDescription.id);
 
         if (this.routingOperationProp) {
             this.update = true;
@@ -73,6 +82,24 @@ export default {
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateRoutingOperation() : storeRoutingOperation()">
+        <div class="mb-3">
+            <label for="sequence-number" class="form-label">{{ Utils.capitalize($t("main.sequence_number")) }}</label>
+            <input id="sequence-number" v-model="routingOperation.sequenceNumber" v-focus type="number" min="0" step="1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="timer-before" class="form-label">{{ Utils.capitalize($t("main.timer_before")) }}</label>
+            <input id="timer-before" v-model="routingOperation.timerBefore" type="number" min="0" step="1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="timer-after" class="form-label">{{ Utils.capitalize($t("main.timer_after")) }}</label>
+            <input id="timer-after" v-model="routingOperation.timerAfter" type="number" min="0" step="1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="capability" class="form-label">{{ Utils.capitalize($t("main.capability")) }}</label>
+            <select id="capability" v-model="routingOperation.hasCapability" class="form-select" required>
+                <option v-for="capability in capabilities" :key="capability.id" :value="capability.id">{{ capability.name }}</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

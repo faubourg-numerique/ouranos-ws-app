@@ -17,8 +17,16 @@ export default {
             error: null,
             update: false,
             woTThingDescription: {
+                positionInChart: []
             }
         };
+    },
+    watch: {
+        "woTThingDescription.description"(description) {
+            if (description === "") {
+                delete this.woTThingDescription.description;
+            }
+        }
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -73,6 +81,14 @@ export default {
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateWoTThingDescription() : storeWoTThingDescription()">
+        <div class="mb-3">
+            <label for="name" class="form-label">{{ Utils.capitalize($t("main.name")) }}</label>
+            <input id="name" v-model="woTThingDescription.name" v-focus type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
+            <textarea id="description" v-model="woTThingDescription.description" class="form-control" rows="3" />
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

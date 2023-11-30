@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getControlledProperties(state) {
-            return workspaceId => {
+            return (workspaceId, capabilityId) => {
                 if (!(workspaceId in state.controlledProperties)) return [];
-                return state.controlledProperties[workspaceId];
+                return Object.values(state.controlledProperties[workspaceId]).filter((controlledProperty) => controlledProperty.hasCapability === capabilityId);
             };
         },
         getControlledProperty(state) {

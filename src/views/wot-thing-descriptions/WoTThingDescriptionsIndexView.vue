@@ -34,12 +34,14 @@ export default {
                 <table v-else class="table align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
-                            <th></th>
+                            <th>{{ Utils.capitalize($t("main.name")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="woTThingDescription in woTThingDescriptions" :key="woTThingDescription.id">
-                            <td></td>
+                            <td>
+                                <RouterLink :to="{ name: 'woTThingDescriptions.show', params: { woTThingDescriptionId: woTThingDescription.id } }">{{ woTThingDescription.name }}</RouterLink>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

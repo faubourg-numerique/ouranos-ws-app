@@ -24,7 +24,11 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
+        const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
+        this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
+
         this.routing.hasWorkspace = this.workspace.id;
+        this.routing.hasWoTThingDescription = this.woTThingDescription.id;
 
         if (this.routingProp) {
             this.update = true;
@@ -73,6 +77,14 @@ export default {
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateRouting() : storeRouting()">
+        <div class="mb-3">
+            <label for="name" class="form-label">{{ Utils.capitalize($t("main.name")) }}</label>
+            <input id="name" v-model="routing.name" v-focus type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
+            <textarea id="description" v-model="routing.description" class="form-control" rows="3" />
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

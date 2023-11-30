@@ -272,7 +272,10 @@ export default {
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span>{{ workspace.name }}</span>
                         <span>
-                            <RouterLink class="btn btn-primary btn-sm" :to="{ name: 'types.index', params: { workspaceId: workspace.id } }">
+                            <RouterLink class="btn btn-primary btn-sm" :to="{ name: 'woTThingDescriptions.index', params: { workspaceId: workspace.id } }">
+                                <i class="fa-solid fa-tower-cell" />
+                            </RouterLink>
+                            <RouterLink class="btn btn-primary btn-sm ms-3" :to="{ name: 'types.index', params: { workspaceId: workspace.id } }">
                                 <i class="fa-solid fa-gears" />
                             </RouterLink>
                             <button class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#data-model-groups-filters-modal">

@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getRoutingOperationControls(state) {
-            return workspaceId => {
+            return (workspaceId, routingOperationId) => {
                 if (!(workspaceId in state.routingOperationControls)) return [];
-                return state.routingOperationControls[workspaceId];
+                return Object.values(state.routingOperationControls[workspaceId]).filter((routingOperationControl) => routingOperationControl.hasRoutingOperation === routingOperationId);
             };
         },
         getRoutingOperationControl(state) {

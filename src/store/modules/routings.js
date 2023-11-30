@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getRoutings(state) {
-            return workspaceId => {
+            return (workspaceId, woTThingDescriptionId) => {
                 if (!(workspaceId in state.routings)) return [];
-                return state.routings[workspaceId];
+                return Object.values(state.routings[workspaceId]).filter((routing) => routing.hasWoTThingDescription === woTThingDescriptionId);
             };
         },
         getRouting(state) {

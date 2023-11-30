@@ -95,27 +95,22 @@ import DataServiceAccessesCreateView from "@/views/data-service-accesses/DataSer
 import DataServiceAccessesShowView from "@/views/data-service-accesses/DataServiceAccessesShowView";
 import DataServiceAccessesEditView from "@/views/data-service-accesses/DataServiceAccessesEditView";
 
-import CapabilitiesIndexView from "@/views/capabilities/CapabilitiesIndexView";
 import CapabilitiesCreateView from "@/views/capabilities/CapabilitiesCreateView";
 import CapabilitiesShowView from "@/views/capabilities/CapabilitiesShowView";
 import CapabilitiesEditView from "@/views/capabilities/CapabilitiesEditView";
 
-import ControlledPropertiesIndexView from "@/views/controlled-properties/ControlledPropertiesIndexView";
 import ControlledPropertiesCreateView from "@/views/controlled-properties/ControlledPropertiesCreateView";
 import ControlledPropertiesShowView from "@/views/controlled-properties/ControlledPropertiesShowView";
 import ControlledPropertiesEditView from "@/views/controlled-properties/ControlledPropertiesEditView";
 
-import RoutingsIndexView from "@/views/routings/RoutingsIndexView";
 import RoutingsCreateView from "@/views/routings/RoutingsCreateView";
 import RoutingsShowView from "@/views/routings/RoutingsShowView";
 import RoutingsEditView from "@/views/routings/RoutingsEditView";
 
-import RoutingOperationsIndexView from "@/views/routing-operations/RoutingOperationsIndexView";
 import RoutingOperationsCreateView from "@/views/routing-operations/RoutingOperationsCreateView";
 import RoutingOperationsShowView from "@/views/routing-operations/RoutingOperationsShowView";
 import RoutingOperationsEditView from "@/views/routing-operations/RoutingOperationsEditView";
 
-import RoutingOperationControlsIndexView from "@/views/routing-operation-controls/RoutingOperationControlsIndexView";
 import RoutingOperationControlsCreateView from "@/views/routing-operation-controls/RoutingOperationControlsCreateView";
 import RoutingOperationControlsShowView from "@/views/routing-operation-controls/RoutingOperationControlsShowView";
 import RoutingOperationControlsEditView from "@/views/routing-operation-controls/RoutingOperationControlsEditView";
@@ -479,102 +474,77 @@ export default createRouter({
             component: DataServiceAccessesEditView
         },
         {
-            path: "/workspace/:workspaceId/capabilities",
-            name: "capabilities.index",
-            component: CapabilitiesIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/capabilities/create",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/create",
             name: "capabilities.create",
             component: CapabilitiesCreateView
         },
         {
-            path: "/workspace/:workspaceId/capabilities/:capabilityId",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId",
             name: "capabilities.show",
             component: CapabilitiesShowView
         },
         {
-            path: "/workspace/:workspaceId/capabilities/:capabilityId/edit",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/edit",
             name: "capabilities.edit",
             component: CapabilitiesEditView
         },
         {
-            path: "/workspace/:workspaceId/controlled-properties",
-            name: "controlledProperties.index",
-            component: ControlledPropertiesIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/controlled-properties/create",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/create",
             name: "controlledProperties.create",
             component: ControlledPropertiesCreateView
         },
         {
-            path: "/workspace/:workspaceId/controlled-properties/:controlledPropertyId",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/:controlledPropertyId",
             name: "controlledProperties.show",
             component: ControlledPropertiesShowView
         },
         {
-            path: "/workspace/:workspaceId/controlled-properties/:controlledPropertyId/edit",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/:controlledPropertyId/edit",
             name: "controlledProperties.edit",
             component: ControlledPropertiesEditView
         },
         {
-            path: "/workspace/:workspaceId/routings",
-            name: "routings.index",
-            component: RoutingsIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/routings/create",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/create",
             name: "routings.create",
             component: RoutingsCreateView
         },
         {
-            path: "/workspace/:workspaceId/routings/:routingId",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId",
             name: "routings.show",
             component: RoutingsShowView
         },
         {
-            path: "/workspace/:workspaceId/routings/:routingId/edit",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/edit",
             name: "routings.edit",
             component: RoutingsEditView
         },
         {
-            path: "/workspace/:workspaceId/routing-operations",
-            name: "routingOperations.index",
-            component: RoutingOperationsIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/routing-operations/create",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/create",
             name: "routingOperations.create",
             component: RoutingOperationsCreateView
         },
         {
-            path: "/workspace/:workspaceId/routing-operations/:routingOperationId",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/:routingOperationId",
             name: "routingOperations.show",
             component: RoutingOperationsShowView
         },
         {
-            path: "/workspace/:workspaceId/routing-operations/:routingOperationId/edit",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/:routingOperationId/edit",
             name: "routingOperations.edit",
             component: RoutingOperationsEditView
         },
         {
-            path: "/workspace/:workspaceId/routing-operation-controls",
-            name: "routingOperationControls.index",
-            component: RoutingOperationControlsIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/routing-operation-controls/create",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/:routingOperationId/routing-operation-controls/create",
             name: "routingOperationControls.create",
             component: RoutingOperationControlsCreateView
         },
         {
-            path: "/workspace/:workspaceId/routing-operation-controls/:routingOperationControlId",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/:routingOperationId/routing-operation-controls/:routingOperationControlId",
             name: "routingOperationControls.show",
             component: RoutingOperationControlsShowView
         },
         {
-            path: "/workspace/:workspaceId/routing-operation-controls/:routingOperationControlId/edit",
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/:routingId/routing-operations/:routingOperationId/routing-operation-controls/:routingOperationControlId/edit",
             name: "routingOperationControls.edit",
             component: RoutingOperationControlsEditView
         },

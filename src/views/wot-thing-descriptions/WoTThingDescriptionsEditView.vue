@@ -49,7 +49,7 @@ export default {
         <div class="card">
             <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_thing_description")) }}</div>
             <div class="card-body">
-                <WoTThingDescriptionForm :wot-thing-description-prop="woTThingDescription" />
+                <WoTThingDescriptionForm :wo-t-thing-description-prop="woTThingDescription" />
             </div>
         </div>
     </div>

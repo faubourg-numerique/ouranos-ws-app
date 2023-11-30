@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getRoutingOperations(state) {
-            return workspaceId => {
+            return (workspaceId, routingId) => {
                 if (!(workspaceId in state.routingOperations)) return [];
-                return state.routingOperations[workspaceId];
+                return Object.values(state.routingOperations[workspaceId]).filter((routingOperation) => routingOperation.hasRouting === routingId);
             };
         },
         getRoutingOperation(state) {

@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getCapabilities(state) {
-            return workspaceId => {
+            return (workspaceId, woTThingDescriptionId) => {
                 if (!(workspaceId in state.capabilities)) return [];
-                return state.capabilities[workspaceId];
+                return Object.values(state.capabilities[workspaceId]).filter((capability) => capability.hasWoTThingDescription === woTThingDescriptionId);
             };
         },
         getCapability(state) {

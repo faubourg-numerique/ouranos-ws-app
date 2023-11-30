@@ -11,25 +11,39 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
+        const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
+        this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
+
         const routingId = this.$route.params.routingId;
         this.routing = this.$store.getters["routings/getRouting"](workspaceId, routingId);
 
         this.breadcrumbItems = [
             {
-                name: this.Utils.capitalize(this.$t("main.routings")),
+                name: this.Utils.capitalize(this.$t("main.wot_thing_descriptions")),
                 route: {
-                    name: "routings.index",
+                    name: "woTThingDescriptions.index",
                     params: {
                         workspaceId: this.workspace.id
                     }
                 }
             },
             {
-                name: this.Utils.capitalize(this.$t("main.routing")),
+                name: this.woTThingDescription.name,
+                route: {
+                    name: "woTThingDescriptions.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id
+                    }
+                }
+            },
+            {
+                name: this.routing.name,
                 route: {
                     name: "routings.show",
                     params: {
                         workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id,
                         routingId: this.routing.id
                     }
                 }

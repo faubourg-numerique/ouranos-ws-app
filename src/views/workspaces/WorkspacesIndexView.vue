@@ -30,7 +30,13 @@ export default {
                     this.$store.dispatch("dataServiceActions/fetchDataServiceActions", workspaceId),
                     this.$store.dispatch("dataServiceProperties/fetchDataServiceProperties", workspaceId),
                     this.$store.dispatch("dataServiceOffers/fetchDataServiceOffers", workspaceId),
-                    this.$store.dispatch("dataServiceAccesses/fetchDataServiceAccesses", workspaceId)
+                    this.$store.dispatch("dataServiceAccesses/fetchDataServiceAccesses", workspaceId),
+                    this.$store.dispatch("capabilities/fetchCapabilities", workspaceId),
+                    this.$store.dispatch("controlledProperties/fetchControlledProperties", workspaceId),
+                    this.$store.dispatch("routings/fetchRoutings", workspaceId),
+                    this.$store.dispatch("routingOperations/fetchRoutingOperations", workspaceId),
+                    this.$store.dispatch("routingOperationControls/fetchRoutingOperationControls", workspaceId),
+                    this.$store.dispatch("woTThingDescriptions/fetchWoTThingDescriptions", workspaceId)
                 ]);
                 this.$store.dispatch("openWorkspace", workspaceId);
                 this.$store.dispatch("setDisplayLoadingScreen", false);

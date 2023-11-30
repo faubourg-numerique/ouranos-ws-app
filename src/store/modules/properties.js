@@ -20,6 +20,19 @@ export default {
                 return state.properties[workspaceId][typeId][propertyId];
             };
         },
+        getPropertyById(state) {
+            return (workspaceId, propertyId) => {
+                if (!(workspaceId in state.properties)) return null;
+                for (const properties of Object.values(state.properties[workspaceId])) {
+                    for (const property of Object.values(properties)) {
+                        if (property.id === propertyId) {
+                            return property;
+                        }
+                    }
+                }
+                return null;
+            };
+        },
         getPropertyName(state) {
             return (workspaceId, typeId, propertyId) => {
                 if (!(workspaceId in state.properties)) return null;
@@ -35,6 +48,12 @@ export default {
                 }
 
                 return names.length === 1 ? names[0] : names;
+            };
+        },
+        getPropertiesByTypes(state) {
+            return (workspaceId) => {
+                if (!(workspaceId in state.properties)) return [];
+                return state.properties[workspaceId];
             };
         }
     },
