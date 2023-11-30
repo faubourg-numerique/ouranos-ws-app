@@ -144,13 +144,13 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.id")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.controlledProperty")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.controlled_property")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="routingOperationControl in routingOperationControls" :key="routingOperationControl.id">
                             <td>
-                                <RouterLink :to="{ name: 'routingOperations.show', params: { routingOperationControlId: routingOperationControl.id } }">{{ routingOperationControl.id }}</RouterLink>
+                                <RouterLink :to="{ name: 'routingOperationControls.show', params: { routingOperationControlId: routingOperationControl.id } }">{{ routingOperationControl.id }}</RouterLink>
                             </td>
                             <td>
                                 <RouterLink :to="{ name: 'controlledProperties.show', params: { capabilityId: $store.getters['routingOperations/getRoutingOperation'](workspace.id, routingOperationControl.hasRoutingOperation).hasCapability, controlledPropertyId: routingOperationControl.hasControlledProperty } }">{{ $store.getters["controlledProperties/getControlledProperty"](workspace.id, routingOperationControl.hasControlledProperty).name }}</RouterLink>
