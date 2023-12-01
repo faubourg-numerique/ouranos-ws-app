@@ -737,7 +737,10 @@ export default {
         <div class="card-header d-flex justify-content-between align-items-center">
             <span>{{ type.name }}</span>
             <span>
-                <RouterLink v-if="entities" :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { typeId: type.id, activeTab: 'map' } }" class="btn btn-primary btn-sm">
+                <RouterLink v-if="entities" :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { typeId: type.id, activeTab: 'subscriptions' } }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-bell" />
+                </RouterLink>
+                <RouterLink v-if="entities" :to="{ name: 'workspace', params: { workspaceId: workspace.id }, query: { typeId: type.id, activeTab: 'map' } }" class="btn btn-primary btn-sm ms-3">
                     <i class="fa-solid fa-map-location-dot" />
                 </RouterLink>
                 <button v-if="entities && $authorization.canStoreEntity(workspace.id)" class="btn btn-primary btn-sm ms-3" data-bs-toggle="modal" data-bs-target="#import-export-modal">
