@@ -104,8 +104,8 @@ export default {
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
                 <dl class="row mb-0">
-                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.id")) }}</dt>
-                    <dd class="col-sm-8">{{ capability.id }}</dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.id")) }}</dt>
+                    <dd class="col-sm-9">{{ capability.id }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.name")) }}</dt>
                     <dd class="col-sm-9">{{ capability.name }}</dd>
                     <template v-if="capability.description">
