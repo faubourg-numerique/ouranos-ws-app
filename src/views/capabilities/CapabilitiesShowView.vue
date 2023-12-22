@@ -78,6 +78,9 @@ export default {
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$router.push({ name: "woTThingDescriptions.show" });
+        },
+        property(workspaceId, propertyId) {
+            return this.$store.getters["properties/getPropertyById"](workspaceId, propertyId);
         }
     }
 };
@@ -126,6 +129,9 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.property")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.capacity_type")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.capacity_value")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,6 +139,11 @@ export default {
                             <td>
                                 <RouterLink :to="{ name: 'controlledProperties.show', params: { controlledPropertyId: controlledProperty.id } }">{{ controlledProperty.name }}</RouterLink>
                             </td>
+                            <td>
+                                <RouterLink :to="{ name: 'properties.show', params: { workspaceId: workspace.id, typeId: property(workspace.id, controlledProperty.hasProperty).hasType, propertyId: controlledProperty.hasProperty } }">{{ property(workspace.id, controlledProperty.hasProperty).name }}</RouterLink>
+                            </td>
+                            <td>{{ controlledProperty.capacityType }}</td>
+                            <td>{{ controlledProperty.capacityValue }}</td>
                         </tr>
                     </tbody>
                 </table>
