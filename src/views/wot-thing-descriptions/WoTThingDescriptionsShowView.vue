@@ -148,7 +148,7 @@ export default {
             </div>
             <div class="card-body">
                 <ApiErrorAlert v-if="error" :error="error" />
-                <div v-if="!Object.values(woTActions).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_woTAction") }}</div>
+                <div v-if="!Object.values(woTActions).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_wot_action") }}</div>
                 <table v-else class="table align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
