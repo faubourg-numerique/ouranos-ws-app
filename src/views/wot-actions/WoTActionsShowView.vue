@@ -149,7 +149,7 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ woTAction.id }}</span>
+                <span>{{ woTAction.name }}</span>
                 <span>
                     <RouterLink v-if="$authorization.canUpdateWoTAction(workspace.id, woTAction.id)" :to="{ name: 'woTActions.edit', params: { name: woTAction.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
