@@ -56,7 +56,7 @@ export default {
     methods: {
         async destroyWoTProperty() {
             const result = await this.$swal.fire({
-                title: this.$t("dialogs.wot_property_deletion_question"),
+                title: this.$t("dialogs.property_deletion_question"),
                 icon: "question",
                 showDenyButton: true,
                 confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
@@ -73,7 +73,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.wot_property_deletion_failure"),
+                    title: this.$t("dialogs.property_deletion_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -91,7 +91,7 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ woTProperty.id }}</span>
+                <span>{{ woTProperty.name }}</span>
                 <span>
                     <RouterLink v-if="$authorization.canUpdateWoTProperty(workspace.id, woTProperty.id)" :to="{ name: 'woTProperties.edit', params: { name: woTProperty.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />

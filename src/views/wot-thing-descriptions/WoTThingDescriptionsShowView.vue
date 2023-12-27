@@ -81,7 +81,7 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ woTThingDescription.id }}</span>
+                <span>{{ woTThingDescription.name }}</span>
                 <span>
                     <RouterLink v-if="$authorization.canUpdateWoTThingDescription(workspace.id, woTThingDescription.id)" :to="{ name: 'woTThingDescriptions.edit', params: { name: woTThingDescription.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
@@ -107,7 +107,7 @@ export default {
         </div>
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ Utils.capitalize($t("main.wot_properties")) }}</span>
+                <span>{{ Utils.capitalize($t("main.properties")) }}</span>
                 <RouterLink v-if="$authorization.canStoreWoTProperty(workspace.id)" :to="{ name: 'woTProperties.create' }" class="btn btn-primary btn-sm">
                     <i class="fa-solid fa-plus" />
                 </RouterLink>
@@ -141,7 +141,7 @@ export default {
         </div>
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ Utils.capitalize($t("main.wot_actions")) }}</span>
+                <span>{{ Utils.capitalize($t("main.actions")) }}</span>
                 <RouterLink v-if="$authorization.canStoreWoTAction(workspace.id)" :to="{ name: 'woTActions.create', params: { woTThingDescriptionId: woTThingDescription.id } }" class="btn btn-primary btn-sm">
                     <i class="fa-solid fa-plus" />
                 </RouterLink>

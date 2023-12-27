@@ -44,7 +44,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.woTAction_creation_failure"),
+                    title: this.$t("dialogs.wot_action_creation_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -61,7 +61,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.woTAction_update_failure"),
+                    title: this.$t("dialogs.wot_action_update_failure"),
                     icon: "error",
                     heightAuto: false
                 });

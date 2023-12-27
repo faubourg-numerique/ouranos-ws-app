@@ -39,7 +39,7 @@ export default {
             },
             {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.create_a_wot_property"))
+                name: this.Utils.capitalize(this.$t("main.create_a_property"))
             }
         ];
     }
@@ -50,7 +50,7 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.create_a_wot_property")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.create_a_property")) }}</div>
             <div class="card-body">
                 <WoTPropertyForm />
             </div>

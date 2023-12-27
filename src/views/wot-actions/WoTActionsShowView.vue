@@ -62,7 +62,7 @@ export default {
     methods: {
         async destroyWoTAction() {
             const result = await this.$swal.fire({
-                title: this.$t("dialogs.woTAction_deletion_question"),
+                title: this.$t("dialogs.wot_action_deletion_question"),
                 icon: "question",
                 showDenyButton: true,
                 confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
@@ -79,7 +79,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.woTAction_deletion_failure"),
+                    title: this.$t("dialogs.wot_action_deletion_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -102,7 +102,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.wot_action_parameter_creation_failure"),
+                    title: this.$t("dialogs.property_creation_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -112,7 +112,7 @@ export default {
         },
         async destroyWoTActionParameter(woTActionParameter) {
             const result = await this.$swal.fire({
-                title: this.$t("dialogs.wot_action_parameter_deletion_question"),
+                title: this.$t("dialogs.property_deletion_question"),
                 icon: "question",
                 showDenyButton: true,
                 confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
@@ -174,7 +174,7 @@ export default {
             </div>
         </div>
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">{{ Utils.capitalize($t("main.wot_properties")) }}</div>
+            <div class="card-header d-flex justify-content-between align-items-center">{{ Utils.capitalize($t("main.properties")) }}</div>
             <div class="card-body">
                 <table class="table table-sm align-middle mb-0">
                     <thead>

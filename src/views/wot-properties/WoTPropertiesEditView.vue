@@ -64,7 +64,7 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_property")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_property")) }}</div>
             <div class="card-body">
                 <WoTPropertyForm :wo-t-property-prop="woTProperty" />
             </div>

@@ -61,7 +61,7 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_woTAction")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_action")) }}</div>
             <div class="card-body">
                 <WoTActionForm :woTAction-prop="woTAction" />
             </div>

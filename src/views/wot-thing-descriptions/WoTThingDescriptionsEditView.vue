@@ -25,7 +25,7 @@ export default {
                 }
             },
             {
-                name: this.Utils.capitalize(this.$t("main.wot_thing_description")),
+                name: this.woTThingDescription.name,
                 route: {
                     name: "woTThingDescriptions.show",
                     params: {

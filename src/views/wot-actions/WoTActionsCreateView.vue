@@ -36,7 +36,7 @@ export default {
             },
             {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.create_a_woTAction"))
+                name: this.Utils.capitalize(this.$t("main.create_a_wot_action"))
             }
         ];
     }
@@ -47,7 +47,7 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.create_a_woTAction")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.create_a_wot_action")) }}</div>
             <div class="card-body">
                 <WoTActionForm />
             </div>

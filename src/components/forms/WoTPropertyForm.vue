@@ -49,7 +49,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.wot_property_creation_failure"),
+                    title: this.$t("dialogs.property_creation_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -66,7 +66,7 @@ export default {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.wot_property_update_failure"),
+                    title: this.$t("dialogs.property_update_failure"),
                     icon: "error",
                     heightAuto: false
                 });
