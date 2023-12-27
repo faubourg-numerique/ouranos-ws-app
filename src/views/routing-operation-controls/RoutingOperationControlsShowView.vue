@@ -128,12 +128,12 @@ export default {
                 <dl class="row mb-0">
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.id")) }}</dt>
                     <dd class="col-sm-9">{{ routingOperationControl.id }}</dd>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.controlled_property")) }}</dt>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.wot_property")) }}</dt>
                     <dd class="col-sm-9">
-                        <RouterLink :to="{ name: 'controlledProperties.show', params: { capabilityId: $store.getters['routingOperations/getRoutingOperation'](workspace.id, routingOperationControl.hasRoutingOperation).hasCapability, controlledPropertyId: routingOperationControl.hasControlledProperty } }">{{ $store.getters["controlledProperties/getControlledProperty"](workspace.id, routingOperationControl.hasControlledProperty).name }}</RouterLink>
+                        <RouterLink :to="{ name: 'woTProperties.show', params: { woTPropertyId: routingOperationControl.hasWoTProperty } }">{{ $store.getters["woTProperties/getWoTProperty"](workspace.id, routingOperationControl.hasWoTProperty).name }}</RouterLink>
                     </dd>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.controlled_property_value")) }}</dt>
-                    <dd class="col-sm-9">{{ routingOperationControl.controlledPropertyValue }}</dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.wot_property_value")) }}</dt>
+                    <dd class="col-sm-9">{{ routingOperationControl.woTPropertyValue }}</dd>
                 </dl>
             </div>
         </div>

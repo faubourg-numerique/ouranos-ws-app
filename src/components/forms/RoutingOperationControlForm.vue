@@ -36,7 +36,7 @@ export default {
         this.routingOperationControl.hasWorkspace = this.workspace.id;
         this.routingOperationControl.hasRoutingOperation = this.routingOperation.id;
 
-        this.controlledProperties = this.$store.getters["controlledProperties/getControlledProperties"](workspaceId, this.routingOperation.hasCapability);
+        this.woTProperties = this.$store.getters["woTProperties/getWoTProperties"](workspaceId, this.woTThingDescription.id);
 
         if (this.routingOperationControlProp) {
             this.update = true;
@@ -86,14 +86,14 @@ export default {
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateRoutingOperationControl() : storeRoutingOperationControl()">
         <div class="mb-3">
-            <label for="controlled-property" class="form-label">{{ Utils.capitalize($t("main.controlled_property")) }}</label>
-            <select id="controlled-property" v-model="routingOperationControl.hasControlledProperty" class="form-select" required>
-                <option v-for="controlledProperty in controlledProperties" :key="controlledProperty.id" :value="controlledProperty.id">{{ controlledProperty.name }}</option>
+            <label for="wot-property" class="form-label">{{ Utils.capitalize($t("main.wot_property")) }}</label>
+            <select id="wot-property" v-model="routingOperationControl.hasWoTProperty" class="form-select" required>
+                <option v-for="woTProperty in woTProperties" :key="woTProperty.id" :value="woTProperty.id">{{ woTProperty.name }}</option>
             </select>
         </div>
         <div class="mb-3">
-            <label for="controlled-property-value" class="form-label">{{ Utils.capitalize($t("main.controlled_property_value")) }}</label>
-            <input id="controlled-property-value" v-model="routingOperationControl.controlledPropertyValue" type="text" class="form-control" required>
+            <label for="wot-property-value" class="form-label">{{ Utils.capitalize($t("main.wot_property_value")) }}</label>
+            <input id="wot-property-value" v-model="routingOperationControl.woTPropertyValue" type="text" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

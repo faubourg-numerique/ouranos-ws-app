@@ -27,8 +27,8 @@ import dataServiceOffers from "@/store/modules/data-service-offers";
 import dataServiceAccesses from "@/store/modules/data-service-accesses";
 import vcVerifiers from "@/store/modules/vc-verifiers";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
-import capabilities from "@/store/modules/capabilities";
-import controlledProperties from "@/store/modules/controlled-properties";
+import woTActions from "@/store/modules/wot-actions";
+import woTProperties from "@/store/modules/wot-properties";
 import routings from "@/store/modules/routings";
 import routingOperations from "@/store/modules/routing-operations";
 import routingOperationControls from "@/store/modules/routing-operation-controls";
@@ -104,8 +104,8 @@ export default createStore({
         dataServiceAccesses,
         vcVerifiers,
         googleSheetsProxy,
-        capabilities,
-        controlledProperties,
+        woTActions,
+        woTProperties,
         routings,
         routingOperations,
         routingOperationControls,

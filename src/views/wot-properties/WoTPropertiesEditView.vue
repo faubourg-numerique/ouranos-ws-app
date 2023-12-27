@@ -1,11 +1,11 @@
 <script>
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import CapabilityForm from "@/components/forms/CapabilityForm";
+import WoTPropertyForm from "@/components/forms/WoTPropertyForm";
 
 export default {
     components: {
         BreadcrumbNav,
-        CapabilityForm
+        WoTPropertyForm
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -13,6 +13,12 @@ export default {
 
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
+
+        const woTActionId = this.$route.params.woTActionId;
+        this.woTAction = this.$store.getters["woTActions/getWoTAction"](workspaceId, woTActionId);
+
+        const woTPropertyId = this.$route.params.woTPropertyId;
+        this.woTProperty = this.$store.getters["woTProperties/getWoTProperty"](workspaceId, woTPropertyId);
 
         this.breadcrumbItems = [
             {
@@ -35,8 +41,19 @@ export default {
                 }
             },
             {
+                name: this.woTProperty.name,
+                route: {
+                    name: "woTProperties.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id,
+                        woTPropertyId: this.woTProperty.id
+                    }
+                }
+            },
+            {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.create_a_capability"))
+                name: this.Utils.capitalize(this.$t("main.edit"))
             }
         ];
     }
@@ -47,9 +64,9 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.create_a_capability")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_property")) }}</div>
             <div class="card-body">
-                <CapabilityForm />
+                <WoTPropertyForm :wo-t-property-prop="woTProperty" />
             </div>
         </div>
     </div>

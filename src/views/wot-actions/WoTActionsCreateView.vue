@@ -1,11 +1,11 @@
 <script>
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import ControlledPropertyForm from "@/components/forms/ControlledPropertyForm";
+import WoTActionForm from "@/components/forms/WoTActionForm";
 
 export default {
     components: {
         BreadcrumbNav,
-        ControlledPropertyForm
+        WoTActionForm
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -13,9 +13,6 @@ export default {
 
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
-
-        const capabilityId = this.$route.params.capabilityId;
-        this.capability = this.$store.getters["capabilities/getCapability"](workspaceId, capabilityId);
 
         this.breadcrumbItems = [
             {
@@ -38,19 +35,8 @@ export default {
                 }
             },
             {
-                name: this.capability.name,
-                route: {
-                    name: "capabilities.show",
-                    params: {
-                        workspaceId: this.workspace.id,
-                        woTThingDescriptionId: this.woTThingDescription.id,
-                        capabilityId: this.capability.id
-                    }
-                }
-            },
-            {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.create_a_controlled_property"))
+                name: this.Utils.capitalize(this.$t("main.create_a_woTAction"))
             }
         ];
     }
@@ -61,9 +47,9 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.create_a_controlled_property")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.create_a_woTAction")) }}</div>
             <div class="card-body">
-                <ControlledPropertyForm />
+                <WoTActionForm />
             </div>
         </div>
     </div>

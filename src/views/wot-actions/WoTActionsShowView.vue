@@ -19,10 +19,8 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
-        const routingId = this.$route.params.routingId;
-        this.routing = this.$store.getters["routings/getRouting"](this.workspace.id, routingId);
-
-        this.routingOperations = this.$store.getters["routingOperations/getRoutingOperations"](this.workspace.id, this.routing.id);
+        const woTActionId = this.$route.params.woTActionId;
+        this.woTAction = this.$store.getters["woTActions/getWoTAction"](this.workspace.id, woTActionId);
 
         this.breadcrumbItems = [
             {
@@ -46,14 +44,14 @@ export default {
             },
             {
                 active: true,
-                name: this.routing.name
+                name: this.woTAction.name
             }
         ];
     },
     methods: {
-        async destroyRouting() {
+        async destroyWoTAction() {
             const result = await this.$swal.fire({
-                title: this.$t("dialogs.routing_deletion_question"),
+                title: this.$t("dialogs.woTAction_deletion_question"),
                 icon: "question",
                 showDenyButton: true,
                 confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
@@ -65,12 +63,12 @@ export default {
             }
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                await this.$store.dispatch("routings/destroyRouting", { workspaceId: this.workspace.id, routing: this.routing });
+                await this.$store.dispatch("woTActions/destroyWoTAction", { workspaceId: this.workspace.id, woTAction: this.woTAction });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.routing_deletion_failure"),
+                    title: this.$t("dialogs.woTAction_deletion_failure"),
                     icon: "error",
                     heightAuto: false
                 });
@@ -86,14 +84,14 @@ export default {
 <template>
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
-        <div class="card mb-4">
+        <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ routing.id }}</span>
+                <span>{{ woTAction.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateRouting(workspace.id, routing.id)" :to="{ name: 'routings.edit', params: { name: routing.id } }" class="btn btn-primary btn-sm">
+                    <RouterLink v-if="$authorization.canUpdateWoTAction(workspace.id, woTAction.id)" :to="{ name: 'woTActions.edit', params: { name: woTAction.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyRouting(workspace.id, routing.id)" class="btn btn-danger btn-sm ms-3" @click="destroyRouting">
+                    <button v-if="$authorization.canDestroyWoTAction(workspace.id, woTAction.id)" class="btn btn-danger btn-sm ms-3" @click="destroyWoTAction">
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>
@@ -102,44 +100,14 @@ export default {
                 <ApiErrorAlert v-if="error" :error="error" />
                 <dl class="row mb-0">
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.id")) }}</dt>
-                    <dd class="col-sm-9">{{ routing.id }}</dd>
+                    <dd class="col-sm-9">{{ woTAction.id }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.name")) }}</dt>
-                    <dd class="col-sm-9">{{ routing.name }}</dd>
-                    <template v-if="routing.description">
+                    <dd class="col-sm-9">{{ woTAction.name }}</dd>
+                    <template v-if="woTAction.description">
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
-                        <dd class="col-sm-9">{{ routing.description }}</dd>
+                        <dd class="col-sm-9">{{ woTAction.description }}</dd>
                     </template>
                 </dl>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ Utils.capitalize($t("main.routing_operations")) }}</span>
-                <RouterLink v-if="$authorization.canStoreRoutingOperation(workspace.id)" :to="{ name: 'routingOperations.create' }" class="btn btn-primary btn-sm">
-                    <i class="fa-solid fa-plus" />
-                </RouterLink>
-            </div>
-            <div class="card-body">
-                <ApiErrorAlert v-if="error" :error="error" />
-                <div v-if="!Object.values(routingOperations).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_routing_operation") }}</div>
-                <table v-else class="table align-middle mb-0">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>{{ Utils.capitalize($t("main.sequence_number")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.woTAction")) }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="routingOperation in routingOperations" :key="routingOperation.id">
-                            <td>
-                                <RouterLink :to="{ name: 'routingOperations.show', params: { routingOperationId: routingOperation.id } }">{{ routingOperation.sequenceNumber }}</RouterLink>
-                            </td>
-                            <td>
-                                <RouterLink :to="{ name: 'woTActions.show', params: { woTActionId: routingOperation.hasWoTAction } }">{{ $store.getters["woTActions/getWoTAction"](workspace.id, routingOperation.hasWoTAction).name }}</RouterLink>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

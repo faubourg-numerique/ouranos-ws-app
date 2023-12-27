@@ -123,9 +123,9 @@ export default {
                     <dd class="col-sm-9">{{ routingOperation.timerBefore }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.timer_after")) }}</dt>
                     <dd class="col-sm-9">{{ routingOperation.timerAfter }}</dd>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.capability")) }}</dt>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.woTAction")) }}</dt>
                     <dd class="col-sm-9">
-                        <RouterLink :to="{ name: 'capabilities.show', params: { capabilityId: routingOperation.hasCapability } }">{{ $store.getters["capabilities/getCapability"](workspace.id, routingOperation.hasCapability).name }}</RouterLink>
+                        <RouterLink :to="{ name: 'woTActions.show', params: { woTActionId: routingOperation.hasWoTAction } }">{{ $store.getters["woTActions/getWoTAction"](workspace.id, routingOperation.hasWoTAction).name }}</RouterLink>
                     </dd>
                 </dl>
             </div>
@@ -144,7 +144,7 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.id")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.controlled_property")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.wot_property")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -153,7 +153,7 @@ export default {
                                 <RouterLink :to="{ name: 'routingOperationControls.show', params: { routingOperationControlId: routingOperationControl.id } }">{{ routingOperationControl.id }}</RouterLink>
                             </td>
                             <td>
-                                <RouterLink :to="{ name: 'controlledProperties.show', params: { capabilityId: $store.getters['routingOperations/getRoutingOperation'](workspace.id, routingOperationControl.hasRoutingOperation).hasCapability, controlledPropertyId: routingOperationControl.hasControlledProperty } }">{{ $store.getters["controlledProperties/getControlledProperty"](workspace.id, routingOperationControl.hasControlledProperty).name }}</RouterLink>
+                                <RouterLink :to="{ name: 'woTProperties.show', params: { woTPropertyId: routingOperationControl.hasWoTProperty } }">{{ $store.getters["woTProperties/getWoTProperty"](workspace.id, routingOperationControl.hasWoTProperty).name }}</RouterLink>
                             </td>
                         </tr>
                     </tbody>

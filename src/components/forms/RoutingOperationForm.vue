@@ -33,7 +33,7 @@ export default {
         this.routingOperation.hasWorkspace = this.workspace.id;
         this.routingOperation.hasRouting = this.routing.id;
 
-        this.capabilities = this.$store.getters["capabilities/getCapabilities"](workspaceId, this.woTThingDescription.id);
+        this.woTActions = this.$store.getters["woTActions/getWoTActions"](workspaceId, this.woTThingDescription.id);
 
         if (this.routingOperationProp) {
             this.update = true;
@@ -95,9 +95,9 @@ export default {
             <input id="timer-after" v-model="routingOperation.timerAfter" type="number" min="0" step="1" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="capability" class="form-label">{{ Utils.capitalize($t("main.capability")) }}</label>
-            <select id="capability" v-model="routingOperation.hasCapability" class="form-select" required>
-                <option v-for="capability in capabilities" :key="capability.id" :value="capability.id">{{ capability.name }}</option>
+            <label for="woTAction" class="form-label">{{ Utils.capitalize($t("main.woTAction")) }}</label>
+            <select id="woTAction" v-model="routingOperation.hasWoTAction" class="form-select" required>
+                <option v-for="woTAction in woTActions" :key="woTAction.id" :value="woTAction.id">{{ woTAction.name }}</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>

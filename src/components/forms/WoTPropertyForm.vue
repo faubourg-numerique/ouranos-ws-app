@@ -7,7 +7,7 @@ export default {
         ApiErrorAlert
     },
     props: {
-        controlledPropertyProp: {
+        woTPropertyProp: {
             type: Object,
             default: null
         }
@@ -16,7 +16,7 @@ export default {
         return {
             error: null,
             update: false,
-            controlledProperty: {
+            woTProperty: {
             }
         };
     },
@@ -27,53 +27,53 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
-        const capabilityId = this.$route.params.capabilityId;
-        this.capability = this.$store.getters["capabilities/getCapability"](workspaceId, capabilityId);
+        const woTActionId = this.$route.params.woTActionId;
+        this.woTAction = this.$store.getters["woTActions/getWoTAction"](workspaceId, woTActionId);
 
-        this.controlledProperty.hasWorkspace = this.workspace.id;
-        this.controlledProperty.hasCapability = this.capability.id;
+        this.woTProperty.hasWoTThingDescription = this.woTThingDescription.id;
+        this.woTProperty.hasWorkspace = this.workspace.id;
 
         this.propertiesByTypes = this.$store.getters["properties/getPropertiesByTypes"](this.workspace.id);
 
-        if (this.controlledPropertyProp) {
+        if (this.woTPropertyProp) {
             this.update = true;
-            Object.assign(this.controlledProperty, this.controlledPropertyProp);
+            Object.assign(this.woTProperty, this.woTPropertyProp);
         }
     },
     methods: {
-        async storeControlledProperty() {
+        async storeWoTProperty() {
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                this.controlledProperty = await this.$store.dispatch("controlledProperties/storeControlledProperty", { workspaceId: this.workspace.id, controlledProperty: this.controlledProperty });
+                this.woTProperty = await this.$store.dispatch("woTProperties/storeWoTProperty", { workspaceId: this.workspace.id, woTProperty: this.woTProperty });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.controlled_property_creation_failure"),
+                    title: this.$t("dialogs.wot_property_creation_failure"),
                     icon: "error",
                     heightAuto: false
                 });
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$router.push({ name: "controlledProperties.show", params: { controlledPropertyId: this.controlledProperty.id } });
+            this.$router.push({ name: "woTProperties.show", params: { woTPropertyId: this.woTProperty.id } });
         },
-        async updateControlledProperty() {
+        async updateWoTProperty() {
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                await this.$store.dispatch("controlledProperties/updateControlledProperty", { workspaceId: this.workspace.id, controlledProperty: this.controlledProperty });
+                await this.$store.dispatch("woTProperties/updateWoTProperty", { workspaceId: this.workspace.id, woTProperty: this.woTProperty });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.controlled_property_update_failure"),
+                    title: this.$t("dialogs.wot_property_update_failure"),
                     icon: "error",
                     heightAuto: false
                 });
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$router.push({ name: "controlledProperties.show", params: { controlledPropertyId: this.controlledProperty.id } });
+            this.$router.push({ name: "woTProperties.show", params: { woTPropertyId: this.woTProperty.id } });
         }
     }
 };
@@ -81,18 +81,18 @@ export default {
 
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
-    <form @submit.prevent="update ? updateControlledProperty() : storeControlledProperty()">
+    <form @submit.prevent="update ? updateWoTProperty() : storeWoTProperty()">
         <div class="mb-3">
             <label for="name" class="form-label">{{ Utils.capitalize($t("main.name")) }}</label>
-            <input id="name" v-model="controlledProperty.name" v-focus type="text" class="form-control" required>
+            <input id="name" v-model="woTProperty.name" v-focus type="text" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
-            <textarea id="description" v-model="controlledProperty.description" class="form-control" rows="3" />
+            <textarea id="description" v-model="woTProperty.description" class="form-control" rows="3" />
         </div>
         <div class="mb-3">
             <label for="capacity-type" class="form-label">{{ Utils.capitalize($t("main.capacity_type")) }}</label>
-            <select id="capacity-type" v-model="controlledProperty.capacityType" class="form-select" required>
+            <select id="capacity-type" v-model="woTProperty.capacityType" class="form-select" required>
                 <option value="FixedValue">FixedValue</option>
                 <option value="ListOfValues">ListOfValues</option>
                 <option value="Range">Range</option>
@@ -101,11 +101,11 @@ export default {
         </div>
         <div class="mb-3">
             <label for="capacity-value" class="form-label">{{ Utils.capitalize($t("main.capacity_value")) }}</label>
-            <textarea id="capacity-value" v-model="controlledProperty.capacityValue" class="form-control" rows="3" required />
+            <textarea id="capacity-value" v-model="woTProperty.capacityValue" class="form-control" rows="3" required />
         </div>
         <div class="mb-3">
             <label for="property" class="form-label">{{ Utils.capitalize($t("main.property")) }}</label>
-            <select id="property" v-model="controlledProperty.hasProperty" class="form-select" required>
+            <select id="property" v-model="woTProperty.hasProperty" class="form-select" required>
                 <template v-for="(properties, typeId) in propertiesByTypes" :key="typeId">
                     <option v-for="property in properties" :key="property.id" :value="property.id">{{ $store.getters["types/getType"](workspace.id, typeId).name }} / {{ property.name }}</option>
                 </template>

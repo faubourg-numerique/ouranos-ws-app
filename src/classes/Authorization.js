@@ -966,72 +966,72 @@ export class Authorization {
         return false;
     }
 
-    canStoreCapability(workspaceId) {
+    canStoreWoTAction(workspaceId) {
         if (!this.permissions.POST) {
             return false;
         }
         for (const pattern of this.permissions.POST) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-actions`)) {
                 return true;
             }
         }
         return false;
     }
 
-    canUpdateCapability(workspaceId, capabilityId) {
+    canUpdateWoTAction(workspaceId, woTActionId) {
         if (!this.permissions.PUT) {
             return false;
         }
         for (const pattern of this.permissions.PUT) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities/${capabilityId}`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-actions/${woTActionId}`)) {
                 return true;
             }
         }
         return false;
     }
 
-    canDestroyCapability(workspaceId, capabilityId) {
+    canDestroyWoTAction(workspaceId, woTActionId) {
         if (!this.permissions.DELETE) {
             return false;
         }
         for (const pattern of this.permissions.DELETE) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/capabilities/${capabilityId}`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-actions/${woTActionId}`)) {
                 return true;
             }
         }
         return false;
     }
 
-    canStoreControlledProperty(workspaceId) {
+    canStoreWoTProperty(workspaceId) {
         if (!this.permissions.POST) {
             return false;
         }
         for (const pattern of this.permissions.POST) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-properties`)) {
                 return true;
             }
         }
         return false;
     }
 
-    canUpdateControlledProperty(workspaceId, controlledPropertyId) {
+    canUpdateWoTProperty(workspaceId, woTPropertyId) {
         if (!this.permissions.PUT) {
             return false;
         }
         for (const pattern of this.permissions.PUT) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties/${controlledPropertyId}`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-properties/${woTPropertyId}`)) {
                 return true;
             }
         }
         return false;
     }
 
-    canDestroyControlledProperty(workspaceId, controlledPropertyId) {
+    canDestroyWoTProperty(workspaceId, woTPropertyId) {
         if (!this.permissions.DELETE) {
             return false;
         }
         for (const pattern of this.permissions.DELETE) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/controlled-properties/${controlledPropertyId}`)) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-properties/${woTPropertyId}`)) {
                 return true;
             }
         }

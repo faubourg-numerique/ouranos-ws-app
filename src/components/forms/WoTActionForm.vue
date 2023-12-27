@@ -7,7 +7,7 @@ export default {
         ApiErrorAlert
     },
     props: {
-        capabilityProp: {
+        woTActionProp: {
             type: Object,
             default: null
         }
@@ -16,7 +16,7 @@ export default {
         return {
             error: null,
             update: false,
-            capability: {
+            woTAction: {
             }
         };
     },
@@ -27,48 +27,48 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
-        this.capability.hasWorkspace = this.workspace.id;
-        this.capability.hasWoTThingDescription = this.woTThingDescription.id;
+        this.woTAction.hasWorkspace = this.workspace.id;
+        this.woTAction.hasWoTThingDescription = this.woTThingDescription.id;
 
-        if (this.capabilityProp) {
+        if (this.woTActionProp) {
             this.update = true;
-            Object.assign(this.capability, this.capabilityProp);
+            Object.assign(this.woTAction, this.woTActionProp);
         }
     },
     methods: {
-        async storeCapability() {
+        async storeWoTAction() {
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                this.capability = await this.$store.dispatch("capabilities/storeCapability", { workspaceId: this.workspace.id, capability: this.capability });
+                this.woTAction = await this.$store.dispatch("woTActions/storeWoTAction", { workspaceId: this.workspace.id, woTAction: this.woTAction });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.capability_creation_failure"),
+                    title: this.$t("dialogs.woTAction_creation_failure"),
                     icon: "error",
                     heightAuto: false
                 });
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$router.push({ name: "capabilities.show", params: { capabilityId: this.capability.id } });
+            this.$router.push({ name: "woTActions.show", params: { woTActionId: this.woTAction.id } });
         },
-        async updateCapability() {
+        async updateWoTAction() {
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                await this.$store.dispatch("capabilities/updateCapability", { workspaceId: this.workspace.id, capability: this.capability });
+                await this.$store.dispatch("woTActions/updateWoTAction", { workspaceId: this.workspace.id, woTAction: this.woTAction });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.capability_update_failure"),
+                    title: this.$t("dialogs.woTAction_update_failure"),
                     icon: "error",
                     heightAuto: false
                 });
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$router.push({ name: "capabilities.show", params: { capabilityId: this.capability.id } });
+            this.$router.push({ name: "woTActions.show", params: { woTActionId: this.woTAction.id } });
         }
     }
 };
@@ -76,14 +76,14 @@ export default {
 
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
-    <form @submit.prevent="update ? updateCapability() : storeCapability()">
+    <form @submit.prevent="update ? updateWoTAction() : storeWoTAction()">
         <div class="mb-3">
             <label for="name" class="form-label">{{ Utils.capitalize($t("main.name")) }}</label>
-            <input id="name" v-model="capability.name" v-focus type="text" class="form-control" required>
+            <input id="name" v-model="woTAction.name" v-focus type="text" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
-            <textarea id="description" v-model="capability.description" class="form-control" rows="3" />
+            <textarea id="description" v-model="woTAction.description" class="form-control" rows="3" />
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

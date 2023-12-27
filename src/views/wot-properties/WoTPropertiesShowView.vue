@@ -19,13 +19,13 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
-        const capabilityId = this.$route.params.capabilityId;
-        this.capability = this.$store.getters["capabilities/getCapability"](workspaceId, capabilityId);
+        const woTActionId = this.$route.params.woTActionId;
+        this.woTAction = this.$store.getters["woTActions/getWoTAction"](workspaceId, woTActionId);
 
-        const controlledPropertyId = this.$route.params.controlledPropertyId;
-        this.controlledProperty = this.$store.getters["controlledProperties/getControlledProperty"](this.workspace.id, controlledPropertyId);
+        const woTPropertyId = this.$route.params.woTPropertyId;
+        this.woTProperty = this.$store.getters["woTProperties/getWoTProperty"](this.workspace.id, woTPropertyId);
 
-        this.property = this.$store.getters["properties/getPropertyById"](this.workspace.id, this.controlledProperty.hasProperty);
+        this.property = this.$store.getters["properties/getPropertyById"](this.workspace.id, this.woTProperty.hasProperty);
 
         this.breadcrumbItems = [
             {
@@ -48,26 +48,15 @@ export default {
                 }
             },
             {
-                name: this.capability.name,
-                route: {
-                    name: "capabilities.show",
-                    params: {
-                        workspaceId: this.workspace.id,
-                        woTThingDescriptionId: this.woTThingDescription.id,
-                        capabilityId: this.capability.id
-                    }
-                }
-            },
-            {
                 active: true,
-                name: this.controlledProperty.name
+                name: this.woTProperty.name
             }
         ];
     },
     methods: {
-        async destroyControlledProperty() {
+        async destroyWoTProperty() {
             const result = await this.$swal.fire({
-                title: this.$t("dialogs.controlled_property_deletion_question"),
+                title: this.$t("dialogs.wot_property_deletion_question"),
                 icon: "question",
                 showDenyButton: true,
                 confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
@@ -79,19 +68,19 @@ export default {
             }
             this.$store.dispatch("setDisplayLoadingScreen", true);
             try {
-                await this.$store.dispatch("controlledProperties/destroyControlledProperty", { workspaceId: this.workspace.id, controlledProperty: this.controlledProperty });
+                await this.$store.dispatch("woTProperties/destroyWoTProperty", { workspaceId: this.workspace.id, woTProperty: this.woTProperty });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
                 this.$swal.fire({
-                    title: this.$t("dialogs.controlled_property_deletion_failure"),
+                    title: this.$t("dialogs.wot_property_deletion_failure"),
                     icon: "error",
                     heightAuto: false
                 });
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$router.push({ name: "capabilities.show" });
+            this.$router.push({ name: "woTThingDescriptions.show", params: { woTThingDescriptionId: this.woTThingDescription.id } });
         }
     }
 };
@@ -102,12 +91,12 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ controlledProperty.id }}</span>
+                <span>{{ woTProperty.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateControlledProperty(workspace.id, controlledProperty.id)" :to="{ name: 'controlledProperties.edit', params: { name: controlledProperty.id } }" class="btn btn-primary btn-sm">
+                    <RouterLink v-if="$authorization.canUpdateWoTProperty(workspace.id, woTProperty.id)" :to="{ name: 'woTProperties.edit', params: { name: woTProperty.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyControlledProperty(workspace.id, controlledProperty.id)" class="btn btn-danger btn-sm ms-3" @click="destroyControlledProperty">
+                    <button v-if="$authorization.canDestroyWoTProperty(workspace.id, woTProperty.id)" class="btn btn-danger btn-sm ms-3" @click="destroyWoTProperty">
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>
@@ -116,17 +105,17 @@ export default {
                 <ApiErrorAlert v-if="error" :error="error" />
                 <dl class="row mb-0">
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.id")) }}</dt>
-                    <dd class="col-sm-9">{{ controlledProperty.id }}</dd>
+                    <dd class="col-sm-9">{{ woTProperty.id }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.name")) }}</dt>
-                    <dd class="col-sm-9">{{ controlledProperty.name }}</dd>
-                    <template v-if="controlledProperty.description">
+                    <dd class="col-sm-9">{{ woTProperty.name }}</dd>
+                    <template v-if="woTProperty.description">
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
-                        <dd class="col-sm-9">{{ controlledProperty.description }}</dd>
+                        <dd class="col-sm-9">{{ woTProperty.description }}</dd>
                     </template>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.capacity_type")) }}</dt>
-                    <dd class="col-sm-9">{{ controlledProperty.capacityType }}</dd>
+                    <dd class="col-sm-9">{{ woTProperty.capacityType }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.capacity_value")) }}</dt>
-                    <dd class="col-sm-9">{{ controlledProperty.capacityValue }}</dd>
+                    <dd class="col-sm-9">{{ woTProperty.capacityValue }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.property")) }}</dt>
                     <dd class="col-sm-9">
                         <RouterLink :to="{ name: 'properties.show', params: { typeId: property.hasType, propertyId: property.id } }">{{ property.name }}</RouterLink>

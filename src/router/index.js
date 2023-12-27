@@ -95,13 +95,13 @@ import DataServiceAccessesCreateView from "@/views/data-service-accesses/DataSer
 import DataServiceAccessesShowView from "@/views/data-service-accesses/DataServiceAccessesShowView";
 import DataServiceAccessesEditView from "@/views/data-service-accesses/DataServiceAccessesEditView";
 
-import CapabilitiesCreateView from "@/views/capabilities/CapabilitiesCreateView";
-import CapabilitiesShowView from "@/views/capabilities/CapabilitiesShowView";
-import CapabilitiesEditView from "@/views/capabilities/CapabilitiesEditView";
+import WoTActionsCreateView from "@/views/wot-actions/WoTActionsCreateView";
+import WoTActionsShowView from "@/views/wot-actions/WoTActionsShowView";
+import WoTActionsEditView from "@/views/wot-actions/WoTActionsEditView";
 
-import ControlledPropertiesCreateView from "@/views/controlled-properties/ControlledPropertiesCreateView";
-import ControlledPropertiesShowView from "@/views/controlled-properties/ControlledPropertiesShowView";
-import ControlledPropertiesEditView from "@/views/controlled-properties/ControlledPropertiesEditView";
+import WoTPropertiesCreateView from "@/views/wot-properties/WoTPropertiesCreateView";
+import WoTPropertiesShowView from "@/views/wot-properties/WoTPropertiesShowView";
+import WoTPropertiesEditView from "@/views/wot-properties/WoTPropertiesEditView";
 
 import RoutingsCreateView from "@/views/routings/RoutingsCreateView";
 import RoutingsShowView from "@/views/routings/RoutingsShowView";
@@ -474,34 +474,34 @@ export default createRouter({
             component: DataServiceAccessesEditView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/create",
-            name: "capabilities.create",
-            component: CapabilitiesCreateView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/create",
+            name: "woTActions.create",
+            component: WoTActionsCreateView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId",
-            name: "capabilities.show",
-            component: CapabilitiesShowView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId",
+            name: "woTActions.show",
+            component: WoTActionsShowView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/edit",
-            name: "capabilities.edit",
-            component: CapabilitiesEditView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/edit",
+            name: "woTActions.edit",
+            component: WoTActionsEditView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/create",
-            name: "controlledProperties.create",
-            component: ControlledPropertiesCreateView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-properties/create",
+            name: "woTProperties.create",
+            component: WoTPropertiesCreateView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/:controlledPropertyId",
-            name: "controlledProperties.show",
-            component: ControlledPropertiesShowView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-properties/:woTPropertyId",
+            name: "woTProperties.show",
+            component: WoTPropertiesShowView
         },
         {
-            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/capabilities/:capabilityId/controlled-properties/:controlledPropertyId/edit",
-            name: "controlledProperties.edit",
-            component: ControlledPropertiesEditView
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-properties/:woTPropertyId/edit",
+            name: "woTProperties.edit",
+            component: WoTPropertiesEditView
         },
         {
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/routings/create",
