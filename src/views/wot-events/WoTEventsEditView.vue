@@ -1,11 +1,11 @@
 <script>
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import WoTActionForm from "@/components/forms/WoTActionForm";
+import WoTEventForm from "@/components/forms/WoTEventForm";
 
 export default {
     components: {
         BreadcrumbNav,
-        WoTActionForm
+        WoTEventForm
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -14,8 +14,8 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
-        const woTActionId = this.$route.params.woTActionId;
-        this.woTAction = this.$store.getters["woTActions/getWoTAction"](workspaceId, woTActionId);
+        const woTEventId = this.$route.params.woTEventId;
+        this.woTEvent = this.$store.getters["woTEvents/getWoTEvent"](workspaceId, woTEventId);
 
         this.breadcrumbItems = [
             {
@@ -38,13 +38,13 @@ export default {
                 }
             },
             {
-                name: this.woTAction.name,
+                name: this.woTEvent.name,
                 route: {
-                    name: "woTActions.show",
+                    name: "woTEvents.show",
                     params: {
                         workspaceId: this.workspace.id,
                         woTThingDescriptionId: this.woTThingDescription.id,
-                        woTActionId: this.woTAction.id
+                        woTEventId: this.woTEvent.id
                     }
                 }
             },
@@ -61,9 +61,9 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_action")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_event")) }}</div>
             <div class="card-body">
-                <WoTActionForm :wo-t-action-prop="woTAction" />
+                <WoTEventForm :wo-t-event-prop="woTEvent" />
             </div>
         </div>
     </div>

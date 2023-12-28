@@ -20,8 +20,8 @@ export default {
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](this.workspace.id, woTThingDescriptionId);
 
         this.woTProperties = this.$store.getters["woTProperties/getWoTProperties"](this.workspace.id, this.woTThingDescription.id);
-
         this.woTActions = this.$store.getters["woTActions/getWoTActions"](this.workspace.id, this.woTThingDescription.id);
+        this.woTEvents = this.$store.getters["woTEvents/getWoTEvents"](this.workspace.id, this.woTThingDescription.id);
         this.routings = this.$store.getters["routings/getRoutings"](this.workspace.id, this.woTThingDescription.id);
 
         this.breadcrumbItems = [
@@ -159,6 +159,32 @@ export default {
                         <tr v-for="woTAction in woTActions" :key="woTAction.id">
                             <td>
                                 <RouterLink :to="{ name: 'woTActions.show', params: { woTActionId: woTAction.id } }">{{ woTAction.name }}</RouterLink>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ Utils.capitalize($t("main.events")) }}</span>
+                <RouterLink v-if="$authorization.canStoreWoTEvent(workspace.id)" :to="{ name: 'woTEvents.create', params: { woTThingDescriptionId: woTThingDescription.id } }" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus" />
+                </RouterLink>
+            </div>
+            <div class="card-body">
+                <ApiErrorAlert v-if="error" :error="error" />
+                <div v-if="!Object.values(woTEvents).length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_wot_event") }}</div>
+                <table v-else class="table align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="woTEvent in woTEvents" :key="woTEvent.id">
+                            <td>
+                                <RouterLink :to="{ name: 'woTEvents.show', params: { woTEventId: woTEvent.id } }">{{ woTEvent.name }}</RouterLink>
                             </td>
                         </tr>
                     </tbody>

@@ -99,6 +99,10 @@ import WoTActionsCreateView from "@/views/wot-actions/WoTActionsCreateView";
 import WoTActionsShowView from "@/views/wot-actions/WoTActionsShowView";
 import WoTActionsEditView from "@/views/wot-actions/WoTActionsEditView";
 
+import WoTEventsCreateView from "@/views/wot-events/WoTEventsCreateView";
+import WoTEventsShowView from "@/views/wot-events/WoTEventsShowView";
+import WoTEventsEditView from "@/views/wot-events/WoTEventsEditView";
+
 import WoTPropertiesCreateView from "@/views/wot-properties/WoTPropertiesCreateView";
 import WoTPropertiesShowView from "@/views/wot-properties/WoTPropertiesShowView";
 import WoTPropertiesEditView from "@/views/wot-properties/WoTPropertiesEditView";
@@ -487,6 +491,21 @@ export default createRouter({
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/edit",
             name: "woTActions.edit",
             component: WoTActionsEditView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-events/create",
+            name: "woTEvents.create",
+            component: WoTEventsCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-events/:woTEventId",
+            name: "woTEvents.show",
+            component: WoTEventsShowView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-events/:woTEventId/edit",
+            name: "woTEvents.edit",
+            component: WoTEventsEditView
         },
         {
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-properties/create",

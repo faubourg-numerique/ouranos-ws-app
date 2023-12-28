@@ -1,11 +1,11 @@
 <script>
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import WoTActionForm from "@/components/forms/WoTActionForm";
+import WoTEventForm from "@/components/forms/WoTEventForm";
 
 export default {
     components: {
         BreadcrumbNav,
-        WoTActionForm
+        WoTEventForm
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -13,9 +13,6 @@ export default {
 
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
-
-        const woTActionId = this.$route.params.woTActionId;
-        this.woTAction = this.$store.getters["woTActions/getWoTAction"](workspaceId, woTActionId);
 
         this.breadcrumbItems = [
             {
@@ -38,19 +35,8 @@ export default {
                 }
             },
             {
-                name: this.woTAction.name,
-                route: {
-                    name: "woTActions.show",
-                    params: {
-                        workspaceId: this.workspace.id,
-                        woTThingDescriptionId: this.woTThingDescription.id,
-                        woTActionId: this.woTAction.id
-                    }
-                }
-            },
-            {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.edit"))
+                name: this.Utils.capitalize(this.$t("main.create_a_wot_event"))
             }
         ];
     }
@@ -61,9 +47,9 @@ export default {
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
-            <div class="card-header">{{ Utils.capitalize($t("main.edit_a_wot_action")) }}</div>
+            <div class="card-header">{{ Utils.capitalize($t("main.create_a_wot_event")) }}</div>
             <div class="card-body">
-                <WoTActionForm :wo-t-action-prop="woTAction" />
+                <WoTEventForm />
             </div>
         </div>
     </div>

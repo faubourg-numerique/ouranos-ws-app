@@ -1217,4 +1217,40 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreWoTEvent(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-events`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateWoTEvent(workspaceId, woTEventId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-events/${woTEventId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyWoTEvent(workspaceId, woTEventId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-events/${woTEventId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
