@@ -206,6 +206,7 @@
         "disable_certificate_verification": "disable certificate verification",
         "edit": "edit",
         "edit_a_data_service": "edit a data service",
+        "edit_a_data_service_access": "edit a data service access",
         "edit_a_routing": "edit a routing",
         "edit_a_routing_operation": "edit a routing operation",
         "edit_a_routing_operation_control": "edit a routing operation control",

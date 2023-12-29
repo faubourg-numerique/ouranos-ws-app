@@ -120,7 +120,7 @@ export default {
         <div class="mb-3">
             <label for="data-service" class="form-label">{{ Utils.capitalize($t("main.data_service")) }}</label>
             <select id="data-service" v-model="woTEvent.hasDataService" class="form-select" required>
-                <option v-for="dataService in filteredDataServices" :key="dataService.id" :value="dataService.id">{{ dataService.id }}</option>
+                <option v-for="dataService in filteredDataServices" :key="dataService.id" :value="dataService.id">{{ dataService.name ?? dataService.id }}</option>
             </select>
         </div>
         <div class="mb-3">

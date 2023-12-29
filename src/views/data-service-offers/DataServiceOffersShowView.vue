@@ -33,7 +33,7 @@ export default {
                 }
             },
             {
-                name: this.Utils.capitalize(this.$t("main.data_service")),
+                name: this.dataService.name ?? this.dataService.id,
                 route: {
                     name: "dataServices.show",
                     params: {

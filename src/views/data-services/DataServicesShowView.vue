@@ -41,7 +41,7 @@ export default {
             },
             {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.data_service"))
+                name: this.dataService.name ?? this.dataService.id
             }
         ];
     },
@@ -125,7 +125,7 @@ export default {
         <BreadcrumbNav :items="breadcrumbItems" />
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ dataService.id }}</span>
+                <span>{{ dataService.name ?? dataService.id }}</span>
                 <span>
                     <RouterLink v-if="$authorization.canUpdateDataService(workspace.id, dataService.id)" :to="{ name: 'dataServices.edit', params: { name: dataService.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
@@ -140,6 +140,10 @@ export default {
                 <dl class="row mb-0">
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.id")) }}</dt>
                     <dd class="col-sm-8">{{ dataService.id }}</dd>
+                    <template v-if="dataService.name">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.name")) }}</dt>
+                        <dd class="col-sm-8">{{ dataService.name }}</dd>
+                    </template>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.type")) }}</dt>
                     <dd class="col-sm-8">
                         <RouterLink :to="{ name: 'types.show', params: { workspaceId: workspace.id, typeId: type.id } }">{{ type.name }}</RouterLink>

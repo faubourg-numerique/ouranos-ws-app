@@ -61,6 +61,7 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th />
+                            <th>{{ Utils.capitalize($t("main.name")) }}</th>
                             <th>{{ Utils.capitalize($t("main.type")) }}</th>
                             <th>{{ Utils.capitalize($t("main.actions")) }}</th>
                             <th>{{ Utils.capitalize($t("main.properties")) }}</th>
@@ -74,6 +75,7 @@ export default {
                                     <i class="fa-solid fa-right-to-bracket" />
                                 </RouterLink>
                             </td>
+                            <td>{{ dataService.name }}</td>
                             <td>{{ getTypeNameByDataServiceId(dataService.id) }}</td>
                             <td>{{ getDataActionNamesByDataServiceId(dataService.id) }}</td>
                             <td>{{ getPropertyNamesByDataServiceId(dataService.id) }}</td>

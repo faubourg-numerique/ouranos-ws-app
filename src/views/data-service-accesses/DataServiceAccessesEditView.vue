@@ -28,7 +28,7 @@ export default {
                 }
             },
             {
-                name: this.Utils.capitalize(this.$t("main.data_service")),
+                name: this.dataService.name ?? this.dataService.id,
                 route: {
                     name: "dataServices.show",
                     params: {
@@ -38,8 +38,18 @@ export default {
                 }
             },
             {
+                name: this.dataServiceAccess.id,
+                route: {
+                    name: "dataServiceAccesses.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        dataServiceAccessId: this.dataServiceAccess.id
+                    }
+                }
+            },
+            {
                 active: true,
-                name: this.Utils.capitalize(this.$t("main.edit_a_data_service_access"))
+                name: this.Utils.capitalize(this.$t("main.edit"))
             }
         ];
     }

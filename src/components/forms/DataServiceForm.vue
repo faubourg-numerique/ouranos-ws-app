@@ -17,6 +17,7 @@ export default {
             error: null,
             update: false,
             dataService: {
+                name: null,
                 isDemand: false,
                 isOffer: false
             },
@@ -31,6 +32,13 @@ export default {
             }
 
             return this.$store.getters["properties/getProperties"](this.workspace.id, this.dataService.hasEntityType);
+        }
+    },
+    watch: {
+        "dataService.name"(name) {
+            if (name === "") {
+                delete this.dataService.name;
+            }
         }
     },
     created() {
@@ -220,6 +228,10 @@ export default {
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateDataService() : storeDataService()">
+        <div class="mb-3">
+            <label for="name" class="form-label">{{ Utils.capitalize($t("main.name")) }}</label>
+            <input id="name" v-model="dataService.name" v-focus type="text" class="form-control">
+        </div>
         <div class="mb-3">
             <label for="type" class="form-label">{{ Utils.capitalize($t("main.type")) }}</label>
             <select id="type" v-model="dataService.hasEntityType" class="form-select" required>

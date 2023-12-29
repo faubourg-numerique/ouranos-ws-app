@@ -80,6 +80,10 @@ export default {
         },
         woTPropertyName(woTPropertyId) {
             return this.$store.getters["woTProperties/getWoTProperty"](this.workspace.id, woTPropertyId).name;
+        },
+        dataServiceName(dataServiceId) {
+            const dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+            return dataService.name ?? dataService.id;
         }
     }
 };
@@ -111,8 +115,10 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-9">{{ woTAction.description }}</dd>
                     </template>
-                    <dt class="col-sm-3 mb-0">{{ Utils.capitalize($t("main.data_service")) }}</dt>
-                    <dd class="col-sm-9 mb-0">{{ woTAction.hasDataService }}</dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.data_service")) }}</dt>
+                    <dd class="col-sm-9">
+                        <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTAction.hasDataService } }">{{ dataServiceName(woTAction.hasDataService) }}</RouterLink>
+                    </dd>
                 </dl>
             </div>
         </div>
