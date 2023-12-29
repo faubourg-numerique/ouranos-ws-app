@@ -33,7 +33,6 @@ export default {
                     this.$store.dispatch("dataServiceAccesses/fetchDataServiceAccesses", workspaceId),
                     this.$store.dispatch("woTActions/fetchWoTActions", workspaceId),
                     this.$store.dispatch("woTEvents/fetchWoTEvents", workspaceId),
-                    this.$store.dispatch("woTActionParameters/fetchWoTActionParameters", workspaceId),
                     this.$store.dispatch("woTProperties/fetchWoTProperties", workspaceId),
                     this.$store.dispatch("routings/fetchRoutings", workspaceId),
                     this.$store.dispatch("routingOperations/fetchRoutingOperations", workspaceId),

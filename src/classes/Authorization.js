@@ -1182,42 +1182,6 @@ export class Authorization {
         return false;
     }
 
-    canStoreWoTActionParameter(workspaceId) {
-        if (!this.permissions.POST) {
-            return false;
-        }
-        for (const pattern of this.permissions.POST) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-parameters`)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    canUpdateWoTActionParameter(workspaceId, woTActionParameterId) {
-        if (!this.permissions.PUT) {
-            return false;
-        }
-        for (const pattern of this.permissions.PUT) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-parameters/${woTActionParameterId}`)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    canDestroyWoTActionParameter(workspaceId, woTActionParameterId) {
-        if (!this.permissions.DELETE) {
-            return false;
-        }
-        for (const pattern of this.permissions.DELETE) {
-            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-parameters/${woTActionParameterId}`)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     canStoreWoTEvent(workspaceId) {
         if (!this.permissions.POST) {
             return false;

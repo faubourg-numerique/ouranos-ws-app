@@ -13,16 +13,6 @@ export default {
             selectedWoTPropertyId: null
         };
     },
-    computed: {
-        woTActionParameters() {
-            return this.$store.getters["woTActionParameters/getWoTActionParameters"](this.workspace.id, this.woTAction.id);
-        },
-        filteredWoTProperties() {
-            const usedWoTPropertyIds = this.woTActionParameters.map((woTActionParameter) => woTActionParameter.hasWoTProperty);
-            const woTProperties = this.$store.getters["woTProperties/getWoTProperties"](this.workspace.id, this.woTThingDescription.id);
-            return woTProperties.filter((woTProperty) => !usedWoTPropertyIds.includes(woTProperty.id));
-        }
-    },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
@@ -88,55 +78,6 @@ export default {
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$router.push({ name: "woTThingDescriptions.show" });
         },
-        async storeWoTActionParameter() {
-            this.$store.dispatch("setDisplayLoadingScreen", true);
-            try {
-                const woTActionParameter = {
-                    hasWoTAction: this.woTAction.id,
-                    hasWoTProperty: this.selectedWoTPropertyId,
-                    hasWorkspace: this.workspace.id
-                };
-                await this.$store.dispatch("woTActionParameters/storeWoTActionParameter", { workspaceId: this.workspace.id, woTActionParameter });
-                this.selectedWoTPropertyId = null;
-            } catch (error) {
-                this.$store.dispatch("setDisplayLoadingScreen", false);
-                this.error = error;
-                this.$swal.fire({
-                    title: this.$t("dialogs.property_creation_failure"),
-                    icon: "error",
-                    heightAuto: false
-                });
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", false);
-        },
-        async destroyWoTActionParameter(woTActionParameter) {
-            const result = await this.$swal.fire({
-                title: this.$t("dialogs.property_deletion_question"),
-                icon: "question",
-                showDenyButton: true,
-                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
-                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
-                heightAuto: false
-            });
-            if (!result.isConfirmed) {
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", true);
-            try {
-                await this.$store.dispatch("woTActionParameters/destroyWoTActionParameter", { workspaceId: this.workspace.id, woTActionParameter: woTActionParameter });
-            } catch (error) {
-                this.$store.dispatch("setDisplayLoadingScreen", false);
-                this.error = error;
-                this.$swal.fire({
-                    title: this.$t("dialogs.wot_action_parameter_deletion_failure"),
-                    icon: "error",
-                    heightAuto: false
-                });
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", false);
-        },
         woTPropertyName(woTPropertyId) {
             return this.$store.getters["woTProperties/getWoTProperty"](this.workspace.id, woTPropertyId).name;
         }
@@ -147,7 +88,7 @@ export default {
 <template>
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
-        <div class="card mb-4">
+        <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ woTAction.name }}</span>
                 <span>
@@ -171,33 +112,6 @@ export default {
                         <dd class="col-sm-9">{{ woTAction.description }}</dd>
                     </template>
                 </dl>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">{{ Utils.capitalize($t("main.properties")) }}</div>
-            <div class="card-body">
-                <table class="table table-sm align-middle mb-0">
-                    <thead>
-                        <tr>
-                            <th>
-                                <select v-model="selectedWoTPropertyId" class="form-select form-select-sm">
-                                    <option v-for="woTProperty in filteredWoTProperties" :key="woTProperty.id" :value="woTProperty.id">{{ woTProperty.name }}</option>
-                                </select>
-                            </th>
-                            <th style="max-width: 25px;">
-                                <button class="btn btn-primary btn-sm w-100" :disabled="!selectedWoTPropertyId" @click="storeWoTActionParameter">{{ Utils.capitalize($t("main.add")) }}</button>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="woTActionParameter in woTActionParameters" :key="woTActionParameter.id">
-                            <td>
-                                <RouterLink :to="{ name: 'woTProperties.show', params: { woTPropertyId: woTActionParameter.hasWoTProperty } }">{{ woTPropertyName(woTActionParameter.hasWoTProperty) }}</RouterLink>
-                            </td>
-                            <td style="max-width: 25px;"><button class="btn btn-danger btn-sm w-100" @click="destroyWoTActionParameter(woTActionParameter)">{{ Utils.capitalize($t("main.remove")) }}</button></td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

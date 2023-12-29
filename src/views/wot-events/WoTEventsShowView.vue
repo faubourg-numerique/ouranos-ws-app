@@ -78,55 +78,6 @@ export default {
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$router.push({ name: "woTThingDescriptions.show" });
         },
-        async storeWoTEventParameter() {
-            this.$store.dispatch("setDisplayLoadingScreen", true);
-            try {
-                const woTEventParameter = {
-                    hasWoTEvent: this.woTEvent.id,
-                    hasWoTProperty: this.selectedWoTPropertyId,
-                    hasWorkspace: this.workspace.id
-                };
-                await this.$store.dispatch("woTEventParameters/storeWoTEventParameter", { workspaceId: this.workspace.id, woTEventParameter });
-                this.selectedWoTPropertyId = null;
-            } catch (error) {
-                this.$store.dispatch("setDisplayLoadingScreen", false);
-                this.error = error;
-                this.$swal.fire({
-                    title: this.$t("dialogs.property_creation_failure"),
-                    icon: "error",
-                    heightAuto: false
-                });
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", false);
-        },
-        async destroyWoTEventParameter(woTEventParameter) {
-            const result = await this.$swal.fire({
-                title: this.$t("dialogs.property_deletion_question"),
-                icon: "question",
-                showDenyButton: true,
-                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
-                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
-                heightAuto: false
-            });
-            if (!result.isConfirmed) {
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", true);
-            try {
-                await this.$store.dispatch("woTEventParameters/destroyWoTEventParameter", { workspaceId: this.workspace.id, woTEventParameter: woTEventParameter });
-            } catch (error) {
-                this.$store.dispatch("setDisplayLoadingScreen", false);
-                this.error = error;
-                this.$swal.fire({
-                    title: this.$t("dialogs.wot_event_parameter_deletion_failure"),
-                    icon: "error",
-                    heightAuto: false
-                });
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", false);
-        },
         woTPropertyName(woTPropertyId) {
             return this.$store.getters["woTProperties/getWoTProperty"](this.workspace.id, woTPropertyId).name;
         }
