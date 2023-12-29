@@ -13,6 +13,14 @@ export default {
             selectedWoTPropertyId: null
         };
     },
+    computed: {
+        woTProperties() {
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.woTAction.hasDataService);
+            const woTProperties = this.$store.getters["woTProperties/getWoTProperties"](this.workspace.id, this.woTThingDescription.id);
+            const propertyIds = dataServiceProperties.map((dataServiceProperty) => dataServiceProperty.hasProperty);
+            return woTProperties.filter((woTProperty) => propertyIds.includes(woTProperty.hasProperty));
+        }
+    },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
@@ -92,7 +100,7 @@ export default {
 <template>
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
-        <div class="card">
+        <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ woTAction.name }}</span>
                 <span>
@@ -120,6 +128,29 @@ export default {
                         <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTAction.hasDataService } }">{{ dataServiceName(woTAction.hasDataService) }}</RouterLink>
                     </dd>
                 </dl>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">{{ Utils.capitalize($t("main.properties")) }}</div>
+            <div class="card-body">
+                <table class="table align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <td>{{ Utils.capitalize($t("main.name")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.capacity_type")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.capacity_value")) }}</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="woTProperty in woTProperties" :key="woTProperty.id">
+                            <td>
+                                <RouterLink :to="{ name: 'woTProperties.show', params: { woTPropertyId: woTProperty.id } }">{{ woTProperty.name }}</RouterLink>
+                            </td>
+                            <td>{{ woTProperty.capacityType }}</td>
+                            <td>{{ woTProperty.capacityValue }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
