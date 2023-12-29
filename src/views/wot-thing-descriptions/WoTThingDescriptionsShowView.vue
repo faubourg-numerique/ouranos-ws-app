@@ -157,12 +157,16 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.data_service")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="woTAction in woTActions" :key="woTAction.id">
                             <td>
                                 <RouterLink :to="{ name: 'woTActions.show', params: { woTActionId: woTAction.id } }">{{ woTAction.name }}</RouterLink>
+                            </td>
+                            <td>
+                                <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTAction.hasDataService } }">{{ dataServiceName(woTAction.hasDataService) }}</RouterLink>
                             </td>
                         </tr>
                     </tbody>
