@@ -39,6 +39,16 @@ export default {
                 }
                 return false;
             });
+        },
+        filteredWoTProperties() {
+            if (!this.woTEvent.hasDataService) {
+                return [];
+            }
+
+            const dataServiceProperties = this.$store.getters["dataServiceProperties/getDataServicePropertiesByDataServiceId"](this.workspace.id, this.woTEvent.hasDataService);
+            const woTProperties = this.$store.getters["woTProperties/getWoTProperties"](this.workspace.id, this.woTThingDescription.id);
+            const propertyIds = dataServiceProperties.map((dataServiceProperty) => dataServiceProperty.hasProperty);
+            return woTProperties.filter((woTProperty) => propertyIds.includes(woTProperty.hasProperty));
         }
     },
     watch: {
@@ -123,10 +133,10 @@ export default {
                 <option v-for="dataService in filteredDataServices" :key="dataService.id" :value="dataService.id">{{ dataService.name ?? dataService.id }}</option>
             </select>
         </div>
-        <div class="mb-3">
+        <div v-if="woTEvent.hasDataService" class="mb-3">
             <label for="wot-property" class="form-label">{{ Utils.capitalize($t("main.property")) }}</label>
             <select id="wot-property" v-model="woTEvent.hasWoTProperty" class="form-select" required>
-                <option v-for="woTProperty in woTProperties" :key="woTProperty.id" :value="woTProperty.id">{{ woTProperty.name }}</option>
+                <option v-for="woTProperty in filteredWoTProperties" :key="woTProperty.id" :value="woTProperty.id">{{ woTProperty.name }}</option>
             </select>
         </div>
         <template v-if="selectedWoTProperty">
