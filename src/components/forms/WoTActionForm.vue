@@ -27,6 +27,8 @@ export default {
         const woTThingDescriptionId = this.$route.params.woTThingDescriptionId;
         this.woTThingDescription = this.$store.getters["woTThingDescriptions/getWoTThingDescription"](workspaceId, woTThingDescriptionId);
 
+        this.dataServices = this.$store.getters["dataServices/getDataServices"](this.workspace.id);
+
         this.woTAction.hasWorkspace = this.workspace.id;
         this.woTAction.hasWoTThingDescription = this.woTThingDescription.id;
 
@@ -84,6 +86,12 @@ export default {
         <div class="mb-3">
             <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
             <textarea id="description" v-model="woTAction.description" class="form-control" rows="3" />
+        </div>
+        <div class="mb-3">
+            <label for="data-service" class="form-label">{{ Utils.capitalize($t("main.data_service")) }}</label>
+            <select id="data-service" v-model="woTAction.hasDataService" class="form-select" required>
+                <option v-for="dataService in dataServices" :key="dataService.id" :value="dataService.id">{{ dataService.id }}</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

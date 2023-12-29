@@ -111,6 +111,8 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-9">{{ woTAction.description }}</dd>
                     </template>
+                    <dt class="col-sm-3 mb-0">{{ Utils.capitalize($t("main.data_service")) }}</dt>
+                    <dd class="col-sm-9 mb-0">{{ woTAction.hasDataService }}</dd>
                 </dl>
             </div>
         </div>
