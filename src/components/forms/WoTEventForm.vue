@@ -42,8 +42,8 @@ export default {
         }
     },
     watch: {
-        "woTEvent.hasWoTProperty"(hasWoTProperty) {
-            if (hasWoTProperty) {
+        "woTEvent.hasWoTProperty"(hasWoTProperty, oldHasWoTProperty) {
+            if (hasWoTProperty && (!this.woTEventProp || (this.woTEventProp && oldHasWoTProperty))) {
                 this.woTEvent.capacityType = this.selectedWoTProperty.capacityType;
                 this.woTEvent.capacityValue = this.selectedWoTProperty.capacityValue;
             }
