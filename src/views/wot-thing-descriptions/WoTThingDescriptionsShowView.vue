@@ -71,6 +71,10 @@ export default {
         },
         property(workspaceId, propertyId) {
             return this.$store.getters["properties/getPropertyById"](workspaceId, propertyId);
+        },
+        dataServiceName(dataServiceId) {
+            const dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+            return dataService.name ?? dataService.id;
         }
     }
 };
@@ -179,6 +183,8 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.data_service")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.capacity_value")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -186,6 +192,10 @@ export default {
                             <td>
                                 <RouterLink :to="{ name: 'woTEvents.show', params: { woTEventId: woTEvent.id } }">{{ woTEvent.name }}</RouterLink>
                             </td>
+                            <td>
+                                <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTEvent.hasDataService } }">{{ dataServiceName(woTEvent.hasDataService) }}</RouterLink>
+                            </td>
+                            <td>{{ woTEvent.capacityValue }}</td>
                         </tr>
                     </tbody>
                 </table>
