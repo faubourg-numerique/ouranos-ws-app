@@ -16,12 +16,18 @@ export default {
             center: null,
             points: [],
             polygons: [],
+            lines: [],
             polygonOptions: {
                 strokeColor: "#FF0000",
                 strokeOpacity: 0.8,
                 strokeWeight: 3,
                 fillColor: "#FF0000",
                 fillOpacity: 0.35
+            },
+            polylineOptions: {
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
             }
         };
     },
@@ -106,6 +112,21 @@ export default {
                             this.polygons.push(polygon);
                             break;
                         }
+                        case "LineString": {
+                            const path = [];
+                            geoProperty[1].forEach(point => {
+                                path.push({
+                                    lat: point[1],
+                                    lng: point[0]
+                                });
+                            });
+                            const line = {
+                                entityId: entity.getId(),
+                                path: path
+                            };
+                            this.lines.push(line);
+                            break;
+                        }
                     }
                 });
             });
@@ -114,6 +135,8 @@ export default {
                 this.center = this.points[0].position;
             } else if (this.polygons.length) {
                 this.center = this.polygons[0].paths[0];
+            } else if (this.lines.length) {
+                this.center = this.lines[0].path[0];
             }
         },
         openEntity(entityId) {
@@ -140,6 +163,7 @@ export default {
                     <GMapCluster>
                         <GMapMarker v-for="(point, index) in points" :key="index" :position="point.position" :clickable="true" @click="openEntity(point.entityId)" />
                         <GMapPolygon v-for="(polygon, index) in polygons" :key="index" :paths="polygon.paths" :options="polygonOptions" />
+                        <GMapPolyline v-for="(line, index) in lines" :key="index" :path="line.path" :options="polylineOptions" />
                     </GMapCluster>
                 </GMapMap>
             </div>
