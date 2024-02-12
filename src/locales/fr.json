@@ -343,6 +343,8 @@
         "workspace": "espace de travail",
         "workspaces": "espaces de travail",
         "wot_thing_descriptions": "wot thing descriptions",
-        "yes": "oui"
+        "yes": "oui",
+        "trusted_issuers_list": "Trusted issuers list",
+        "trusted_issuers_lists": "Trusted issuers lists"
     }
 }

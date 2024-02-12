@@ -26,6 +26,7 @@ import dataServiceProperties from "@/store/modules/data-service-properties";
 import dataServiceOffers from "@/store/modules/data-service-offers";
 import dataServiceAccesses from "@/store/modules/data-service-accesses";
 import vcVerifiers from "@/store/modules/vc-verifiers";
+import trustedIssuersLists from "@/store/modules/trusted-issuers-lists";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
 import woTActions from "@/store/modules/wot-actions";
 import woTProperties from "@/store/modules/wot-properties";
@@ -104,6 +105,7 @@ export default createStore({
         dataServiceOffers,
         dataServiceAccesses,
         vcVerifiers,
+        trustedIssuersLists,
         googleSheetsProxy,
         woTActions,
         woTProperties,

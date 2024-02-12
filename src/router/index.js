@@ -72,6 +72,11 @@ import VCVerifiersCreateView from "@/views/vc-verifiers/VCVerifiersCreateView";
 import VCVerifiersShowView from "@/views/vc-verifiers/VCVerifiersShowView";
 import VCVerifiersEditView from "@/views/vc-verifiers/VCVerifiersEditView";
 
+import TrustedIssuersListsIndexView from "@/views/trusted-issuers-lists/TrustedIssuersListsIndexView";
+import TrustedIssuersListsCreateView from "@/views/trusted-issuers-lists/TrustedIssuersListsCreateView";
+import TrustedIssuersListsShowView from "@/views/trusted-issuers-lists/TrustedIssuersListsShowView";
+import TrustedIssuersListsEditView from "@/views/trusted-issuers-lists/TrustedIssuersListsEditView";
+
 import AuthorizationRegistriesToolHomeView from "@/views/tools/authorization-registries/AuthorizationRegistriesToolHomeView";
 
 import OffersIndexView from "@/views/offers/OffersIndexView";
@@ -396,6 +401,26 @@ export default createRouter({
             path: "/vc-verifiers/:vcVerifierId/edit",
             name: "vcVerifiers.edit",
             component: VCVerifiersEditView
+        },
+        {
+            path: "/trusted-issuers-lists",
+            name: "trustedIssuersLists.index",
+            component: TrustedIssuersListsIndexView
+        },
+        {
+            path: "/trusted-issuers-lists/create",
+            name: "trustedIssuersLists.create",
+            component: TrustedIssuersListsCreateView
+        },
+        {
+            path: "/trusted-issuers-lists/:trustedIssuersListId",
+            name: "trustedIssuersLists.show",
+            component: TrustedIssuersListsShowView
+        },
+        {
+            path: "/trusted-issuers-lists/:trustedIssuersListId/edit",
+            name: "trustedIssuersLists.edit",
+            component: TrustedIssuersListsEditView
         },
         {
             path: "/tools/authorization-registries",

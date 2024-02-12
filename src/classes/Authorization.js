@@ -1217,4 +1217,64 @@ export class Authorization {
         }
         return false;
     }
+
+    canIndexTrustedIssuersLists() {
+        if (!this.permissions.GET) {
+            return false;
+        }
+        for (const pattern of this.permissions.GET) {
+            if (Utils.regexMatch(pattern, "/api/trusted-issuers-lists")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreTrustedIssuersList() {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, "/api/trusted-issuers-lists")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canShowTrustedIssuersList(trustedIssuersListId) {
+        if (!this.permissions.GET) {
+            return false;
+        }
+        for (const pattern of this.permissions.GET) {
+            if (Utils.regexMatch(pattern, `/api/trusted-issuers-lists/${trustedIssuersListId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateTrustedIssuersList(trustedIssuersListId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/trusted-issuers-lists/${trustedIssuersListId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyTrustedIssuersList(trustedIssuersListId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/trusted-issuers-lists/${trustedIssuersListId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

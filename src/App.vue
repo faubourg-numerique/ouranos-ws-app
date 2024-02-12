@@ -98,6 +98,9 @@ export default {
                                     <li>
                                         <RouterLink :to="{ name: 'vcVerifiers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.vc_verifiers")) }}</RouterLink>
                                     </li>
+                                    <li>
+                                        <RouterLink :to="{ name: 'trustedIssuersLists.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.trusted_issuers_lists")) }}</RouterLink>
+                                    </li>
                                 </ul>
                             </li>
                         </template>
