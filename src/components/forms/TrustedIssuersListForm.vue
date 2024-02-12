@@ -124,7 +124,7 @@ export default {
         <div class="mb-3">
             <label for="implementation-name" class="form-label">{{ Utils.capitalize($t("main.implementation_name")) }}</label>
             <select id="implementation-name" v-model="trustedIssuersList.implementationName" class="form-select" required>
-                <option value="fiware-trusted-issuers-list">Fiware VC Verifier</option>
+                <option value="fiware-trusted-issuers-list">Fiware Trusted Issuers List</option>
             </select>
         </div>
         <div class="mb-3">
