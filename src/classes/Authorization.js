@@ -1277,4 +1277,40 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreRole(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/roles`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateRole(workspaceId, roleId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/roles/${roleId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyRole(workspaceId, roleId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/roles/${roleId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

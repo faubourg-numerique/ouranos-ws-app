@@ -129,6 +129,11 @@ import WoTThingDescriptionsCreateView from "@/views/wot-thing-descriptions/WoTTh
 import WoTThingDescriptionsShowView from "@/views/wot-thing-descriptions/WoTThingDescriptionsShowView";
 import WoTThingDescriptionsEditView from "@/views/wot-thing-descriptions/WoTThingDescriptionsEditView";
 
+import RolesIndexView from "@/views/roles/RolesIndexView";
+import RolesCreateView from "@/views/roles/RolesCreateView";
+import RolesShowView from "@/views/roles/RolesShowView";
+import RolesEditView from "@/views/roles/RolesEditView";
+
 export default createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
@@ -611,6 +616,26 @@ export default createRouter({
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/edit",
             name: "woTThingDescriptions.edit",
             component: WoTThingDescriptionsEditView
+        },
+        {
+            path: "/workspace/:workspaceId/roles",
+            name: "roles.index",
+            component: RolesIndexView
+        },
+        {
+            path: "/workspace/:workspaceId/roles/create",
+            name: "roles.create",
+            component: RolesCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/roles/:roleId",
+            name: "roles.show",
+            component: RolesShowView
+        },
+        {
+            path: "/workspace/:workspaceId/roles/:roleId/edit",
+            name: "roles.edit",
+            component: RolesEditView
         }
     ]
 });

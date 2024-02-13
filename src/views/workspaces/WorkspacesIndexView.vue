@@ -37,7 +37,8 @@ export default {
                     this.$store.dispatch("routings/fetchRoutings", workspaceId),
                     this.$store.dispatch("routingOperations/fetchRoutingOperations", workspaceId),
                     this.$store.dispatch("routingOperationControls/fetchRoutingOperationControls", workspaceId),
-                    this.$store.dispatch("woTThingDescriptions/fetchWoTThingDescriptions", workspaceId)
+                    this.$store.dispatch("woTThingDescriptions/fetchWoTThingDescriptions", workspaceId),
+                    this.$store.dispatch("roles/fetchRoles", workspaceId)
                 ]);
                 this.$store.dispatch("openWorkspace", workspaceId);
                 this.$store.dispatch("setDisplayLoadingScreen", false);
