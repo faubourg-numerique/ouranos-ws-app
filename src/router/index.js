@@ -126,6 +126,15 @@ import RolesCreateView from "@/views/roles/RolesCreateView";
 import RolesShowView from "@/views/roles/RolesShowView";
 import RolesEditView from "@/views/roles/RolesEditView";
 
+import ContractsIndexView from "@/views/contracts/ContractsIndexView";
+import ContractsCreateView from "@/views/contracts/ContractsCreateView";
+import ContractsShowView from "@/views/contracts/ContractsShowView";
+import ContractsEditView from "@/views/contracts/ContractsEditView";
+
+import ContractDetailsCreateView from "@/views/contract-details/ContractDetailsCreateView";
+import ContractDetailsShowView from "@/views/contract-details/ContractDetailsShowView";
+import ContractDetailsEditView from "@/views/contract-details/ContractDetailsEditView";
+
 export default createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes: [
@@ -603,6 +612,41 @@ export default createRouter({
             path: "/workspace/:workspaceId/roles/:roleId/edit",
             name: "roles.edit",
             component: RolesEditView
+        },
+        {
+            path: "/workspace/:workspaceId/contracts",
+            name: "contracts.index",
+            component: ContractsIndexView
+        },
+        {
+            path: "/workspace/:workspaceId/contracts/create",
+            name: "contracts.create",
+            component: ContractsCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/contracts/:contractId",
+            name: "contracts.show",
+            component: ContractsShowView
+        },
+        {
+            path: "/workspace/:workspaceId/contracts/:contractId/edit",
+            name: "contracts.edit",
+            component: ContractsEditView
+        },
+        {
+            path: "/workspace/:workspaceId/contract-details/create",
+            name: "contractDetails.create",
+            component: ContractDetailsCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/contract-details/:contractDetailId",
+            name: "contractDetails.show",
+            component: ContractDetailsShowView
+        },
+        {
+            path: "/workspace/:workspaceId/contract-details/:contractDetailId/edit",
+            name: "contractDetails.edit",
+            component: ContractDetailsEditView
         }
     ]
 });
