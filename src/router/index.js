@@ -79,14 +79,6 @@ import TrustedIssuersListsEditView from "@/views/trusted-issuers-lists/TrustedIs
 
 import AuthorizationRegistriesToolHomeView from "@/views/tools/authorization-registries/AuthorizationRegistriesToolHomeView";
 
-import OffersIndexView from "@/views/offers/OffersIndexView";
-import OffersShowView from "@/views/offers/OffersShowView";
-
-import ContractsShowView from "@/views/contracts/ContractsShowView";
-
-import ContractDetailsShowView from "@/views/contract-details/ContractDetailsShowView";
-import ContractDetailsEditView from "@/views/contract-details/ContractDetailsEditView";
-
 import DataServicesIndexView from "@/views/data-services/DataServicesIndexView";
 import DataServicesCreateView from "@/views/data-services/DataServicesCreateView";
 import DataServicesShowView from "@/views/data-services/DataServicesShowView";
@@ -431,31 +423,6 @@ export default createRouter({
             path: "/tools/authorization-registries",
             name: "tools.authorizationRegistries.home",
             component: AuthorizationRegistriesToolHomeView
-        },
-        {
-            path: "/workspace/:workspaceId/offers",
-            name: "offers.index",
-            component: OffersIndexView
-        },
-        {
-            path: "/workspace/:workspaceId/offers/:offerId",
-            name: "offers.show",
-            component: OffersShowView
-        },
-        {
-            path: "/workspace/:workspaceId/contracts/:contractId",
-            name: "contracts.show",
-            component: ContractsShowView
-        },
-        {
-            path: "/workspace/:workspaceId/contract-details/:contractDetailId",
-            name: "contractDetails.show",
-            component: ContractDetailsShowView
-        },
-        {
-            path: "/workspace/:workspaceId/contract-details/:contractDetailId/edit",
-            name: "contractDetails.edit",
-            component: ContractDetailsEditView
         },
         {
             path: "/workspace/:workspaceId/data-services",

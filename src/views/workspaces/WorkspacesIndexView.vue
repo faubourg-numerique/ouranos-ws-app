@@ -23,7 +23,6 @@ export default {
                 await Promise.all([
                     this.$store.dispatch("types/fetchTypes", workspaceId),
                     this.$store.dispatch("properties/fetchProperties", workspaceId),
-                    this.$store.dispatch("offers/fetchOffers", workspaceId),
                     this.$store.dispatch("contracts/fetchContracts", workspaceId),
                     this.$store.dispatch("contractDetails/fetchContractDetails", workspaceId),
                     this.$store.dispatch("dataServices/fetchDataServices", workspaceId),
