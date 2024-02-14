@@ -20,7 +20,8 @@ export default {
                 authorizationMode: null,
                 hasIdentityManager: null,
                 hasIdentityManagerGrant: null,
-                hasVCVerifier: null
+                hasVCVerifier: null,
+                hasTrustedIssuersList: null
             }
         };
     },
@@ -36,6 +37,7 @@ export default {
                 delete this.service.hasIdentityManager;
                 delete this.service.hasIdentityManagerGrant;
                 delete this.service.hasVCVerifier;
+                delete this.service.hasTrustedIssuersList;
                 delete this.service.clientId;
             }
         },
@@ -43,6 +45,7 @@ export default {
             if (authorizationMode) {
                 if (authorizationMode == 'oauth2') {
                     delete this.service.hasVCVerifier;
+                    delete this.service.hasTrustedIssuersList;
                     delete this.service.clientId;
                 } else if (authorizationMode == 'siop2') {
                     delete this.service.hasIdentityManager;
@@ -60,6 +63,7 @@ export default {
         this.identityManagerGrants = this.$store.getters["identityManagerGrants/getIdentityManagerGrants"];
         this.identityManagers = this.$store.getters["identityManagers/getIdentityManagers"];
         this.vcVerifiers = this.$store.getters["vcVerifiers/getVCVerifiers"];
+        this.trustedIssuersLists = this.$store.getters["trustedIssuersLists/getTrustedIssuersLists"];
         this.contextBrokers = this.$store.getters["contextBrokers/getContextBrokers"];
     },
     methods: {
@@ -153,6 +157,12 @@ export default {
                         <option v-for="vcVerifier in vcVerifiers" :key="vcVerifier.id" :value="vcVerifier.id">{{ vcVerifier.name }}</option>
                     </select>
                 </div>
+                    <div class="mb-3">
+                        <label for="trusted-issuers-list" class="form-label">{{ Utils.capitalize($t("main.trusted_issuers_list")) }}</label>
+                        <select id="trusted-issuers-list" v-model="service.hasTrustedIssuersList" class="form-select" required>
+                            <option v-for="trustedIssuersList in trustedIssuersLists" :key="trustedIssuersList.id" :value="trustedIssuersList.id">{{ trustedIssuersList.name }}</option>
+                        </select>
+                    </div>
                 <div class="mb-3">
                     <label for="client-id" class="form-label">{{ Utils.capitalize($t("main.client_id")) }}</label>
                     <input id="client-id" v-model="service.clientId" type="text" class="form-control" required>
