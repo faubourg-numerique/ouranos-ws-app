@@ -97,6 +97,10 @@ export default {
             <textarea id="description" v-model="vcVerifier.description" class="form-control" rows="3" />
         </div>
         <div class="mb-3">
+            <label for="did" class="form-label">{{ Utils.capitalize($t("main.did")) }}</label>
+            <input id="did" v-model="vcVerifier.did" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
             <label for="scheme" class="form-label">{{ Utils.capitalize($t("main.scheme")) }}</label>
             <select id="scheme" v-model="vcVerifier.scheme" class="form-select" required>
                 <option value="http">http</option>
