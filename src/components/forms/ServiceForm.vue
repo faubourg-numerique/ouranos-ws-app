@@ -157,12 +157,12 @@ export default {
                         <option v-for="vcVerifier in vcVerifiers" :key="vcVerifier.id" :value="vcVerifier.id">{{ vcVerifier.name }}</option>
                     </select>
                 </div>
-                    <div class="mb-3">
-                        <label for="trusted-issuers-list" class="form-label">{{ Utils.capitalize($t("main.trusted_issuers_list")) }}</label>
-                        <select id="trusted-issuers-list" v-model="service.hasTrustedIssuersList" class="form-select" required>
-                            <option v-for="trustedIssuersList in trustedIssuersLists" :key="trustedIssuersList.id" :value="trustedIssuersList.id">{{ trustedIssuersList.name }}</option>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label for="trusted-issuers-list" class="form-label">{{ Utils.capitalize($t("main.trusted_issuers_list")) }}</label>
+                    <select id="trusted-issuers-list" v-model="service.hasTrustedIssuersList" class="form-select" required>
+                        <option v-for="trustedIssuersList in trustedIssuersLists" :key="trustedIssuersList.id" :value="trustedIssuersList.id">{{ trustedIssuersList.name }}</option>
+                    </select>
+                </div>
                 <div class="mb-3">
                     <label for="client-id" class="form-label">{{ Utils.capitalize($t("main.client_id")) }}</label>
                     <input id="client-id" v-model="service.clientId" type="text" class="form-control" required>
