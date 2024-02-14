@@ -26,6 +26,12 @@ export default {
         };
     },
     watch: {
+        "dataServiceAccess.hasRole"(hasRole) {
+            if (hasRole) {
+                const role = this.$store.getters["roles/getRole"](hasRole);
+                this.dataServiceAccess.roleName = role.name;
+            }
+        },
         notBefore(notBefore) {
             if (notBefore) {
                 this.dataServiceAccess.notBefore = parseInt(Date.parse(notBefore) / 1000);
@@ -51,6 +57,8 @@ export default {
             this.update = true;
             Object.assign(this.dataServiceAccess, this.dataServiceAccessProp);
         }
+
+        this.roles = this.$store.getters["roles/getRoles"];
     },
     methods: {
         async storeDataServiceAccess() {
@@ -111,8 +119,10 @@ export default {
             <input id="data-service-provider-id" v-model="dataServiceAccess.dataServiceProviderId" type="text" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label for="role-name" class="form-label">{{ Utils.capitalize($t("main.role_name")) }}</label>
-            <input id="role-name" v-model="dataServiceAccess.roleName" type="text" class="form-control" required>
+            <label for="role-id" class="form-label">{{ Utils.capitalize($t("main.role")) }}</label>
+            <select id="role-id" v-model="dataServiceAccess.hasRole" class="form-select" required>
+                <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="verifiable-credential-type" class="form-label">{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</label>
