@@ -16,7 +16,6 @@ import authentication from "@/store/modules/authentication";
 import authorizationRegistryGrants from "@/store/modules/authorization-registry-grants";
 import authorizationRegistries from "@/store/modules/authorization-registries";
 import authorizationRegistryProxy from "@/store/modules/proxies/authorization-registry";
-import offers from "@/store/modules/offers";
 import contracts from "@/store/modules/contracts";
 import contractDetails from "@/store/modules/contract-details";
 import dataActions from "@/store/modules/data-actions";
@@ -96,7 +95,6 @@ export default createStore({
         authorizationRegistryGrants,
         authorizationRegistries,
         authorizationRegistryProxy,
-        offers,
         contracts,
         contractDetails,
         dataActions,
