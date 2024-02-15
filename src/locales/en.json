@@ -352,6 +352,16 @@
         "wot_thing_descriptions": "wot thing descriptions",
         "yes": "yes",
         "trusted_issuers_list": "Trusted issuers list",
-        "trusted_issuers_lists": "Trusted issuers lists"
+        "trusted_issuers_lists": "Trusted issuers lists",
+        "roles": "roles",
+        "stakeholder_did": "stakeholder did",
+        "stakeholder_name": "stakeholder name",
+        "contract_type": "contract type",
+        "valid_from_time": "valid from time",
+        "valid_to_time": "valid to time",
+        "role": "role",
+        "edit_a_contract_detail": "edit a contract detail",
+        "create_a_contract_detail": "create a contract detail",
+        "did": "did"
     }
 }
