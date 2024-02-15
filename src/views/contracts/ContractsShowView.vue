@@ -80,7 +80,7 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ contract.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateContract(workspace.id, contract.id)" :to="{ name: 'contracts.edit', params: { name: contract.id } }" class="btn btn-primary btn-sm">
+                    <RouterLink v-if="$authorization.canUpdateContract(workspace.id, contract.id)" :to="{ name: 'contracts.edit', params: { contractId: contract.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
                     <button v-if="$authorization.canDestroyContract(workspace.id, contract.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContract">
@@ -111,7 +111,7 @@ export default {
         <div class="card mt-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.contract_details")) }}</span>
-                <RouterLink v-if="$authorization.canStoreContractDetail(workspace.id)" :to="{ name: 'contractDetails.create' }" class="btn btn-primary btn-sm">
+                <RouterLink v-if="$authorization.canStoreContractDetail(workspace.id)" :to="{ name: 'contractDetails.create', params: { contractId: contract.id } }" class="btn btn-primary btn-sm">
                     <i class="fa-solid fa-plus" />
                 </RouterLink>
             </div>

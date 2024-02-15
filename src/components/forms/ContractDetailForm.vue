@@ -35,7 +35,7 @@ export default {
             Object.assign(this.contractDetail, this.contractDetailProp);
         }
 
-        this.roles = this.$store.getters["roles/getRoles"];
+        this.roles = this.$store.getters["roles/getRoles"](this.workspace.id);
     },
     methods: {
         async storeContractDetail() {

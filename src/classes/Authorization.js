@@ -1313,4 +1313,76 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreContract(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contracts`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateContract(workspaceId, contractId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contracts/${contractId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyContract(workspaceId, contractId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contracts/${contractId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canStoreContractDetail(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contract-details`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateContractDetail(workspaceId, contractDetailId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contract-details/${contractDetailId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyContractDetail(workspaceId, contractDetailId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/contract-details/${contractDetailId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

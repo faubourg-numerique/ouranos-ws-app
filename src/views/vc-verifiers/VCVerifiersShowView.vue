@@ -90,6 +90,8 @@ export default {
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-8">{{ vcVerifier.description }}</dd>
                     </template>
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.did")) }}</dt>
+                    <dd class="col-sm-8">{{ vcVerifier.did }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.scheme")) }}</dt>
                     <dd class="col-sm-8">{{ vcVerifier.scheme }}</dd>
                     <template v-if="vcVerifier.scheme === 'https'">

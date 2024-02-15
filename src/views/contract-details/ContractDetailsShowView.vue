@@ -1,13 +1,11 @@
 <script>
 import ApiErrorAlert from "@/components/ApiErrorAlert";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
-import JsonViewer from "vue-json-viewer";
 
 export default {
     components: {
         ApiErrorAlert,
-        BreadcrumbNav,
-        JsonViewer
+        BreadcrumbNav
     },
     data() {
         return {
@@ -96,7 +94,7 @@ export default {
                     <RouterLink v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" :to="{ name: 'contractDetails.edit', params: { name: contractDetail.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyContractDetail(workspace.id, contractDetail.id) && !contractOffers.length" class="btn btn-danger btn-sm ms-3" @click="destroyContractDetail">
+                    <button v-if="$authorization.canDestroyContractDetail(workspace.id, contractDetail.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContractDetail">
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>

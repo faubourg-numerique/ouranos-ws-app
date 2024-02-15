@@ -634,17 +634,17 @@ export default createRouter({
             component: ContractsEditView
         },
         {
-            path: "/workspace/:workspaceId/contract-details/create",
+            path: "/workspace/:workspaceId/contracts/:contractId/contract-details/create",
             name: "contractDetails.create",
             component: ContractDetailsCreateView
         },
         {
-            path: "/workspace/:workspaceId/contract-details/:contractDetailId",
+            path: "/workspace/:workspaceId/contracts/:contractId/contract-details/:contractDetailId",
             name: "contractDetails.show",
             component: ContractDetailsShowView
         },
         {
-            path: "/workspace/:workspaceId/contract-details/:contractDetailId/edit",
+            path: "/workspace/:workspaceId/contracts/:contractId/contract-details/:contractDetailId/edit",
             name: "contractDetails.edit",
             component: ContractDetailsEditView
         }

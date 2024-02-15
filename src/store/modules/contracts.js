@@ -55,6 +55,19 @@ export default {
             commit("setContract", { workspaceId, contract });
             return contract;
         },
+        async updateContract({ commit, dispatch }, { workspaceId, contract }) {
+            contract = JSON.parse(JSON.stringify(contract));
+            const contractId = contract.id;
+            delete contract.id;
+            let response;
+            try {
+                response = await this.$api.put(`/workspace/${workspaceId}/contracts/${contractId}`, contract);
+            } catch (error) {
+                throw error.response.data || {};
+            }
+            contract = response.data;
+            commit("setContract", { workspaceId, contract });
+        },
         async destroyContract({ commit }, { workspaceId, contract }) {
             try {
                 await this.$api.delete(`/workspace/${workspaceId}/contracts/${contract.id}`);
@@ -62,14 +75,6 @@ export default {
                 throw error.response.data || {};
             }
             commit("removeContract", { workspaceId, contract });
-        },
-        async synchronizeContract({ dispatch }, { workspaceId, contract }) {
-            try {
-                await this.$api.post(`/workspace/${workspaceId}/contracts/${contract.id}/synchronize`);
-                await dispatch("fetchContract", { workspaceId, contractId: contract.id });
-            } catch (error) {
-                throw error.response.data || {};
-            }
         }
     }
 };
