@@ -49,6 +49,9 @@ export default {
         ];
     },
     methods: {
+        getRole(roleId) {
+            return this.$store.getters["roles/getRole"](this.workspace.id, roleId);
+        },
         async destroyContractDetail() {
             const result = await this.$swal.fire({
                 title: this.$t("dialogs.contract_detail_deletion_question"),
@@ -91,7 +94,7 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ contractDetail.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" :to="{ name: 'contractDetails.edit', params: { name: contractDetail.id } }" class="btn btn-primary btn-sm">
+                    <RouterLink v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" :to="{ name: 'contractDetails.edit', params: { contractDetailId: contractDetail.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
                     <button v-if="$authorization.canDestroyContractDetail(workspace.id, contractDetail.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContractDetail">
@@ -103,7 +106,9 @@ export default {
                 <ApiErrorAlert v-if="error" :error="error" />
                 <dl class="row mb-0">
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.role")) }}</dt>
-                    <dd class="col-sm-8">{{ contractDetail.hasRole }}</dd>
+                    <dd class="col-sm-8">
+                        <RouterLink :to="{ name: 'roles.show', params: { roleId: contractDetail.hasRole } }">{{ getRole(contractDetail.hasRole).name }}</RouterLink>
+                    </dd>
                     <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.contract")) }}</dt>
                     <dd class="col-sm-8 mb-0">{{ contractDetail.hasContract }}</dd>
                 </dl>

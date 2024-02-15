@@ -75,6 +75,13 @@ export default {
                 throw error.response.data || {};
             }
             commit("removeContract", { workspaceId, contract });
+        },
+        async synchronizeContract({ commit }, { workspaceId, contract }) {
+            try {
+                await this.$api.post(`/workspace/${workspaceId}/contracts/${contract.id}/synchronize`);
+            } catch (error) {
+                throw error.response.data || {};
+            }
         }
     }
 };
