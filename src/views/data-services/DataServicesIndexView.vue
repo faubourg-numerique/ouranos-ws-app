@@ -51,10 +51,7 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ Utils.capitalize($t("main.data_services")) }}</span>
                 <span>
-                    <RouterLink :to="{ name: 'roles.index' }" class="btn btn-primary btn-sm">
-                        <i class="fa-solid fa-user-tag" />
-                    </RouterLink>
-                    <RouterLink v-if="$authorization.canStoreDataService(workspace.id)" :to="{ name: 'dataServices.create' }" class="btn btn-primary btn-sm ms-3">
+                    <RouterLink v-if="$authorization.canStoreDataService(workspace.id)" :to="{ name: 'dataServices.create' }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-plus" />
                     </RouterLink>
                 </span>
