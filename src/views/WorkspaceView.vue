@@ -296,8 +296,8 @@ export default {
                     <div class="mb-4">
                         <button class="btn me-3" :class="{ 'btn-primary': activeTab === 'entities', 'btn-outline-primary': activeTab !== 'entities' }" @click="setActiveTab('entities')">{{ Utils.capitalize($t("main.data_browser")) }}</button>
                         <RouterLink class="btn btn-outline-primary me-3" :to="{ name: 'dataServices.index' }">{{ Utils.capitalize($t("main.data_services")) }}</RouterLink>
-                        <RouterLink class="btn btn-outline-primary me-3" :to="{ name: 'contracts.index' }">{{ Utils.capitalize($t("main.contracts")) }}</RouterLink>
-                        <RouterLink class="btn btn-outline-primary" :to="{ name: 'roles.index' }">{{ Utils.capitalize($t("main.roles")) }}</RouterLink>
+                        <RouterLink class="btn btn-outline-primary me-3" :to="{ name: 'roles.index' }">{{ Utils.capitalize($t("main.roles")) }}</RouterLink>
+                        <RouterLink class="btn btn-outline-primary" :to="{ name: 'contracts.index' }">{{ Utils.capitalize($t("main.contracts")) }}</RouterLink>
                     </div>
 
                     <EntitiesTab v-if="activeTab === 'entities'" />
