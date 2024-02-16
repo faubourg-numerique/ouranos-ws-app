@@ -28,7 +28,7 @@ export default {
     watch: {
         "dataServiceAccess.hasRole"(hasRole) {
             if (hasRole) {
-                const role = this.$store.getters["roles/getRole"](hasRole);
+                const role = this.$store.getters["roles/getRole"](this.workspace.id, hasRole);
                 this.dataServiceAccess.roleName = role.name;
             }
         },
@@ -58,7 +58,7 @@ export default {
             Object.assign(this.dataServiceAccess, this.dataServiceAccessProp);
         }
 
-        this.roles = this.$store.getters["roles/getRoles"];
+        this.roles = this.$store.getters["roles/getRoles"](this.workspace.id);
     },
     methods: {
         async storeDataServiceAccess() {
