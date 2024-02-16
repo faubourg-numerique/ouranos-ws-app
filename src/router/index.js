@@ -469,17 +469,17 @@ export default createRouter({
             component: DataServiceOffersEditView
         },
         {
-            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-accesses/create",
+            path: "/workspace/:workspaceId/roles/:roleId/data-service-accesses/create",
             name: "dataServiceAccesses.create",
             component: DataServiceAccessesCreateView
         },
         {
-            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-accesses/:dataServiceAccessId",
+            path: "/workspace/:workspaceId/roles/:roleId/data-service-accesses/:dataServiceAccessId",
             name: "dataServiceAccesses.show",
             component: DataServiceAccessesShowView
         },
         {
-            path: "/workspace/:workspaceId/data-services/:dataServiceId/data-service-accesses/:dataServiceAccessId/edit",
+            path: "/workspace/:workspaceId/roles/:roleId/data-service-accesses/:dataServiceAccessId/edit",
             name: "dataServiceAccesses.edit",
             component: DataServiceAccessesEditView
         },

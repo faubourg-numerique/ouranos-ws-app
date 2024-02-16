@@ -16,12 +16,7 @@ export default {
         return {
             error: null,
             update: false,
-            notBefore: null,
-            notOnOrAfter: null,
             dataServiceAccess: {
-                synchronized: false,
-                synchronizationTime: 0,
-                lastDelegationEvidence: null
             }
         };
     },
@@ -31,34 +26,24 @@ export default {
                 const role = this.$store.getters["roles/getRole"](this.workspace.id, hasRole);
                 this.dataServiceAccess.roleName = role.name;
             }
-        },
-        notBefore(notBefore) {
-            if (notBefore) {
-                this.dataServiceAccess.notBefore = parseInt(Date.parse(notBefore) / 1000);
-            }
-        },
-        notOnOrAfter(notOnOrAfter) {
-            if (notOnOrAfter) {
-                this.dataServiceAccess.notOnOrAfter = parseInt(Date.parse(notOnOrAfter) / 1000);
-            }
         }
     },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
-        const dataServiceId = this.$route.params.dataServiceId;
-        this.dataService = this.$store.getters["dataServices/getDataService"](dataServiceId);
+        const roleId = this.$route.params.roleId;
+        const role = this.$store.getters["roles/getRole"](this.workspace.id);
+        this.dataServiceAccess.hasRole = role.id;
 
-        this.dataServiceAccess.hasWorkspace = workspaceId;
-        this.dataServiceAccess.hasDataService = dataServiceId;
+        this.dataServiceAccess.hasWorkspace = this.workspace.id;
+
+        this.dataServices = this.$store.getters["dataServices/getDataServices"](this.workspace.id);
 
         if (this.dataServiceAccessProp) {
             this.update = true;
             Object.assign(this.dataServiceAccess, this.dataServiceAccessProp);
         }
-
-        this.roles = this.$store.getters["roles/getRoles"](this.workspace.id);
     },
     methods: {
         async storeDataServiceAccess() {
@@ -107,26 +92,10 @@ export default {
     <ApiErrorAlert v-if="error" :error="error" />
     <form @submit.prevent="update ? updateDataServiceAccess() : storeDataServiceAccess()">
         <div class="mb-3">
-            <label for="not-before" class="form-label">{{ Utils.capitalize($t("main.not_before")) }}</label>
-            <input id="not-before" v-model="notBefore" type="datetime-local" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="not-on-or-after" class="form-label">{{ Utils.capitalize($t("main.not_on_or_after")) }}</label>
-            <input id="not-on-or-after" v-model="notOnOrAfter" type="datetime-local" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="data-service-provider-id" class="form-label">{{ Utils.capitalize($t("main.data_service_provider_id")) }}</label>
-            <input id="data-service-provider-id" v-model="dataServiceAccess.dataServiceProviderId" type="text" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="role-id" class="form-label">{{ Utils.capitalize($t("main.role")) }}</label>
-            <select id="role-id" v-model="dataServiceAccess.hasRole" class="form-select" required>
-                <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
+            <label for="data-service-id" class="form-label">{{ Utils.capitalize($t("main.data_service")) }}</label>
+            <select id="data-service-id" v-model="dataServiceAccess.hasDataService" class="form-select" required>
+                <option v-for="dataService in dataServices" :key="dataService.id" :value="dataService.id">{{ dataService.name ?? dataService.id }}</option>
             </select>
-        </div>
-        <div class="mb-3">
-            <label for="verifiable-credential-type" class="form-label">{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</label>
-            <input id="verifiable-credential-type" v-model="dataServiceAccess.verifiableCredentialType" type="text" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

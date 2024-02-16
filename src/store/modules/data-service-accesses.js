@@ -75,15 +75,6 @@ export default {
                 throw error.response.data || {};
             }
             commit("removeDataServiceAccess", { workspaceId, dataServiceAccess });
-        },
-        async synchronizeDataServiceAccess({ dispatch }, { workspaceId, dataServiceAccess, permit }) {
-            const data = { effect: permit ? "Permit" : "Deny" };
-            try {
-                await this.$api.post(`/workspace/${workspaceId}/data-service-accesses/${dataServiceAccess.id}/synchronize`, data);
-                await dispatch("fetchDataServiceAccess", { workspaceId, dataServiceAccessId: dataServiceAccess.id });
-            } catch (error) {
-                throw error.response.data || {};
-            }
         }
     }
 };

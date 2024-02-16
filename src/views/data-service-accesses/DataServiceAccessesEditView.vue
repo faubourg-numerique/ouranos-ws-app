@@ -11,29 +11,29 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
-        const dataServiceId = this.$route.params.dataServiceId;
-        this.dataService = this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+        const roleId = this.$route.params.roleId;
+        this.role = this.$store.getters["roles/getRole"](this.workspace.id, roleId);
 
         const dataServiceAccessId = this.$route.params.dataServiceAccessId;
         this.dataServiceAccess = this.$store.getters["dataServiceAccesses/getDataServiceAccess"](this.workspace.id, dataServiceAccessId);
 
         this.breadcrumbItems = [
             {
-                name: this.Utils.capitalize(this.$t("main.data_services")),
+                name: this.Utils.capitalize(this.$t("main.roles")),
                 route: {
-                    name: "dataServices.index",
+                    name: "roles.index",
                     params: {
                         workspaceId: this.workspace.id
                     }
                 }
             },
             {
-                name: this.dataService.name ?? this.dataService.id,
+                name: this.role.name,
                 route: {
-                    name: "dataServices.show",
+                    name: "roles.show",
                     params: {
                         workspaceId: this.workspace.id,
-                        dataServiceId: this.dataService.id
+                        roleId: this.role.id
                     }
                 }
             },
