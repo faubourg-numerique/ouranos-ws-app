@@ -125,7 +125,7 @@ export default {
                     <RouterLink v-if="$authorization.canUpdateContract(workspace.id, contract.id)" :to="{ name: 'contracts.edit', params: { contractId: contract.id } }" class="btn btn-primary btn-sm ms-3">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyContract(workspace.id, contract.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContract">
+                    <button v-if="$authorization.canDestroyContract(workspace.id, contract.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContract" disabled>
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>

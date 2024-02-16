@@ -81,7 +81,7 @@ export default {
                     <RouterLink v-if="$authorization.canUpdateRole(workspace.id, role.id)" :to="{ name: 'roles.edit', params: { name: role.id } }" class="btn btn-primary btn-sm">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
-                    <button v-if="$authorization.canDestroyRole(workspace.id, role.id)" class="btn btn-danger btn-sm ms-3" @click="destroyRole">
+                    <button v-if="$authorization.canDestroyRole(workspace.id, role.id)" class="btn btn-danger btn-sm ms-3" @click="destroyRole" disabled>
                         <i class="fa-solid fa-trash-can" />
                     </button>
                 </span>
