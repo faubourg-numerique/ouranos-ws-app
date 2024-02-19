@@ -31,7 +31,6 @@ export default {
         this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id, this.dataService.id);
 
         this.dataServiceOffer.hasDataService = this.dataService.id;
-        this.dataServiceOffer.hasDataServiceAccess = this.dataServiceAccesses[0].id;
         this.dataServiceOffer.hasWorkspace = this.workspace.id;
 
         if (this.dataServiceOfferProp) {
