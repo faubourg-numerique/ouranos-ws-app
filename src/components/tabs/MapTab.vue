@@ -148,7 +148,7 @@ export default {
 
 <template>
     <ApiErrorAlert v-if="error" :error="error" />
-    <div v-else-if="!type" class="alert alert-info mb-0">
+    <div v-if="!type" class="alert alert-info mb-0">
         <h5 class="alert-heading">{{ $t("dialogs.no_type_selected_title") }}</h5>
         <p class="mb-0">{{ $t("dialogs.no_type_selected_message") }}</p>
     </div>
