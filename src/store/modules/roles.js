@@ -75,7 +75,7 @@ export default {
             const data = { effect: permit ? "Permit" : "Deny" };
             try {
                 await this.$api.post(`/workspace/${workspaceId}/roles/${role.id}/synchronize`, data);
-                await dispatch("fetchRoles", { workspaceId });
+                await dispatch("fetchRoles", workspaceId);
             } catch (error) {
                 throw error.response.data || {};
             }

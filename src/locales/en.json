@@ -118,7 +118,11 @@
         "wot_action_deletion_question": "Are you sure you want to delete this wot action?",
         "wot_event_deletion_question": "Are you sure you want to delete this event?",
         "wot_property_deletion_question": "Are you sure you want to delete this wot property?",
-        "wot_thing_description_deletion_question": "Are you sure you want to delete this wot thing description?"
+        "wot_thing_description_deletion_question": "Are you sure you want to delete this wot thing description?",
+        "role_synchronization_failure": "The synchronization of the role has failed.",
+        "role_synchronization_permit_question": "Please choose a rule:",
+        "role_synchronization_question": "Are you sure you want to synchronize this role?",
+        "role_synchronization_success": "The synchronization of the role was successful."
     },
     "main": {
         "accept": "accept",

@@ -16,12 +16,15 @@ export default {
             error: null
         };
     },
+    computed: {
+        role() {
+            const roleId = this.$route.params.roleId;
+            return this.$store.getters["roles/getRole"](this.workspace.id, roleId);
+        }
+    },
     created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
-
-        const roleId = this.$route.params.roleId;
-        this.role = this.$store.getters["roles/getRole"](this.workspace.id, roleId);
 
         this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id, this.role.id);
 
