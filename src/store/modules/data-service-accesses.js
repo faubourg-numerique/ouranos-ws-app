@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getDataServiceAccesses(state) {
-            return (workspaceId, dataServiceId) => {
+            return (workspaceId, roleId) => {
                 if (!(workspaceId in state.dataServiceAccesses)) return [];
-                return Object.values(state.dataServiceAccesses[workspaceId]).filter(dataServiceAccess => dataServiceAccess.hasDataService === dataServiceId);
+                return Object.values(state.dataServiceAccesses[workspaceId]).filter(dataServiceAccess => dataServiceAccess.hasRole === roleId);
             };
         },
         getDataServiceAccess(state) {

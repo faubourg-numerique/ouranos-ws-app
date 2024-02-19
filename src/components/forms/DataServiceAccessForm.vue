@@ -33,7 +33,7 @@ export default {
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
         const roleId = this.$route.params.roleId;
-        const role = this.$store.getters["roles/getRole"](this.workspace.id);
+        const role = this.$store.getters["roles/getRole"](this.workspace.id, roleId);
         this.dataServiceAccess.hasRole = role.id;
 
         this.dataServiceAccess.hasWorkspace = this.workspace.id;

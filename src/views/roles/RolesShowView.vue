@@ -23,8 +23,7 @@ export default {
         const roleId = this.$route.params.roleId;
         this.role = this.$store.getters["roles/getRole"](this.workspace.id, roleId);
 
-        // Filter by role id
-        this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id);
+        this.dataServiceAccesses = this.$store.getters["dataServiceAccesses/getDataServiceAccesses"](this.workspace.id, this.role.id);
 
         this.breadcrumbItems = [
             {
@@ -43,6 +42,9 @@ export default {
         ];
     },
     methods: {
+        dataService(dataServiceId) {
+            return this.$store.getters["dataServices/getDataService"](this.workspace.id, dataServiceId);
+        },
         async destroyRole() {
             const result = await this.$swal.fire({
                 title: this.$t("dialogs.role_deletion_question"),
@@ -75,44 +77,44 @@ export default {
             this.$router.push({ name: "roles.index" });
         },
         async synchronizeRole() {
-            // let result = await this.$swal.fire({
-            //     title: this.$t("dialogs.data_service_access_synchronization_question"),
-            //     icon: "question",
-            //     showDenyButton: true,
-            //     confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
-            //     denyButtonText: this.Utils.capitalize(this.$t("main.no")),
-            //     heightAuto: false
-            // });
-            // if (!result.isConfirmed) {
-            //     return;
-            // }
-            // result = await this.$swal.fire({
-            //     title: this.$t("dialogs.data_service_access_synchronization_permit_question"),
-            //     icon: "question",
-            //     showDenyButton: true,
-            //     confirmButtonText: this.Utils.capitalize(this.$t("main.permit")),
-            //     denyButtonText: this.Utils.capitalize(this.$t("main.deny")),
-            //     heightAuto: false
-            // });
-            // this.$store.dispatch("setDisplayLoadingScreen", true);
-            // try {
-            //     await this.$store.dispatch("dataServiceAccesses/synchronizeDataServiceAccess", { workspaceId: this.workspace.id, dataServiceAccess: this.dataServiceAccess, permit: result.isConfirmed });
-            // } catch (error) {
-            //     this.$store.dispatch("setDisplayLoadingScreen", false);
-            //     this.error = error;
-            //     this.$swal.fire({
-            //         title: this.$t("dialogs.data_service_access_synchronization_failure"),
-            //         icon: "error",
-            //         heightAuto: false
-            //     });
-            //     return;
-            // }
-            // this.$store.dispatch("setDisplayLoadingScreen", false);
-            // this.$swal.fire({
-            //     title: this.$t("dialogs.data_service_access_synchronization_success"),
-            //     icon: "success",
-            //     heightAuto: false
-            // });
+            let result = await this.$swal.fire({
+                title: this.$t("dialogs.role_synchronization_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
+                heightAuto: false
+            });
+            if (!result.isConfirmed) {
+                return;
+            }
+            result = await this.$swal.fire({
+                title: this.$t("dialogs.role_synchronization_permit_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.permit")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.deny")),
+                heightAuto: false
+            });
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("roles/synchronizeRole", { workspaceId: this.workspace.id, role: this.role, permit: result.isConfirmed });
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.role_synchronization_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$swal.fire({
+                title: this.$t("dialogs.role_synchronization_success"),
+                icon: "success",
+                heightAuto: false
+            });
         }
     }
 };
@@ -141,18 +143,18 @@ export default {
                 <dl class="row mb-0">
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.id")) }}</dt>
                     <dd class="col-sm-8">{{ role.id }}</dd>
-                    <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.name")) }}</dt>
-                    <dd class="col-sm-8 mb-0">{{ role.name }}</dd>
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.name")) }}</dt>
+                    <dd class="col-sm-8">{{ role.name }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.not_before")) }}</dt>
-                    <dd class="col-sm-8">{{ role.notBefore }}</dd>
+                    <dd class="col-sm-8 font-monospace">{{ new Date(role.notBefore * 1000).toISOString() }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.not_on_or_after")) }}</dt>
-                    <dd class="col-sm-8">{{ role.notOnOrAfter }}</dd>
+                    <dd class="col-sm-8 font-monospace">{{ new Date(role.notOnOrAfter * 1000).toISOString() }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.synchronized")) }}</dt>
                     <dd class="col-sm-8">
                         <BooleanIcon :value="role.synchronized" />
                     </dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.synchronization_time")) }}</dt>
-                    <dd class="col-sm-8">{{ role.synchronizationTime }}</dd>
+                    <dd class="col-sm-8 font-monospace">{{ new Date(role.synchronizationTime * 1000).toISOString() }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.data_service_provider_id")) }}</dt>
                     <dd class="col-sm-8">{{ role.dataServiceProviderId }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</dt>
@@ -181,7 +183,7 @@ export default {
                     <thead class="table-dark">
                         <tr>
                             <th />
-                            <th>{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.data_service")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -191,7 +193,9 @@ export default {
                                     <i class="fa-solid fa-right-to-bracket" />
                                 </RouterLink>
                             </td>
-                            <td>{{ dataServiceAccess.verifiableCredentialType }}</td>
+                            <td>
+                                <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: dataServiceAccess.hasDataService }}">{{ dataService(dataServiceAccess.hasDataService).name || dataServiceAccess.hasDataService }}</RouterLink>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
