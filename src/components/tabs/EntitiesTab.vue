@@ -7,6 +7,7 @@ import PropertiesTable from "@/components/PropertiesTable";
 import SpinnerAnimation from "@/components/SpinnerAnimation";
 import { Entity } from "@/classes/Entity";
 import Utils from "@/classes/Utils";
+import { googleServiceAccount } from "@/config.js";
 
 export default {
     components: {
@@ -45,7 +46,7 @@ export default {
         }
     },
     created() {
-        this.googleServiceAccount = process.env.VUE_APP_GOOGLE_SERVICE_ACCOUNT;
+        this.googleServiceAccount = googleServiceAccount;
 
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);

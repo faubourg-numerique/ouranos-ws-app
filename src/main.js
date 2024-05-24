@@ -7,6 +7,7 @@ import router from "@/router";
 import store from "@/store";
 import { Authorization } from "@/classes/Authorization";
 import Utils from "@/classes/Utils";
+import { enabledModules, googleMapsApiKey } from "@/config.js";
 
 const app = createApp(App)
     .use(i18n)
@@ -14,7 +15,7 @@ const app = createApp(App)
     .use(store)
     .use(VueGoogleMaps, {
         load: {
-            key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+            key: googleMapsApiKey,
         }
     });
 
@@ -28,14 +29,14 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-var enabledModules = [];
-if (process.env.VUE_APP_ENABLED_MODULES) {
-    var temp = process.env.VUE_APP_ENABLED_MODULES.split(",");
+var enabledModulesArray = [];
+if (enabledModules) {
+    var temp = enabledModules.split(",");
     temp = temp.map(x => x.trim());
-    enabledModules = temp.map(x => x.toLowerCase());
+    enabledModulesArray = temp.map(x => x.toLowerCase());
 }
 
-app.config.globalProperties.I4TRUST_MODULE_ENABLED = enabledModules.includes("i4trust");
+app.config.globalProperties.I4TRUST_MODULE_ENABLED = enabledModulesArray.includes("i4trust");
 
 app.config.globalProperties.$swal = swal;
 app.config.globalProperties.$authorization = new Authorization();

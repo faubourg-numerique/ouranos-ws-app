@@ -1,13 +1,15 @@
 <script>
+import { identityManagerAuthorizeUrl, identityManagerRedirectUri, identityManagerClientId } from "@/config.js";
+
 export default {
     created() {
         const query = {
             response_type: "token",
-            client_id: process.env.VUE_APP_IDENTITY_MANAGER_CLIENT_ID,
-            redirect_uri: process.env.VUE_APP_IDENTITY_MANAGER_REDIRECT_URI,
+            client_id: identityManagerClientId,
+            redirect_uri: identityManagerRedirectUri,
             state: false
         };
-        this.identityManagerAuthorizeUrl = process.env.VUE_APP_IDENTITY_MANAGER_AUTHORIZE_URL + "?" + new URLSearchParams(query).toString();
+        this.identityManagerAuthorizeUrl = identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
     }
 }
 </script>

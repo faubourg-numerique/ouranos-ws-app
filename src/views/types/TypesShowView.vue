@@ -2,6 +2,7 @@
 import ApiErrorAlert from "@/components/ApiErrorAlert";
 import BooleanIcon from "@/components/BooleanIcon";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
+import { dataModelsUrl } from "@/config.js";
 
 export default {
     components: {
@@ -90,7 +91,7 @@ export default {
             ];
         },
         dataModelUrl() {
-            return `${process.env.VUE_APP_DATA_MODELS_URL}/${this.workspace.dataModelName}/${this.workspace.dataModelVersion}/${this.type.name}/context.jsonld`;
+            return `${dataModelsUrl}/${this.workspace.dataModelName}/${this.workspace.dataModelVersion}/${this.type.name}/context.jsonld`;
         }
     }
 };

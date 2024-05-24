@@ -1,6 +1,8 @@
 <script>
 import axios from "axios";
 
+import { apiUrl, identityManagerAuthorizeUrl, identityManagerRedirectUri, identityManagerClientId } from "@/config.js";
+
 export default {
     async created() {
         const accessToken = this.$route.query.token;
@@ -19,7 +21,7 @@ export default {
         this.$store.dispatch("authentication/setAuthenticated", true);
 
         this.$store.$api = axios.create({
-            baseURL: process.env.VUE_APP_API_URL,
+            baseURL: apiUrl,
             headers: {
                 "Authorization": `${accessTokenType} ${accessToken}`
             }
@@ -49,11 +51,11 @@ export default {
 
         const query = {
             response_type: "token",
-            client_id: process.env.VUE_APP_IDENTITY_MANAGER_CLIENT_ID,
-            redirect_uri: process.env.VUE_APP_IDENTITY_MANAGER_REDIRECT_URI,
+            client_id: identityManagerClientId,
+            redirect_uri: identityManagerRedirectUri,
             state: false
         };
-        const identityManagerAuthorizeUrl = process.env.VUE_APP_IDENTITY_MANAGER_AUTHORIZE_URL + "?" + new URLSearchParams(query).toString();
+        const identityManagerAuthorizeUrl = identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
 
         var config = {
             title: this.Utils.capitalize(this.$t("dialogs.session_expired_title")),
