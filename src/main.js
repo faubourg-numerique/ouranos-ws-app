@@ -7,7 +7,6 @@ import router from "@/router";
 import store from "@/store";
 import { Authorization } from "@/classes/Authorization";
 import Utils from "@/classes/Utils";
-import { enabledModules, googleMapsApiKey } from "@/config.js";
 
 const app = createApp(App)
     .use(i18n)
@@ -15,7 +14,7 @@ const app = createApp(App)
     .use(store)
     .use(VueGoogleMaps, {
         load: {
-            key: googleMapsApiKey,
+            key: window.googleMapsApiKey,
         }
     });
 
@@ -30,8 +29,8 @@ router.beforeEach((to, from, next) => {
 });
 
 var enabledModulesArray = [];
-if (enabledModules) {
-    var temp = enabledModules.split(",");
+if (window.enabledModules) {
+    var temp = window.enabledModules.split(",");
     temp = temp.map(x => x.trim());
     enabledModulesArray = temp.map(x => x.toLowerCase());
 }

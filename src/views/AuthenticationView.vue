@@ -1,15 +1,13 @@
 <script>
-import { identityManagerAuthorizeUrl, identityManagerRedirectUri, identityManagerClientId } from "@/config.js";
-
 export default {
     created() {
         const query = {
             response_type: "token",
-            client_id: identityManagerClientId,
-            redirect_uri: identityManagerRedirectUri,
+            client_id: window.identityManagerClientId,
+            redirect_uri: window.identityManagerRedirectUri,
             state: false
         };
-        this.identityManagerAuthorizeUrl = identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
+        this.identityManagerAuthorizeUrl = window.identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
     }
 }
 </script>

@@ -1,8 +1,6 @@
 <script>
 import axios from "axios";
 
-import { apiUrl, identityManagerAuthorizeUrl, identityManagerRedirectUri, identityManagerClientId } from "@/config.js";
-
 export default {
     async created() {
         const accessToken = this.$route.query.token;
@@ -21,7 +19,7 @@ export default {
         this.$store.dispatch("authentication/setAuthenticated", true);
 
         this.$store.$api = axios.create({
-            baseURL: apiUrl,
+            baseURL: window.apiUrl,
             headers: {
                 "Authorization": `${accessTokenType} ${accessToken}`
             }
@@ -51,11 +49,11 @@ export default {
 
         const query = {
             response_type: "token",
-            client_id: identityManagerClientId,
-            redirect_uri: identityManagerRedirectUri,
+            client_id: window.identityManagerClientId,
+            redirect_uri: window.identityManagerRedirectUri,
             state: false
         };
-        const identityManagerAuthorizeUrl = identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
+        const identityManagerAuthorizeUrl = window.identityManagerAuthorizeUrl + "?" + new URLSearchParams(query).toString();
 
         var config = {
             title: this.Utils.capitalize(this.$t("dialogs.session_expired_title")),

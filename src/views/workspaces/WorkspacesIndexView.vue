@@ -2,8 +2,6 @@
 import axios from "axios";
 import uuid4 from "uuid4";
 
-import { apiUrl, dataModelsUrl } from "@/config.js";
-
 export default {
     created() {
         this.workspaces = {};
@@ -53,7 +51,7 @@ export default {
             return this.$store.getters["isWorkspaceOpen"](workspaceId);
         },
         dataModelUrl(name, version) {
-            return `${dataModelsUrl}/${name}/${version}/context.jsonld`;
+            return `${window.dataModelsUrl}/${name}/${version}/context.jsonld`;
         },
         siop2AuthorizationRequired(workspaceId) {
             const workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
@@ -67,12 +65,12 @@ export default {
             const state = uuid4();
 
             const vcVerifierUrl = this.Utils.buildUrl(vcVerifier.scheme, vcVerifier.host, vcVerifier.port, vcVerifier.path);
-            const url = `${vcVerifierUrl}/api/v1/loginQR?state=${state}&client_id=${service.clientId}&client_callback=${apiUrl}/siop2/callback`;
+            const url = `${vcVerifierUrl}/api/v1/loginQR?state=${state}&client_id=${service.clientId}&client_callback=${window.apiUrl}/siop2/callback`;
             const popup = window.open(url, "_blank", "popup,width=500,height=500");
 
             const interval = setInterval(() => {
                 axios
-                    .get(`${apiUrl}/siop2/poll`, {
+                    .get(`${window.apiUrl}/siop2/poll`, {
                         params: {
                             state,
                             workspaceId: workspace.id,
