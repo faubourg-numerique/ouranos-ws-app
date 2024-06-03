@@ -28,14 +28,14 @@ router.beforeEach((to, from, next) => {
     }
 });
 
-var enabledModulesArray = [];
-if (window.enabledModules) {
-    var temp = window.enabledModules.split(",");
-    temp = temp.map(x => x.trim());
-    enabledModulesArray = temp.map(x => x.toLowerCase());
-}
+// var enabledModulesArray = [];
+// if (window.enabledModules) {
+//     var temp = window.enabledModules.split(",");
+//     temp = temp.map(x => x.trim());
+//     enabledModulesArray = temp.map(x => x.toLowerCase());
+// }
 
-app.config.globalProperties.I4TRUST_MODULE_ENABLED = enabledModulesArray.includes("i4trust");
+app.config.globalProperties.I4TRUST_MODULE_ENABLED = true;
 
 app.config.globalProperties.$swal = swal;
 app.config.globalProperties.$authorization = new Authorization();
