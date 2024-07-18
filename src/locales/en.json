@@ -366,6 +366,8 @@
         "role": "role",
         "edit_a_contract_detail": "edit a contract detail",
         "create_a_contract_detail": "create a contract detail",
-        "did": "did"
+        "did": "did",
+        "scope_type": "scope type",
+        "scope_entity": "scope entity"
     }
 }

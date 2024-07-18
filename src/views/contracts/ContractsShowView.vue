@@ -9,15 +9,23 @@ export default {
     },
     data() {
         return {
-            error: null
+            error: null,
+            scopeType: null,
+            scopeEntity: null
         };
     },
-    created() {
+    async created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
+        this.service = this.$store.getters["services/getService"](this.workspace.hasService);
 
         const contractId = this.$route.params.contractId;
         this.contract = this.$store.getters["contracts/getContract"](this.workspace.id, contractId);
+
+        const scopeTypeId = this.contract.scopeType;
+        if (scopeTypeId) {
+            this.scopeType = this.$store.getters["types/getType"](this.workspace.id, scopeTypeId);
+        }
 
         this.contractDetails = this.$store.getters["contractDetails/getContractDetails"](this.workspace.id, this.contract.id);
 
@@ -36,6 +44,15 @@ export default {
                 name: this.contract.id
             }
         ];
+
+        const scopeEntityId = this.contract.scopeEntity;
+        if (scopeEntityId) {
+            try {
+                this.scopeEntity = await this.$store.dispatch("entities/showEntity", { workspaceId: this.workspace.id, entityId: scopeEntityId });
+            } catch (error) {
+                this.error = error;
+            }
+        }
     },
     methods: {
         getRole(roleId) {
@@ -119,7 +136,7 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ contract.id }}</span>
                 <span>
-                    <button v-if="$authorization.canUpdateContract(workspace.id, contract.id)" class="btn btn-primary btn-sm ms-3" @click="synchronizeContract">
+                    <button v-if="service.authorizationMode === 'siop2' && $authorization.canUpdateContract(workspace.id, contract.id)" class="btn btn-primary btn-sm ms-3" @click="synchronizeContract">
                         <i class="fa-solid fa-sync-alt" />
                     </button>
                     <RouterLink v-if="$authorization.canUpdateContract(workspace.id, contract.id)" :to="{ name: 'contracts.edit', params: { contractId: contract.id } }" class="btn btn-primary btn-sm ms-3">
@@ -147,6 +164,14 @@ export default {
                     <dd class="col-sm-8">{{ contract.validToTime }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</dt>
                     <dd class="col-sm-8">{{ contract.verifiableCredentialType }}</dd>
+                    <template v-if="scopeType">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_type")) }}</dt>
+                        <dd class="col-sm-8">{{ scopeType.name }}</dd>
+                    </template>
+                    <template v-if="scopeEntity">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_entity")) }}</dt>
+                        <dd class="col-sm-8">{{ scopeEntity.getId() }}<template v-if="scopeEntity.propertyExists('name')"> ({{ scopeEntity.getProperty("name") }})</template></dd>
+                    </template>
                 </dl>
             </div>
         </div>

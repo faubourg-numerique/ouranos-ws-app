@@ -345,6 +345,8 @@
         "wot_thing_descriptions": "wot thing descriptions",
         "yes": "oui",
         "trusted_issuers_list": "Trusted issuers list",
-        "trusted_issuers_lists": "Trusted issuers lists"
+        "trusted_issuers_lists": "Trusted issuers lists",
+        "scope_type": "scope type",
+        "scope_entity": "scope entity"
     }
 }

@@ -9,10 +9,12 @@ export default {
     },
     data() {
         return {
-            error: null
+            error: null,
+            scopeType: null,
+            scopeEntity: null
         };
     },
-    created() {
+    async created() {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
@@ -21,6 +23,11 @@ export default {
 
         const contractDetailId = this.$route.params.contractDetailId;
         this.contractDetail = this.$store.getters["contractDetails/getContractDetail"](this.workspace.id, contractDetailId);
+
+        const scopeTypeId = this.contractDetail.scopeType;
+        if (scopeTypeId) {
+            this.scopeType = this.$store.getters["types/getType"](this.workspace.id, scopeTypeId);
+        }
 
         this.breadcrumbItems = [
             {
@@ -47,6 +54,15 @@ export default {
                 name: this.contractDetail.id
             }
         ];
+
+        const scopeEntityId = this.contractDetail.scopeEntity;
+        if (scopeEntityId) {
+            try {
+                this.scopeEntity = await this.$store.dispatch("entities/showEntity", { workspaceId: this.workspace.id, entityId: scopeEntityId });
+            } catch (error) {
+                this.error = error;
+            }
+        }
     },
     methods: {
         getRole(roleId) {
@@ -109,8 +125,16 @@ export default {
                     <dd class="col-sm-8">
                         <RouterLink :to="{ name: 'roles.show', params: { roleId: contractDetail.hasRole } }">{{ getRole(contractDetail.hasRole).name }}</RouterLink>
                     </dd>
-                    <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.contract")) }}</dt>
-                    <dd class="col-sm-8 mb-0">{{ contractDetail.hasContract }}</dd>
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.contract")) }}</dt>
+                    <dd class="col-sm-8">{{ contractDetail.hasContract }}</dd>
+                    <template v-if="scopeType">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_type")) }}</dt>
+                        <dd class="col-sm-8">{{ scopeType.name }}</dd>
+                    </template>
+                    <template v-if="scopeEntity">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_entity")) }}</dt>
+                        <dd class="col-sm-8">{{ scopeEntity.getId() }}<template v-if="scopeEntity.propertyExists('name')"> ({{ scopeEntity.getProperty("name") }})</template></dd>
+                    </template>
                 </dl>
             </div>
         </div>
