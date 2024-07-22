@@ -98,6 +98,38 @@ export default {
 
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$router.push({ name: "contracts.show", params: { workspaceId: this.workspace.id, contractId: this.contract.id } });
+        },
+        async synchronizeContractDetail() {
+            const result = await this.$swal.fire({
+                title: this.$t("dialogs.contract_detail_synchronization_question"),
+                icon: "question",
+                showDenyButton: true,
+                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
+                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
+                heightAuto: false
+            });
+            if (!result.isConfirmed) {
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("contractDetails/synchronizeContractDetail", { workspaceId: this.workspace.id, contractDetail: this.contractDetail });
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                this.$swal.fire({
+                    title: this.$t("dialogs.contract_detail_synchronization_failure"),
+                    icon: "error",
+                    heightAuto: false
+                });
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+            this.$swal.fire({
+                title: this.$t("dialogs.contract_detail_synchronization_success"),
+                icon: "success",
+                heightAuto: false
+            });
         }
     }
 };
@@ -110,7 +142,10 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ contractDetail.id }}</span>
                 <span>
-                    <RouterLink v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" :to="{ name: 'contractDetails.edit', params: { contractDetailId: contractDetail.id } }" class="btn btn-primary btn-sm">
+                    <button v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" class="btn btn-primary btn-sm" @click="synchronizeContractDetail">
+                        <i class="fa-solid fa-sync-alt" />
+                    </button>
+                    <RouterLink v-if="$authorization.canUpdateContractDetail(workspace.id, contractDetail.id)" :to="{ name: 'contractDetails.edit', params: { contractDetailId: contractDetail.id } }" class="btn btn-primary btn-sm ms-3">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
                     <button v-if="$authorization.canDestroyContractDetail(workspace.id, contractDetail.id)" class="btn btn-danger btn-sm ms-3" @click="destroyContractDetail">
