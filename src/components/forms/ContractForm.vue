@@ -51,6 +51,7 @@ export default {
         const workspaceId = this.$route.params.workspaceId;
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
         this.types = this.$store.getters["types/getTypes"](workspaceId);
+        this.scopeTypes = Object.values(this.types).filter((type) => type.scopeName !== null);
 
         this.contract.hasWorkspace = this.workspace.id;
 
@@ -136,7 +137,7 @@ export default {
             <label for="scope-type" class="form-label">{{ Utils.capitalize($t("main.scope_type")) }}</label>
             <select id="scope-type" v-model="contract.scopeType" class="form-select" required>
                 <option :value="null">---</option>
-                <option v-for="type in types" :key="type.id" :value="type.id">{{ type.name }}</option>
+                <option v-for="type in scopeTypes" :key="type.id" :value="type.id">{{ type.name }}</option>
             </select>
         </div>
         <div class="mb-3" v-if="contract.scopeType">

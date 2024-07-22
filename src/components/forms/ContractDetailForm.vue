@@ -32,6 +32,9 @@ export default {
 
             const types = [];
             for (const type of Object.values(this.types)) {
+                if (type.scopeName === null) {
+                    continue;
+                }
                 const properties = this.$store.getters["properties/getProperties"](this.workspace.id, type.id);
                 for (const property of Object.values(properties)) {
                     if (property.relationshipType === this.contract.scopeType) {
