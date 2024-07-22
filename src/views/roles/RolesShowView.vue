@@ -118,38 +118,6 @@ export default {
                 icon: "success",
                 heightAuto: false
             });
-        },
-        async synchronizeKeyrockRole() {
-            let result = await this.$swal.fire({
-                title: this.$t("dialogs.role_synchronization_question"),
-                icon: "question",
-                showDenyButton: true,
-                confirmButtonText: this.Utils.capitalize(this.$t("main.yes")),
-                denyButtonText: this.Utils.capitalize(this.$t("main.no")),
-                heightAuto: false
-            });
-            if (!result.isConfirmed) {
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", true);
-            try {
-                await this.$store.dispatch("roles/synchronizeKeyrockRole", { workspaceId: this.workspace.id, role: this.role });
-            } catch (error) {
-                this.$store.dispatch("setDisplayLoadingScreen", false);
-                this.error = error;
-                this.$swal.fire({
-                    title: this.$t("dialogs.role_synchronization_failure"),
-                    icon: "error",
-                    heightAuto: false
-                });
-                return;
-            }
-            this.$store.dispatch("setDisplayLoadingScreen", false);
-            this.$swal.fire({
-                title: this.$t("dialogs.role_synchronization_success"),
-                icon: "success",
-                heightAuto: false
-            });
         }
     }
 };
@@ -162,15 +130,9 @@ export default {
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ role.name }}</span>
                 <span>
-                    <span v-if="$authorization.canUpdateRole(workspace.id, role.id)" class="dropdown">
-                        <button class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-sync-alt" />
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" @click="synchronizeRole" role="button"><i class="fa-solid fa-sync-alt me-2" />Data Space Connector</a></li>
-                            <li><a class="dropdown-item" @click="synchronizeKeyrockRole" role="button"><i class="fa-solid fa-sync-alt me-2" />Keyrock</a></li>
-                        </ul>
-                    </span>
+                    <button v-if="$authorization.canUpdateRole(workspace.id, role.id)" class="btn btn-primary btn-sm" @click="synchronizeRole">
+                        <i class="fa-solid fa-sync-alt" />
+                    </button>
                     <RouterLink v-if="$authorization.canUpdateRole(workspace.id, role.id)" :to="{ name: 'roles.edit', params: { name: role.id } }" class="btn btn-primary btn-sm ms-3">
                         <i class="fa-solid fa-pencil-alt" />
                     </RouterLink>
@@ -200,6 +162,8 @@ export default {
                     <dd class="col-sm-8">{{ role.dataServiceProviderId }}</dd>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.verifiable_credential_type")) }}</dt>
                     <dd class="col-sm-8">{{ role.verifiableCredentialType }}</dd>
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.role_name")) }}</dt>
+                    <dd class="col-sm-8">{{ role.roleName }}</dd>
                     <template v-if="role.lastDelegationEvidence">
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.access_policy")) }}</dt>
                         <dd class="col-sm-8 font-monospace">
