@@ -79,6 +79,13 @@ export default {
             } catch (error) {
                 throw error.response.data || {};
             }
+        },
+        async synchronizeKeyrockRole({ dispatch }, { workspaceId, role }) {
+            try {
+                await this.$api.post(`/workspace/${workspaceId}/roles/${role.id}/synchronize-keyrock`);
+            } catch (error) {
+                throw error.response.data || {};
+            }
         }
     }
 };
