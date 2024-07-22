@@ -18,7 +18,8 @@ export default {
             update: false,
             contractDetail: {
                 scopeType: null,
-                scopeEntity: null
+                scopeEntity: null,
+                roleScopeName: null
             },
             scopeEntities: []
         };
@@ -43,6 +44,11 @@ export default {
         }
     },
     watch: {
+        "contractDetail.roleScopeName"(roleScopeName) {
+            if (!roleScopeName) {
+                this.roleScopeName = null;
+            }
+        },
         async "contractDetail.scopeType"() {
             this.scopeEntities.length = 0;
 
@@ -159,6 +165,10 @@ export default {
                 </select>
             </div>
         </template>
+        <div class="mb-3">
+            <label for="role-scope-name" class="form-label">{{ Utils.capitalize($t("main.role_scope_name")) }}</label>
+            <input id="role-scope-name" v-model="contractDetail.roleScopeName" type="text" class="form-control">
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

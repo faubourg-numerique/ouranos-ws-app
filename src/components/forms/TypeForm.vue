@@ -17,7 +17,8 @@ export default {
             update: false,
             type: {
                 standardDataModelBased: false,
-                dataModelGroup: null
+                dataModelGroup: null,
+                scopeName: null
             }
         };
     },
@@ -41,6 +42,11 @@ export default {
             if (!standardDataModelBased) {
                 delete this.type.standardDataModelType;
                 delete this.type.standardDataModelDefinitionUrl;
+            }
+        },
+        "type.scopeName"(scopeName) {
+            if (!scopeName) {
+                this.type.scopeName = null;
             }
         }
     },
@@ -153,6 +159,10 @@ export default {
                 <input id="standard-data-model-definition-url" v-model="type.standardDataModelDefinitionUrl" type="url" class="form-control" required>
             </div>
         </template>
+        <div class="mb-3">
+            <label for="scope-name" class="form-label">{{ Utils.capitalize($t("main.scope_name")) }}</label>
+            <input id="scope-name" v-model="type.scopeName" type="text" class="form-control">
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

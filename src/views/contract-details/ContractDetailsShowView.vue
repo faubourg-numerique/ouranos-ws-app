@@ -135,6 +135,10 @@ export default {
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_entity")) }}</dt>
                         <dd class="col-sm-8">{{ scopeEntity.getId() }}<template v-if="scopeEntity.propertyExists('name')"> ({{ scopeEntity.getProperty("name") }})</template></dd>
                     </template>
+                    <template v-if="contractDetail.roleScopeName">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.role_scope_name")) }}</dt>
+                        <dd class="col-sm-8">{{ contractDetail.roleScopeName }}</dd>
+                    </template>
                 </dl>
             </div>
         </div>

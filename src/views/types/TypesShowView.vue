@@ -140,8 +140,12 @@ export default {
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.standard_data_model_definition_url")) }}</dt>
                         <dd class="col-sm-8"><a :href="type.standardDataModelDefinitionUrl" target="_blank">{{ type.standardDataModelDefinitionUrl }}</a></dd>
                     </template>
-                    <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.data_model_url")) }}</dt>
-                    <dd class="col-sm-8 mb-0"><a :href="dataModelUrl()" target="_blank">{{ dataModelUrl() }}</a></dd>
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.data_model_url")) }}</dt>
+                    <dd class="col-sm-8"><a :href="dataModelUrl()" target="_blank">{{ dataModelUrl() }}</a></dd>
+                    <template v-if="type.scopeName">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_name")) }}</dt>
+                        <dd class="col-sm-8">{{ type.scopeName }}</dd>
+                    </template>
                 </dl>
             </div>
         </div>
