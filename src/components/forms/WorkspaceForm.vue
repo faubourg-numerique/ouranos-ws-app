@@ -18,7 +18,9 @@ export default {
             workspace: {
                 dataModelVersion: 0,
                 temporalServices: [],
-                enableOffers: false
+                enableOffers: false,
+                hasIdentityManager: null,
+                hasIdentityManagerGrant: null
             }
         };
     },
@@ -48,6 +50,11 @@ export default {
                 delete this.workspace.hasAuthorizationRegistry;
                 delete this.workspace.hasAuthorizationRegistryGrant;
             }
+        },
+        "workspace.hasIdentityManager"(hasIdentityManager) {
+            if (!hasIdentityManager) {
+                this.workspace.hasIdentityManagerGrant = null;
+            }
         }
     },
     created() {
@@ -60,6 +67,8 @@ export default {
         this.temporalServices = this.$store.getters["temporalServices/getTemporalServices"];
         this.authorizationRegistries = this.$store.getters["authorizationRegistries/getAuthorizationRegistries"];
         this.authorizationRegistryGrants = this.$store.getters["authorizationRegistryGrants/getAuthorizationRegistryGrants"];
+        this.identityManagers = this.$store.getters["identityManagers/getIdentityManagers"];
+        this.identityManagerGrants = this.$store.getters["identityManagerGrants/getIdentityManagerGrants"];
     },
     methods: {
         async storeWorkspace() {
@@ -164,6 +173,19 @@ export default {
                 </select>
             </div>
         </template>
+        <div class="mb-3">
+            <label for="identity-manager" class="form-label">{{ Utils.capitalize($t("main.identity_manager")) }}</label>
+            <select id="identity-manager" v-model="workspace.hasIdentityManager" class="form-select" required>
+                <option :value="null">---</option>
+                <option v-for="identityManager in identityManagers" :key="identityManager.id" :value="identityManager.id">{{ identityManager.name }}</option>
+            </select>
+        </div>
+        <div v-if="workspace.hasIdentityManager" class="mb-3">
+            <label for="identity-manager-grant" class="form-label">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</label>
+            <select id="identity-manager-grant" v-model="workspace.hasIdentityManagerGrant" class="form-select" required>
+                <option v-for="identityManagerGrant in identityManagerGrants" :key="identityManagerGrant.id" :value="identityManagerGrant.id">{{ identityManagerGrant.name }}</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

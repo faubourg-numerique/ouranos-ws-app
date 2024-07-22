@@ -74,6 +74,12 @@ export default {
         },
         dataModelUrl() {
             return `${window.dataModelsUrl}/${this.workspace.dataModelName}/${this.workspace.dataModelVersion}/context.jsonld`;
+        },
+        identityManagerGrant(identityManagerGrantId) {
+            return this.$store.getters["identityManagerGrants/getIdentityManagerGrant"](identityManagerGrantId);
+        },
+        identityManager(identityManagerId) {
+            return this.$store.getters["identityManagers/getIdentityManager"](identityManagerId);
         }
     }
 };
@@ -133,8 +139,8 @@ export default {
                     </template>
                     <dt class="col-sm-4">{{ Utils.capitalize($t("main.data_model_url")) }}</dt>
                     <dd class="col-sm-8"><a :href="dataModelUrl()" target="_blank">{{ dataModelUrl() }}</a></dd>
-                    <dt class="col-sm-4" :class="{ 'mb-0': !workspace.enableOffers }">{{ Utils.capitalize($t("main.enable_offers")) }}</dt>
-                    <dd class="col-sm-8" :class="{ 'mb-0': !workspace.enableOffers }">
+                    <dt class="col-sm-4">{{ Utils.capitalize($t("main.enable_offers")) }}</dt>
+                    <dd class="col-sm-8">
                         <BooleanIcon :value="workspace.enableOffers" />
                     </dd>
                     <template v-if="workspace.authorizationRequired">
@@ -145,12 +151,28 @@ export default {
                             </RouterLink>
                             <template v-else>{{ authorizationRegistry(workspace.hasAuthorizationRegistry).name }}</template>
                         </dd>
-                        <dt class="col-sm-4 mb-0">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</dt>
-                        <dd class="col-sm-8 mb-0">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</dt>
+                        <dd class="col-sm-8">
                             <RouterLink v-if="$authorization.canShowAuthorizationRegistryGrant(workspace.hasAuthorizationRegistryGrant)" :to="{ name: 'authorizationRegistryGrants.show', params: { authorizationRegistryGrantId: service.hasAuthorizationRegistryGrant } }">
                                 {{ authorizationRegistryGrant(serviworkspacece.hasAuthorizationRegistryGrant).name }}
                             </RouterLink>
                             <template v-else>{{ authorizationRegistryGrant(workspace.hasAuthorizationRegistryGrant).name }}</template>
+                        </dd>
+                    </template>
+                    <template v-if="workspace.hasIdentityManager && workspace.hasIdentityManagerGrant">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.identity_manager")) }}</dt>
+                        <dd class="col-sm-8">
+                            <RouterLink v-if="$authorization.canShowIdentityManager(workspace.hasIdentityManager)" :to="{ name: 'identityManagers.show', params: { identityManagerId: workspace.hasIdentityManager } }">
+                                {{ identityManager(workspace.hasIdentityManager).name }}
+                            </RouterLink>
+                            <template v-else>{{ identityManager(workspace.hasIdentityManager).name }}</template>
+                        </dd>
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.identity_manager_grant")) }}</dt>
+                        <dd class="col-sm-8">
+                            <RouterLink v-if="$authorization.canShowIdentityManagerGrant(workspace.hasIdentityManagerGrant)" :to="{ name: 'identityManagerGrants.show', params: { identityManagerGrantId: workspace.hasIdentityManagerGrant } }">
+                                {{ identityManagerGrant(workspace.hasIdentityManagerGrant).name }}
+                            </RouterLink>
+                            <template v-else>{{ identityManagerGrant(workspace.hasIdentityManagerGrant).name }}</template>
                         </dd>
                     </template>
                 </dl>
