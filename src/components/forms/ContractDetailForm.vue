@@ -56,12 +56,21 @@ export default {
             const query = {
                 type: type.name
             };
+            let entities;
             try {
-                const entities = await this.$store.dispatch("entities/indexEntities", { workspaceId: this.workspace.id, query });
-                this.scopeEntities.push(...Object.values(entities));
+                entities = await this.$store.dispatch("entities/indexEntities", { workspaceId: this.workspace.id, query });
             } catch (error) {
                 this.error = error;
                 return;
+            }
+
+            for (const entity of Object.values(entities)) {
+                for (const property of Object.values(entity.data)) {
+                    if (property.object && property.object === this.contract.scopeEntity) {
+                        this.scopeEntities.push(entity);
+                        break;
+                    }
+                }
             }
         }
     },
