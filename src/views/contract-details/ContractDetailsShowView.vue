@@ -112,8 +112,9 @@ export default {
                 return;
             }
             this.$store.dispatch("setDisplayLoadingScreen", true);
+            let details;
             try {
-                await this.$store.dispatch("contractDetails/synchronizeContractDetail", { workspaceId: this.workspace.id, contractDetail: this.contractDetail });
+                details = await this.$store.dispatch("contractDetails/synchronizeContractDetail", { workspaceId: this.workspace.id, contractDetail: this.contractDetail });
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
@@ -127,8 +128,10 @@ export default {
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$swal.fire({
                 title: this.$t("dialogs.contract_detail_synchronization_success"),
+                html: details ? "<pre class='text-start'>" + details.join("<br>") + "</pre>" : undefined,
                 icon: "success",
-                heightAuto: false
+                heightAuto: false,
+                width: "800px"
             });
         }
     }

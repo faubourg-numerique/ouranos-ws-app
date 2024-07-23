@@ -77,8 +77,10 @@ export default {
             commit("removeContractDetail", { workspaceId, contractDetail });
         },
         async synchronizeContractDetail({ commit }, { workspaceId, contractDetail }) {
+            let response;
             try {
-                await this.$api.post(`/workspace/${workspaceId}/contract-details/${contractDetail.id}/synchronize`);
+                response = await this.$api.post(`/workspace/${workspaceId}/contract-details/${contractDetail.id}/synchronize`);
+                return response.data.details;
             } catch (error) {
                 throw error.response.data || {};
             }

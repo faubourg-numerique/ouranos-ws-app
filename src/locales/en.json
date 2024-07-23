@@ -122,7 +122,10 @@
         "role_synchronization_failure": "The synchronization of the role has failed.",
         "role_synchronization_permit_question": "Please choose a rule:",
         "role_synchronization_question": "Are you sure you want to synchronize this role?",
-        "role_synchronization_success": "The synchronization of the role was successful."
+        "role_synchronization_success": "The synchronization of the role was successful.",
+        "contract_detail_synchronization_question": "Are you sure you want to synchronize this contract detail?",
+        "contract_detail_synchronization_success": "The synchronization of the contract detail was successful.",
+        "contract_detail_synchronization_failure": "The synchronization of the contract detail has failed."
     },
     "main": {
         "accept": "accept",
