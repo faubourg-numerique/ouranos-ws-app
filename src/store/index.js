@@ -35,6 +35,7 @@ import routingOperationControls from "@/store/modules/routing-operation-controls
 import woTThingDescriptions from "@/store/modules/wot-thing-descriptions";
 import woTEvents from "@/store/modules/wot-events";
 import roles from "@/store/modules/roles";
+import users from "@/store/modules/users";
 
 export default createStore({
     state() {
@@ -113,6 +114,7 @@ export default createStore({
         routingOperationControls,
         woTThingDescriptions,
         woTEvents,
-        roles
+        roles,
+        users
     }
 });

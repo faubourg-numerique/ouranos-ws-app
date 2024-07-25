@@ -373,6 +373,8 @@
         "scope_type": "scope type",
         "scope_entity": "scope entity",
         "scope_name": "scope name",
-        "role_scope_name": "role scope name"
+        "role_scope_name": "role scope name",
+        "users": "users",
+        "email": "email"
     }
 }

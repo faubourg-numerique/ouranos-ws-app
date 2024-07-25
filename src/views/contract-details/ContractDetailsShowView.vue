@@ -1,18 +1,46 @@
 <script>
 import ApiErrorAlert from "@/components/ApiErrorAlert";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
+import SpinnerAnimation from "@/components/SpinnerAnimation";
 
 export default {
     components: {
         ApiErrorAlert,
-        BreadcrumbNav
+        BreadcrumbNav,
+        SpinnerAnimation
     },
     data() {
         return {
             error: null,
             scopeType: null,
-            scopeEntity: null
+            scopeEntity: null,
+            users: null,
+            userIdToAssignRole: null
         };
+    },
+    computed: {
+        authorizedUsers() {
+            const authorizedUsers = [];
+            if (this.users) {
+                for (const user of this.users) {
+                    if (user.roles.includes(this.contractDetail.roleScopeName)) {
+                        authorizedUsers.push(user);
+                    }
+                }
+            }
+            return authorizedUsers;
+        },
+        unauthorizedUsers() {
+            const unauthorizedUsers = [];
+            if (this.users) {
+                for (const user of this.users) {
+                    if (!user.roles.includes(this.contractDetail.roleScopeName)) {
+                        unauthorizedUsers.push(user);
+                    }
+                }
+            }
+            return unauthorizedUsers;
+        }
     },
     async created() {
         const workspaceId = this.$route.params.workspaceId;
@@ -63,6 +91,8 @@ export default {
                 this.error = error;
             }
         }
+
+        this.users = await this.$store.dispatch("users/indexUsers", this.workspace.id);
     },
     methods: {
         getRole(roleId) {
@@ -133,6 +163,30 @@ export default {
                 heightAuto: false,
                 width: "800px"
             });
+        },
+        async assignRoleToUser() {
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("users/assignRole", { workspaceId: this.workspace.id, userId: this.userIdToAssignRole, roleName: this.contractDetail.roleScopeName });
+                this.users = await this.$store.dispatch("users/indexUsers", this.workspace.id);
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
+        },
+        async removeRoleFromUser(userId) {
+            this.$store.dispatch("setDisplayLoadingScreen", true);
+            try {
+                await this.$store.dispatch("users/removeRole", { workspaceId: this.workspace.id, userId, roleName: this.contractDetail.roleScopeName });
+                this.users = await this.$store.dispatch("users/indexUsers", this.workspace.id);
+            } catch (error) {
+                this.$store.dispatch("setDisplayLoadingScreen", false);
+                this.error = error;
+                return;
+            }
+            this.$store.dispatch("setDisplayLoadingScreen", false);
         }
     }
 };
@@ -141,7 +195,7 @@ export default {
 <template>
     <div class="container container-small my-5">
         <BreadcrumbNav :items="breadcrumbItems" />
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ contractDetail.id }}</span>
                 <span>
@@ -178,6 +232,45 @@ export default {
                         <dd class="col-sm-8">{{ contractDetail.roleScopeName }}</dd>
                     </template>
                 </dl>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">{{ Utils.capitalize($t("main.users")) }}</div>
+            <div class="card-body">
+                <SpinnerAnimation v-if="!users" />
+                <table v-else class="table table-sm align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>{{ Utils.capitalize($t("main.email")) }}</th>
+                            <th>{{ Utils.capitalize($t("main.username")) }}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="user in authorizedUsers" :key="user.id">
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.username }}</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-danger btn-sm" @click="removeRoleFromUser(user.id)">
+                                    <i class="fa-solid fa-trash-can" />
+                                </button>
+                            </td>
+                        </tr>
+                        <tr v-if="unauthorizedUsers.length">
+                            <td></td>
+                            <td>
+                                <select class="form-select form-select-sm" v-model="userIdToAssignRole">
+                                    <option v-for="user in unauthorizedUsers" :key="user.id" :value="user.id">{{ user.username }}</option>
+                                </select>
+                            </td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-success btn-sm" @click="assignRoleToUser()">
+                                    <i class="fa-solid fa-plus" />
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
