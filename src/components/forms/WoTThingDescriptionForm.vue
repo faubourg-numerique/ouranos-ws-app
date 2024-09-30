@@ -33,6 +33,7 @@ export default {
         this.workspace = this.$store.getters["workspaces/getWorkspace"](workspaceId);
 
         this.woTThingDescription.hasWorkspace = this.workspace.id;
+        this.types = this.$store.getters["types/getTypes"](this.workspace.id);
 
         if (this.woTThingDescriptionProp) {
             this.update = true;
@@ -88,6 +89,12 @@ export default {
         <div class="mb-3">
             <label for="description" class="form-label">{{ Utils.capitalize($t("main.description")) }}</label>
             <textarea id="description" v-model="woTThingDescription.description" class="form-control" rows="3" />
+        </div>
+        <div class="mb-3">
+            <label for="has-type" class="form-label">{{ Utils.capitalize($t("main.type")) }}</label>
+            <select id="has-type" v-model="woTThingDescription.hasType" class="form-select" required>
+                <option v-for="type in types" :key="type.id" :value="type.id">{{ type.name }}</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>

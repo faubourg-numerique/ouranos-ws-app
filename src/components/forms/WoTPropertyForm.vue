@@ -33,7 +33,7 @@ export default {
         this.woTProperty.hasWoTThingDescription = this.woTThingDescription.id;
         this.woTProperty.hasWorkspace = this.workspace.id;
 
-        this.propertiesByTypes = this.$store.getters["properties/getPropertiesByTypes"](this.workspace.id);
+        this.properties = this.$store.getters["properties/getProperties"](this.workspace.id, this.woTThingDescription.hasType);
 
         if (this.woTPropertyProp) {
             this.update = true;
@@ -106,9 +106,7 @@ export default {
         <div class="mb-3">
             <label for="property" class="form-label">{{ Utils.capitalize($t("main.property")) }}</label>
             <select id="property" v-model="woTProperty.hasProperty" class="form-select" required>
-                <template v-for="(properties, typeId) in propertiesByTypes" :key="typeId">
-                    <option v-for="property in properties" :key="property.id" :value="property.id">{{ $store.getters["types/getType"](workspace.id, typeId).name }} / {{ property.name }}</option>
-                </template>
+                <option v-for="property in properties" :key="property.id" :value="property.id">{{ property.name }}</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>

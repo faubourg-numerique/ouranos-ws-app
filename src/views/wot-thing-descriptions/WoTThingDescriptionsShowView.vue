@@ -106,6 +106,10 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-9">{{ woTThingDescription.description }}</dd>
                     </template>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.type")) }}</dt>
+                    <dd class="col-sm-9">
+                        <RouterLink :to="{ name: 'types.show', params: { workspaceId: workspace.id, typeId: woTThingDescription.hasType } }">{{ $store.getters["types/getType"](workspace.id, woTThingDescription.hasType).name }}</RouterLink>
+                    </dd>
                 </dl>
             </div>
         </div>
