@@ -28,6 +28,7 @@ import vcVerifiers from "@/store/modules/vc-verifiers";
 import trustedIssuersLists from "@/store/modules/trusted-issuers-lists";
 import googleSheetsProxy from "@/store/modules/proxies/google-sheets";
 import woTActions from "@/store/modules/wot-actions";
+import woTActionInputProperties from "@/store/modules/wot-action-input-properties";
 import woTProperties from "@/store/modules/wot-properties";
 import routings from "@/store/modules/routings";
 import routingOperations from "@/store/modules/routing-operations";
@@ -108,6 +109,7 @@ export default createStore({
         trustedIssuersLists,
         googleSheetsProxy,
         woTActions,
+        woTActionInputProperties,
         woTProperties,
         routings,
         routingOperations,

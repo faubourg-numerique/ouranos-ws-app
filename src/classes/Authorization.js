@@ -1385,4 +1385,40 @@ export class Authorization {
         }
         return false;
     }
+
+    canStoreWoTActionInputProperty(workspaceId) {
+        if (!this.permissions.POST) {
+            return false;
+        }
+        for (const pattern of this.permissions.POST) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-input-properties`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canUpdateWoTActionInputProperty(workspaceId, woTActionInputPropertyId) {
+        if (!this.permissions.PUT) {
+            return false;
+        }
+        for (const pattern of this.permissions.PUT) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-input-properties/${woTActionInputPropertyId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    canDestroyWoTActionInputProperty(workspaceId, woTActionInputPropertyId) {
+        if (!this.permissions.DELETE) {
+            return false;
+        }
+        for (const pattern of this.permissions.DELETE) {
+            if (Utils.regexMatch(pattern, `/api/workspace/${workspaceId}/wot-action-input-properties/${woTActionInputPropertyId}`)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

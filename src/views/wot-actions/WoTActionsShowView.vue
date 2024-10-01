@@ -31,6 +31,8 @@ export default {
         const woTActionId = this.$route.params.woTActionId;
         this.woTAction = this.$store.getters["woTActions/getWoTAction"](this.workspace.id, woTActionId);
 
+        this.woTActionInputProperties = this.$store.getters["woTActionInputProperties/getWoTActionInputProperties"](this.workspace.id, this.woTAction.id);
+
         this.breadcrumbItems = [
             {
                 name: this.Utils.capitalize(this.$t("main.wot_thing_descriptions")),
@@ -123,31 +125,31 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-9">{{ woTAction.description }}</dd>
                     </template>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.data_service")) }}</dt>
-                    <dd class="col-sm-9">
-                        <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTAction.hasDataService } }">{{ dataServiceName(woTAction.hasDataService) }}</RouterLink>
-                    </dd>
                 </dl>
             </div>
         </div>
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">{{ Utils.capitalize($t("main.properties")) }}</div>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ Utils.capitalize($t("main.properties")) }}</span>
+                <RouterLink :to="{ name: 'woTActionInputProperties.create', params: { workspaceId: workspace.id, woTActionId: woTAction.id } }" class="btn btn-primary btn-sm ms-3">
+                    <i class="fa-solid fa-plus" />
+                </RouterLink>
+            </div>
             <div class="card-body">
-                <table class="table align-middle mb-0">
+                <div v-if="!woTActionInputProperties.length" class="alert alert-primary mb-0">{{ $t("dialogs.there_is_no_input_properties") }}</div>
+                <table v-else class="table align-middle mb-0">
                     <thead class="table-dark">
                         <tr>
                             <td>{{ Utils.capitalize($t("main.name")) }}</td>
-                            <td>{{ Utils.capitalize($t("main.capacity_type")) }}</td>
-                            <td>{{ Utils.capitalize($t("main.capacity_value")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.type")) }}</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="woTProperty in woTProperties" :key="woTProperty.id">
+                        <tr v-for="woTActionInputProperty in woTActionInputProperties" :key="woTActionInputProperty.id">
                             <td>
-                                <RouterLink :to="{ name: 'woTProperties.show', params: { woTPropertyId: woTProperty.id } }">{{ woTProperty.name }}</RouterLink>
+                                <RouterLink :to="{ name: 'woTActionInputProperties.show', params: { woTActionInputPropertyId: woTActionInputProperty.id } }">{{ woTActionInputProperty.name }}</RouterLink>
                             </td>
-                            <td>{{ woTProperty.capacityType }}</td>
-                            <td>{{ woTProperty.capacityValue }}</td>
+                            <td>{{ woTActionInputProperty.propertyType }}</td>
                         </tr>
                     </tbody>
                 </table>

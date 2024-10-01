@@ -96,6 +96,10 @@ import WoTActionsCreateView from "@/views/wot-actions/WoTActionsCreateView";
 import WoTActionsShowView from "@/views/wot-actions/WoTActionsShowView";
 import WoTActionsEditView from "@/views/wot-actions/WoTActionsEditView";
 
+import WoTActionInputPropertiesCreateView from "@/views/wot-action-input-properties/WoTActionInputPropertiesCreateView";
+import WoTActionInputPropertiesShowView from "@/views/wot-action-input-properties/WoTActionInputPropertiesShowView";
+import WoTActionInputPropertiesEditView from "@/views/wot-action-input-properties/WoTActionInputPropertiesEditView";
+
 import WoTEventsCreateView from "@/views/wot-events/WoTEventsCreateView";
 import WoTEventsShowView from "@/views/wot-events/WoTEventsShowView";
 import WoTEventsEditView from "@/views/wot-events/WoTEventsEditView";
@@ -497,6 +501,21 @@ export default createRouter({
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/edit",
             name: "woTActions.edit",
             component: WoTActionsEditView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/wot-action-input-properties/create",
+            name: "woTActionInputProperties.create",
+            component: WoTActionInputPropertiesCreateView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/wot-action-input-properties/:woTActionInputPropertyId",
+            name: "woTActionInputProperties.show",
+            component: WoTActionInputPropertiesShowView
+        },
+        {
+            path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-actions/:woTActionId/wot-action-input-properties/:woTActionInputPropertyId/edit",
+            name: "woTActionInputProperties.edit",
+            component: WoTActionInputPropertiesEditView
         },
         {
             path: "/workspace/:workspaceId/wot-thing-descriptions/:woTThingDescriptionId/wot-events/create",
