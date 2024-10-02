@@ -38,6 +38,17 @@ export default {
                 }
             },
             {
+                name: this.woTAction.name,
+                route: {
+                    name: "woTActions.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id,
+                        woTActionId: this.woTAction.id
+                    }
+                }
+            },
+            {
                 active: true,
                 name: this.Utils.capitalize(this.$t("main.create_an_input_property"))
             }

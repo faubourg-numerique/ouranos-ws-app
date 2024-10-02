@@ -41,6 +41,17 @@ export default {
                 }
             },
             {
+                name: this.woTAction.name,
+                route: {
+                    name: "woTActions.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id,
+                        woTActionId: this.woTAction.id
+                    }
+                }
+            },
+            {
                 name: this.woTActionInputProperty.name,
                 route: {
                     name: "woTActionInputProperties.show",

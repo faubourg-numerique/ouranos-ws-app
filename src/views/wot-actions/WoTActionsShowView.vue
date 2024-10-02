@@ -1,10 +1,12 @@
 <script>
 import ApiErrorAlert from "@/components/ApiErrorAlert";
+import BooleanIcon from "@/components/BooleanIcon";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 export default {
     components: {
         ApiErrorAlert,
+        BooleanIcon,
         BreadcrumbNav
     },
     data() {
@@ -142,6 +144,10 @@ export default {
                         <tr>
                             <td>{{ Utils.capitalize($t("main.name")) }}</td>
                             <td>{{ Utils.capitalize($t("main.type")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.minimum")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.maximum")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.enum")) }}</td>
+                            <td>{{ Utils.capitalize($t("main.required")) }}</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -150,6 +156,12 @@ export default {
                                 <RouterLink :to="{ name: 'woTActionInputProperties.show', params: { woTActionInputPropertyId: woTActionInputProperty.id } }">{{ woTActionInputProperty.name }}</RouterLink>
                             </td>
                             <td>{{ woTActionInputProperty.propertyType }}</td>
+                            <td>{{ woTActionInputProperty.minimum }}</td>
+                            <td>{{ woTActionInputProperty.maximum }}</td>
+                            <td>{{ woTActionInputProperty.enum }}</td>
+                            <td class="text-center">
+                                <BooleanIcon :value="woTActionInputProperty.required" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>

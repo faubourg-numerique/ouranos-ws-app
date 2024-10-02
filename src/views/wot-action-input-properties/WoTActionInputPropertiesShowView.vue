@@ -1,10 +1,12 @@
 <script>
 import ApiErrorAlert from "@/components/ApiErrorAlert";
+import BooleanIcon from "@/components/BooleanIcon";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 export default {
     components: {
         ApiErrorAlert,
+        BooleanIcon,
         BreadcrumbNav
     },
     data() {
@@ -45,6 +47,17 @@ export default {
                     params: {
                         workspaceId: this.workspace.id,
                         woTThingDescriptionId: this.woTThingDescription.id
+                    }
+                }
+            },
+            {
+                name: this.woTAction.name,
+                route: {
+                    name: "woTActions.show",
+                    params: {
+                        workspaceId: this.workspace.id,
+                        woTThingDescriptionId: this.woTThingDescription.id,
+                        woTActionId: this.woTAction.id
                     }
                 }
             },
@@ -132,6 +145,10 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.enum")) }}</dt>
                         <dd class="col-sm-9">{{ woTActionInputProperty.enum }}</dd>
                     </template>
+                    <dt class="col-sm-3 mb-0">{{ Utils.capitalize($t("main.required")) }}</dt>
+                    <dd class="col-sm-9 mb-0">
+                        <BooleanIcon :value="woTActionInputProperty.required" />
+                    </dd>
                 </dl>
             </div>
         </div>
