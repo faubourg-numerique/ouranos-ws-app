@@ -24,6 +24,8 @@ export default {
         this.woTEvents = this.$store.getters["woTEvents/getWoTEvents"](this.workspace.id, this.woTThingDescription.id);
         this.routings = this.$store.getters["routings/getRoutings"](this.workspace.id, this.woTThingDescription.id);
 
+        this.thingDescriptionUrl = `${window.thingDescriptionsUrl}/${this.woTThingDescription.id}`;
+
         this.breadcrumbItems = [
             {
                 name: this.Utils.capitalize(this.$t("main.wot_thing_descriptions")),
@@ -109,6 +111,10 @@ export default {
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.type")) }}</dt>
                     <dd class="col-sm-9">
                         <RouterLink :to="{ name: 'types.show', params: { workspaceId: workspace.id, typeId: woTThingDescription.hasType } }">{{ $store.getters["types/getType"](workspace.id, woTThingDescription.hasType).name }}</RouterLink>
+                    </dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.url")) }}</dt>
+                    <dd class="col-sm-9">
+                        <a :href="thingDescriptionUrl" target="_blank">{{ thingDescriptionUrl }}</a>
                     </dd>
                 </dl>
             </div>

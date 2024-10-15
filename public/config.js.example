@@ -1,4 +1,5 @@
 window.apiUrl = "https://api.ouranos-ws.example.com/api";
+window.thingDescriptionsUrl = "https://api.ouranos-ws.example.com/wot-thing-descriptions";
 window.dataModelsUrl = "https://data-models.ouranos-ws.example.com/data-models";
 window.enabledModules = "data-services,wot,dsc";
 window.identityManagerAuthorizeUrl = "http://idm.example.com/oauth2/authorize";
