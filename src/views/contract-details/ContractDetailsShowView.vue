@@ -234,7 +234,7 @@ export default {
                 </dl>
             </div>
         </div>
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">{{ Utils.capitalize($t("main.users")) }}</div>
             <div class="card-body">
                 <SpinnerAnimation v-if="!users" />
