@@ -7,9 +7,9 @@ export default {
     },
     getters: {
         getContractDetails(state) {
-            return workspaceId => {
+            return (workspaceId, contractId) => {
                 if (!(workspaceId in state.contractDetails)) return [];
-                return state.contractDetails[workspaceId];
+                return Object.values(state.contractDetails[workspaceId]).filter((contractDetail) => contractDetail.hasContract === contractId);
             };
         },
         getContractDetail(state) {
