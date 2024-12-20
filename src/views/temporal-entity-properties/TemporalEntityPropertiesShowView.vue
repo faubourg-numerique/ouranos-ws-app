@@ -173,6 +173,7 @@ export default {
                                 <tr>
                                     <th>{{ Utils.capitalize($t("main.date")) }}</th>
                                     <th>{{ Utils.capitalize($t("main.value")) }}</th>
+                                    <th>{{ Utils.capitalize($t("main.object")) }}</th>
                                     <th v-for="(name, index) in propertiesOfPropertiesNames" :key="index">{{ name }}</th>
                                 </tr>
                             </thead>
@@ -180,6 +181,7 @@ export default {
                                 <tr v-for="(row, index) in temporalEntityProperty.data" :key="index">
                                     <td>{{ row.observedAt }}</td>
                                     <td>{{ row.value }}</td>
+                                    <td>{{ row.object }}</td>
                                     <th v-for="(name, index) in propertiesOfPropertiesNames" :key="index">
                                         <template v-if="row[name]">{{ row[name].value }}</template>
                                     </th>
