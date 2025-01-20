@@ -21,7 +21,8 @@ export default {
                 scopeEntity: null,
                 roleScopeName: null
             },
-            scopeEntities: []
+            scopeEntities: [],
+            setAScope: false
         };
     },
     computed: {
@@ -80,6 +81,12 @@ export default {
                         break;
                     }
                 }
+            }
+        },
+        setAScope(setAScope) {
+            if (!setAScope) {
+                this.contractDetail.scopeType = null;
+                this.contractDetail.scopeEntity = null;
             }
         }
     },
@@ -153,7 +160,15 @@ export default {
                 <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
             </select>
         </div>
-        <template v-if="contract.scopeType && contract.scopeEntity">
+        <div class="mb-3">
+            <label for="role-scope-name" class="form-label">{{ Utils.capitalize($t("main.role_scope_name")) }}</label>
+            <input id="role-scope-name" v-model="contractDetail.roleScopeName" type="text" class="form-control">
+        </div>
+        <div class="form-check mb-3">
+            <input id="set-a-scope" class="form-check-input" type="checkbox" v-model="setAScope">
+            <label for="set-a-scope" class="form-check-label">{{ Utils.capitalize($t("main.set_a_scope")) }}</label>
+        </div>
+        <template v-if="setAScope && contract.scopeType && contract.scopeEntity">
             <div class="mb-3">
                 <label for="scope-type" class="form-label">{{ Utils.capitalize($t("main.scope_type")) }}</label>
                 <select id="scope-type" v-model="contractDetail.scopeType" class="form-select" required>
@@ -168,10 +183,6 @@ export default {
                 </select>
             </div>
         </template>
-        <div class="mb-3">
-            <label for="role-scope-name" class="form-label">{{ Utils.capitalize($t("main.role_scope_name")) }}</label>
-            <input id="role-scope-name" v-model="contractDetail.roleScopeName" type="text" class="form-control">
-        </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
 </template>

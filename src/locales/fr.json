@@ -366,6 +366,7 @@
         "wot_property": "wot property",
         "wot_property_value": "wot property value",
         "wot_thing_descriptions": "wot thing descriptions",
-        "yes": "oui"
+        "yes": "oui",
+        "set_a_scope": "set a scope"
     }
 }
