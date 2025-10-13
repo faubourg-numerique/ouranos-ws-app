@@ -146,6 +146,10 @@ export default {
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.scope_name")) }}</dt>
                         <dd class="col-sm-8">{{ type.scopeName }}</dd>
                     </template>
+                    <template v-if="type.icon">
+                        <dt class="col-sm-4">{{ Utils.capitalize($t("main.icon")) }}</dt>
+                        <dd class="col-sm-8 icon" v-html="type.icon" />
+                    </template>
                 </dl>
             </div>
         </div>
@@ -186,3 +190,9 @@ export default {
         </div>
     </div>
 </template>
+
+<style>
+.icon svg {
+    height: 60px;
+}
+</style>

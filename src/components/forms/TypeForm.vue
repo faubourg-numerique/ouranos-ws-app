@@ -48,6 +48,11 @@ export default {
             if (!scopeName) {
                 this.type.scopeName = null;
             }
+        },
+        "type.icon"(icon) {
+            if (!icon) {
+                this.type.icon = null;
+            }
         }
     },
     created() {
@@ -162,6 +167,10 @@ export default {
         <div class="mb-3">
             <label for="scope-name" class="form-label">{{ Utils.capitalize($t("main.scope_name")) }}</label>
             <input id="scope-name" v-model="type.scopeName" type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="icon" class="form-label">{{ Utils.capitalize($t("main.icon")) }}</label>
+            <input id="icon" v-model="type.icon" type="text" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">{{ update ? Utils.capitalize($t("main.update")) : Utils.capitalize($t("main.create")) }}</button>
     </form>
