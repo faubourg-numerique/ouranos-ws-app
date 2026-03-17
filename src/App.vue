@@ -48,62 +48,60 @@ export default {
                         <li class="nav-item">
                             <RouterLink :to="{ name: 'workspaces.index' }" class="nav-link" active-class="active">{{ Utils.capitalize($t("main.workspaces")) }}</RouterLink>
                         </li>
-                        <template v-if="!$authorization.isInShowroomMode()">
-                            <li v-if="I4TRUST_MODULE_ENABLED" class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ Utils.capitalize($t("main.tools")) }}</a>
-                                <ul class="dropdown-menu">
-                                    <li v-if="$authorization.canUseAuthorizationRegistriesTool()">
-                                        <RouterLink :to="{ name: 'tools.authorizationRegistries.home' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registries")) }}</RouterLink>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ Utils.capitalize($t("main.administration")) }}</a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <RouterLink :to="{ name: 'services.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.services")) }}</RouterLink>
-                                    </li>
-                                    <li>
-                                        <RouterLink :to="{ name: 'temporalServices.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.temporal_services")) }}</RouterLink>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <RouterLink :to="{ name: 'contextBrokers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.context_brokers")) }}</RouterLink>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <RouterLink :to="{ name: 'identityManagers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.identity_managers")) }}</RouterLink>
-                                    </li>
-                                    <li>
-                                        <RouterLink :to="{ name: 'identityManagerGrants.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.identity_manager_grants")) }}</RouterLink>
-                                    </li>
-                                    <template v-if="I4TRUST_MODULE_ENABLED">
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li>
-                                            <RouterLink :to="{ name: 'authorizationRegistries.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registries")) }}</RouterLink>
-                                        </li>
-                                        <li>
-                                            <RouterLink :to="{ name: 'authorizationRegistryGrants.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registry_grants")) }}</RouterLink>
-                                        </li>
-                                    </template>
+                        <li v-if="I4TRUST_MODULE_ENABLED" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ Utils.capitalize($t("main.tools")) }}</a>
+                            <ul class="dropdown-menu">
+                                <li v-if="$authorization.canUseAuthorizationRegistriesTool()">
+                                    <RouterLink :to="{ name: 'tools.authorizationRegistries.home' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registries")) }}</RouterLink>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">{{ Utils.capitalize($t("main.administration")) }}</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <RouterLink :to="{ name: 'services.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.services")) }}</RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'temporalServices.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.temporal_services")) }}</RouterLink>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'contextBrokers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.context_brokers")) }}</RouterLink>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'identityManagers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.identity_managers")) }}</RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'identityManagerGrants.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.identity_manager_grants")) }}</RouterLink>
+                                </li>
+                                <template v-if="I4TRUST_MODULE_ENABLED">
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li>
-                                        <RouterLink :to="{ name: 'vcVerifiers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.vc_verifiers")) }}</RouterLink>
+                                        <RouterLink :to="{ name: 'authorizationRegistries.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registries")) }}</RouterLink>
                                     </li>
                                     <li>
-                                        <RouterLink :to="{ name: 'trustedIssuersLists.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.trusted_issuers_lists")) }}</RouterLink>
+                                        <RouterLink :to="{ name: 'authorizationRegistryGrants.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.authorization_registry_grants")) }}</RouterLink>
                                     </li>
-                                </ul>
-                            </li>
-                        </template>
+                                </template>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'vcVerifiers.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.vc_verifiers")) }}</RouterLink>
+                                </li>
+                                <li>
+                                    <RouterLink :to="{ name: 'trustedIssuersLists.index' }" class="dropdown-item">{{ Utils.capitalize($t("main.trusted_issuers_lists")) }}</RouterLink>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <div class="ms-auto">
                         <span role="button" @click="setLocale('en')"><img src="@/assets/images/country-flags/united-kingdom.png"></span>

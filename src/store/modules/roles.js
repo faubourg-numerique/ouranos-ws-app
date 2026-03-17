@@ -73,12 +73,15 @@ export default {
         },
         async synchronizeRole({ dispatch }, { workspaceId, role, permit }) {
             const data = { effect: permit ? "Permit" : "Deny" };
+            let rego = "";
             try {
-                await this.$api.post(`/workspace/${workspaceId}/roles/${role.id}/synchronize`, data);
+                const response = await this.$api.post(`/workspace/${workspaceId}/roles/${role.id}/synchronize`, data);
+                rego = response.data;
                 await dispatch("fetchRoles", workspaceId);
             } catch (error) {
                 throw error.response.data || {};
             }
+            return rego;
         }
     }
 };

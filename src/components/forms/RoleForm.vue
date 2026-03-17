@@ -21,7 +21,7 @@ export default {
             role: {
                 synchronized: false,
                 synchronizationTime: 0,
-                lastDelegationEvidence: null
+                lastDelegationEvidence: ""
             }
         };
     },

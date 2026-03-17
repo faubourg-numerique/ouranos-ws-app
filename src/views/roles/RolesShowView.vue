@@ -91,17 +91,18 @@ export default {
             if (!result.isConfirmed) {
                 return;
             }
-            result = await this.$swal.fire({
-                title: this.$t("dialogs.role_synchronization_permit_question"),
-                icon: "question",
-                showDenyButton: true,
-                confirmButtonText: this.Utils.capitalize(this.$t("main.permit")),
-                denyButtonText: this.Utils.capitalize(this.$t("main.deny")),
-                heightAuto: false
-            });
+            // result = await this.$swal.fire({
+            //     title: this.$t("dialogs.role_synchronization_permit_question"),
+            //     icon: "question",
+            //     showDenyButton: true,
+            //     confirmButtonText: this.Utils.capitalize(this.$t("main.permit")),
+            //     denyButtonText: this.Utils.capitalize(this.$t("main.deny")),
+            //     heightAuto: false
+            // });
             this.$store.dispatch("setDisplayLoadingScreen", true);
+            let rego = "";
             try {
-                await this.$store.dispatch("roles/synchronizeRole", { workspaceId: this.workspace.id, role: this.role, permit: result.isConfirmed });
+                rego = await this.$store.dispatch("roles/synchronizeRole", { workspaceId: this.workspace.id, role: this.role, permit: true }); // result.isConfirmed
             } catch (error) {
                 this.$store.dispatch("setDisplayLoadingScreen", false);
                 this.error = error;
@@ -115,8 +116,15 @@ export default {
             this.$store.dispatch("setDisplayLoadingScreen", false);
             this.$swal.fire({
                 title: this.$t("dialogs.role_synchronization_success"),
+                text: rego,
                 icon: "success",
-                heightAuto: false
+                width: "600px",
+                heightAuto: false,
+                didOpen: () => {
+                    const content = this.$swal.getHtmlContainer();
+                    content.style.textAlign = "left";
+                    content.style.whiteSpace = "pre-line";
+                }
             });
         }
     }
@@ -167,7 +175,7 @@ export default {
                     <template v-if="role.lastDelegationEvidence">
                         <dt class="col-sm-4">{{ Utils.capitalize($t("main.access_policy")) }}</dt>
                         <dd class="col-sm-8 font-monospace">
-                            <JsonViewer :value="role.lastDelegationEvidence" expanded :expand-depth="10" />
+                            <JsonViewer :value="JSON.parse(role.lastDelegationEvidence)" expanded :expand-depth="10" />
                         </dd>
                     </template>
                 </dl>
@@ -197,7 +205,7 @@ export default {
                                 </RouterLink>
                             </td>
                             <td>
-                                <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: dataServiceAccess.hasDataService }}">{{ dataService(dataServiceAccess.hasDataService).name || dataServiceAccess.hasDataService }}</RouterLink>
+                                <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: dataServiceAccess.hasDataService } }">{{ dataService(dataServiceAccess.hasDataService).name || dataServiceAccess.hasDataService }}</RouterLink>
                             </td>
                         </tr>
                     </tbody>
