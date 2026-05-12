@@ -1,10 +1,12 @@
 <script>
 import ApiErrorAlert from "@/components/ApiErrorAlert";
+import BooleanIcon from "@/components/BooleanIcon";
 import BreadcrumbNav from "@/components/BreadcrumbNav";
 
 export default {
     components: {
         ApiErrorAlert,
+        BooleanIcon,
         BreadcrumbNav
     },
     data() {
@@ -112,13 +114,35 @@ export default {
                         <dt class="col-sm-3">{{ Utils.capitalize($t("main.description")) }}</dt>
                         <dd class="col-sm-9">{{ woTProperty.description }}</dd>
                     </template>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.capacity_type")) }}</dt>
-                    <dd class="col-sm-9">{{ woTProperty.capacityType }}</dd>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.capacity_value")) }}</dt>
-                    <dd class="col-sm-9">{{ woTProperty.capacityValue }}</dd>
                     <dt class="col-sm-3">{{ Utils.capitalize($t("main.property")) }}</dt>
                     <dd class="col-sm-9">
                         <RouterLink :to="{ name: 'properties.show', params: { typeId: property.hasType, propertyId: property.id } }">{{ property.name }}</RouterLink>
+                    </dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.type")) }}</dt>
+                    <dd class="col-sm-9">{{ woTProperty.propertyType }}</dd>
+                    <template v-if="woTProperty.enum">
+                        <dt class="col-sm-3">{{ Utils.capitalize($t("main.enum")) }}</dt>
+                        <dd class="col-sm-9">{{ woTProperty.enum }}</dd>
+                    </template>
+                    <template v-if="woTProperty.minimum">
+                        <dt class="col-sm-3">{{ Utils.capitalize($t("main.minimum")) }}</dt>
+                        <dd class="col-sm-9">{{ woTProperty.minimum }}</dd>
+                    </template>
+                    <template v-if="woTProperty.maximum">
+                        <dt class="col-sm-3">{{ Utils.capitalize($t("main.maximum")) }}</dt>
+                        <dd class="col-sm-9">{{ woTProperty.maximum }}</dd>
+                    </template>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.readonly")) }}</dt>
+                    <dd class="col-sm-9">
+                        <BooleanIcon :value="woTProperty.readonly" />
+                    </dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.observable")) }}</dt>
+                    <dd class="col-sm-9">
+                        <BooleanIcon :value="woTProperty.observable" />
+                    </dd>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.temporal")) }}</dt>
+                    <dd class="col-sm-9">
+                        <BooleanIcon :value="woTProperty.temporal" />
                     </dd>
                 </dl>
             </div>

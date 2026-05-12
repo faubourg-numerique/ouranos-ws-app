@@ -128,7 +128,6 @@
         "wot_thing_description_deletion_question": "Are you sure you want to delete this wot thing description?"
     },
     "main": {
-        "object": "objet",
         "accept": "accepter",
         "access_policy": "règles d'accès",
         "access_subject": "sujet d'accès",
@@ -246,6 +245,7 @@
         "grant_type": "type d'accès",
         "has_workspace": "espace de travail",
         "host": "hôte",
+        "icon": "icône",
         "id": "id",
         "id_pattern": "schéma d'id",
         "identifier": "identifiant",
@@ -283,6 +283,8 @@
         "not_on_or_after": "pas le ou après",
         "notification": "notification",
         "oauth2_token_path": "chemin du jeton oauth2",
+        "object": "objet",
+        "observable": "observable",
         "observation_data_collection": "collection des données d'observation",
         "observed_at": "date d'observation",
         "offer": "règle d'accès",
@@ -302,6 +304,7 @@
         "property_of_property": "propriété de propriété",
         "property_value_type": "type de la valeur de la propriété",
         "query": "requête",
+        "readonly": "lecture seule",
         "relationship_type": "type de la relation",
         "remove": "supprimer",
         "request": "requête",
@@ -321,6 +324,7 @@
         "service": "service",
         "services": "services",
         "set": "définir",
+        "set_a_scope": "set a scope",
         "sheet_name": "nom de la feuille",
         "spreadsheet_id": "identifiant du tableur",
         "standard": "standard",
@@ -366,8 +370,6 @@
         "wot_property": "wot property",
         "wot_property_value": "wot property value",
         "wot_thing_descriptions": "wot thing descriptions",
-        "yes": "oui",
-        "set_a_scope": "set a scope",
-        "icon": "icône"
+        "yes": "oui"
     }
 }
