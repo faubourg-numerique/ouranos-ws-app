@@ -134,8 +134,6 @@ export default {
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
                             <th>{{ Utils.capitalize($t("main.property")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.capacity_type")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.capacity_value")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,8 +144,6 @@ export default {
                             <td>
                                 <RouterLink :to="{ name: 'properties.show', params: { workspaceId: workspace.id, typeId: property(workspace.id, woTProperty.hasProperty).hasType, propertyId: woTProperty.hasProperty } }">{{ property(workspace.id, woTProperty.hasProperty).name }}</RouterLink>
                             </td>
-                            <td>{{ woTProperty.capacityType }}</td>
-                            <td>{{ woTProperty.capacityValue }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -194,7 +190,6 @@ export default {
                         <tr>
                             <th>{{ Utils.capitalize($t("main.name")) }}</th>
                             <th>{{ Utils.capitalize($t("main.data_service")) }}</th>
-                            <th>{{ Utils.capitalize($t("main.capacity_value")) }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -205,7 +200,6 @@ export default {
                             <td>
                                 <RouterLink :to="{ name: 'dataServices.show', params: { dataServiceId: woTEvent.hasDataService } }">{{ dataServiceName(woTEvent.hasDataService) }}</RouterLink>
                             </td>
-                            <td>{{ woTEvent.capacityValue }}</td>
                         </tr>
                     </tbody>
                 </table>
