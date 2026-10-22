@@ -286,6 +286,7 @@
         "map": "map",
         "maximum": "maximum",
         "minimum": "minimum",
+        "model": "model",
         "multi_tenancy_enabled": "multi tenancy enabled",
         "multi_valued": "multi valued",
         "name": "name",

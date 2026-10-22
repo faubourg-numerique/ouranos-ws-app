@@ -273,6 +273,7 @@
         "map": "carte",
         "maximum": "maximum",
         "minimum": "minimum",
+        "model": "modèle",
         "multi_tenancy_enabled": "multi tenancy activée",
         "multi_valued": "multi valué",
         "name": "nom",

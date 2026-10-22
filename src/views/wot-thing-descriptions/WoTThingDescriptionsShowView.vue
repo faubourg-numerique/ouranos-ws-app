@@ -112,7 +112,7 @@ export default {
                     <dd class="col-sm-9">
                         <RouterLink :to="{ name: 'types.show', params: { workspaceId: workspace.id, typeId: woTThingDescription.hasType } }">{{ $store.getters["types/getType"](workspace.id, woTThingDescription.hasType).name }}</RouterLink>
                     </dd>
-                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.url")) }}</dt>
+                    <dt class="col-sm-3">{{ Utils.capitalize($t("main.model")) }}</dt>
                     <dd class="col-sm-9">
                         <a :href="thingDescriptionUrl" target="_blank">{{ thingDescriptionUrl }}</a>
                     </dd>
